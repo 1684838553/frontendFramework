@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>初始Vue</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+    <div id="root">
+        <!-- {{}} 里面写js表达式 -->
+        <h1>Hello, {{name}}</h1>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;  // 阻止 vue 启动时生成生产提示
+
+        // 容器和实例是一对一关系
+        const vue = new Vue({
+            // 指定当前Vue实例为哪个容器，值通常为css选择器
+            el: '#root',
+            // 存储数据，供el指定的容器使用
+            data: {
+                name: "Huawei"
+            }
+        })
+    </script>
+</body>
+</html>
