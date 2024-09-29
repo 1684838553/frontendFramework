@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>初始Vue</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        * {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root">
+        <!-- <h2 v-show="isShow">VSCode</h2>
+
+        <h2 v-if="isShow">VSCode</h2>
+
+        <button @click="isShow = !isShow">切换</button> -->
+
+        <h2>人员列表</h2>
+        查询 <input type="text" v-model="personName">  <br>
+
+        <!-- 对已查询的列表进行排序 -->
+        <button @click="sortType = 2">年龄升序</button>
+        <button @click="sortType = 1">年龄降序</button>
+        <button @click="sortType = 0">年龄原顺序</button>
+        <ul>
+            <li v-for="person in filterPersons" :key="person.id">{{person.name}} --- 年龄 {{person.age}}</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        const vue = new Vue({
+            el: '#root',
+            data: {
+                isShow: true,
+                persons: [
+                    { name: '张三', id: 1, age: 21 },
+                    { name: '里斯', id: 2, age: 45 },
+                    { name: '王五', id: 3, age: 67 },
+                    { name: '李柳', id: 4, age: 3 }
+                ],
+                personName: '',
+                // filterPersons: [],
+                sortType: 0
+            },
+            methods: {
+               
+            },
+            computed: {
+                filterPersons() {
+                    const list = this.persons.filter(person => person.name.indexOf(this.personName) !== -1);
+                    if(this.sortType) {
+                        list.sort((a, b) => {
+                            return this.sortType === 1 ? b.age - a.age : a.age - b.age;
+                        })
+                    }
+                    return list;
+                }
+            },
+            watch: {
+                // personName: {
+                //     immediate: true,
+                //     handler(val) {
+                //         this.filterPersons = this.persons.filter(person => person.name.indexOf(val) !== -1)
+                //     }
+                // } 
+            }
+        })
+
+    </script>
+</body>
+
+</html>
