@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>初始Vue</title>
     <script src="../js/vue.js"></script>
+    <style>
+        *{
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,6 +26,27 @@
             单向数据绑定：<input type="text" :value="inputValue">
             双向数据绑定：<input type="text" v-model="inputValue1">
         </div>
+
+        <div>
+            <h2>这是一个点击事件</h2>
+            <button @click="showInfo">点我</button>
+        </div>
+        <div>
+            <h2>阻止事件的默认事件</h2>
+            <a href="https://www.baidu.com" @click="showInfo">点我-没有阻止默认事件</h2>
+            <a href="https://www.baidu.com" @click.prevent="showInfo">点我</h2>
+        </div>
+
+        <!-- <div @click="showInfo">
+            <h2>阻止事件冒泡</h2>
+            <button @click="showInfo">点我-事件冒泡</h2>
+        </div> -->
+
+        <div>
+            <h2>键盘事件</h2>
+            <!-- 按下 -->
+            <input @keyup.enter="showMessage" placeholder="按下回车提示输入">
+        </div>
     </div>
 
     <script type="text/javascript">
@@ -36,6 +62,16 @@
                 url: 'https://v2.cn.vuejs.org/v2/guide/instance.html',
                 inputValue: 'Huawei',
                 inputValue1: 'Huawei1',
+            },
+            methods: {
+                showInfo(e) {
+                    console.log(e, '这点一个点击事件')
+                    console.log(this, this === vue, '此处this指向Vue实例，showInfo改成箭头函数之后，this指向全局window')
+                    // alert('此处this指向Vue实例，showInfo改成箭头函数之后，this指向全局window')
+                },
+                showMessage(e) {
+                    console.log(e.target.value)
+                }
             }
         })
 

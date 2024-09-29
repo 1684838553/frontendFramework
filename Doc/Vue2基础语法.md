@@ -44,3 +44,33 @@
     })
     ```
     ![](./image/defineProperty.PNG)
+8. 事件处理
+    - 使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名
+    - 事件的回调需要配置在methods对象中，最终会在vm上；
+    - methods中配置的函数，，不要用箭头函数，否则this指向的是window，不是Vue实例
+    - methods中配置的函数，都是被被Vue所管理的函数，this指向Vue实例，所以可以访问data中的属性
+    - @click="de"demo" 和 @click="demo($event)" 效果一样"，但后者可以传参，$event代表原生事件对象
+    - 事件修饰符：可以连续写
+        1. preventent：阻止默认事件（常用）
+        2. stop：阻止事件冒泡（常用）（冒泡：由内到外，子元素到父元素）（冒泡时，触发父元素的事件，但是target还是指向子元素）
+        3. once：事件只触发一次（常用）
+        4. capture：使用事件的捕获模式（由外往内）
+        5. self：只有event.target是当前操作的元素时才触发事件，冒泡触发时，因为target是指向子元素，所以这个方法不执行，一定程度上上可以阻止冒泡
+        6. passive：事件的默认行为立即执行，无需等待事件回调执行完毕（比如绑定滚动事件，默认会先执行事件中的代码，在去滚动页面，passive会先关东页面，在执行绑定的方法）
+    - 键盘事件: vue中常用的按键别名  `@keyup.enter: 给enter按键绑定事件`
+        1. 回车 - enter（13）
+        2. 删除 - delete
+        3. 退出 - esc
+        4. 空格 - space
+        5. 换行 - tab （移除焦点，不建议使用keyup, 配合keydown使用）
+        6. 上 - up
+        7. 下 - down
+        8. 左 - left
+        9. 右 - right
+        - 系统修饰键：ctrl、alt、shift、meta（win键） `@keyup.ctrl.y`
+            1. 配合keyup使用：按下修饰键的同时，再按下其他键，随后释放
+            2. 配合keydown使用，正常触发事件
+        - vue未提供别名的按键，可以使用按键原始的的key值去绑定，但要注意转为kebab-case（短横线命名）
+        - Vue.config.keyCodes.自定义键名 = 键码， 可以去定制按键别名
+       
+    
