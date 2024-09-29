@@ -22,3 +22,25 @@
     - VM：视图模型（ViewModel）：Vue实例对象
 
     ![](./image/MVVM.PNG)
+    ![](./image/MVVN-code.PNG)
+7. 数据代理：通过一个对象代理对另一个对象中属性的操作（读/写）
+    Objecect.defineProperty()方法：Vue2中实现数据代理的核心方法。作用：给对象添加属性，或修改对象的属性值
+    - enumerable: false   是否可枚举，默认为false，不可枚举，即不可通过for...in循环遍历，不可通过Object.keys()获取属性名，不可通过JSON.stringify()序列化对象
+    - configurable: false  是否可删除，默认为false，不可删除，即不可通过delete删除属性
+    - writable: false 是否可可修改，默认为false，不可修改，即不可通过赋值操作修改属性值
+
+    ```javascript
+    // 通过obj1.x来操作obj.x, obj.x的值变化之后，obj1.x会自动变化，反之亦然
+    const obj = { x: 100 }
+    const obj1 = { y: 200 }
+
+    Object.defineProperty(obj1, 'x', {
+        get() {
+            return obj.x
+        }, 
+        set(value) {
+            obj.x = value
+        }
+    })
+    ```
+    ![](./image/defineProperty.PNG)

@@ -10,7 +10,6 @@
     <div id="root">
         <!-- 插值语法：{{}} 里面写js表达式 -->
         <h1>Hello, {{name}}</h1>
-
         <div>
             <!-- v-bind: 指令语法: 给标签中的任何属性和值绑定值 -->
             <!-- v-bind:  ===简写===> : -->
@@ -39,6 +38,20 @@
                 inputValue1: 'Huawei1',
             }
         })
+
+        // 数据代理
+        const obj = { x: 100 }
+        const obj1 = { y: 200 }
+
+        Object.defineProperty(obj1, 'x', {
+            get() {
+                return obj.x
+            }, 
+            set(value) {
+                obj.x = value
+            }
+        })
+
     </script>
 </body>
 </html>
