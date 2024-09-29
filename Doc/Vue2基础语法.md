@@ -206,3 +206,28 @@ Objecect.defineProperty()方法：Vue2中实现数据代理的核心方法。作
 
 ![](./image/key-diff.PNG)
 
+### 10、数据监测原理
+
+1. Vue会监视data中所有层次的数据
+
+2. Vue如何监测对象中的数据？
+
+    通过setter实现监视，且要在new Vue时就传入要监测的数据
+
+    1. 对象中后添加的属性，Vue默认不做响应式处理
+
+    2. 如需给后添加的属性做响应式处理，请使用Vue.set(target, propertyName/index, value) 或vm.$set(target, propertyName/index, value)
+
+3. 如何监测数组中的数据？（可查看vue.js第864行源码）
+
+    通过包裹数组更新元素的方法实现，本质就是做了两件事：
+
+    1. 调用原生对应的方法对数组进行更新
+
+    2. 重新解析模板，进而更新页面
+
+    3. 在vue中修改数组中某个元素，一定要用到以下方法：
+        - 使用这些API：pop(), push(), shift(), unshift(), splice(), sort(), reverse()
+        - 使用Vue.set() 或 vm.$set()
+
+    4. 注意：Vue.set()和vm.$set()不能给vue或vue的跟数据对象添加属性！！！
