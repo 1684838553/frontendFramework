@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>初始Vue</title>
     <script src="../js/vue.js"></script>
+    <script src="../js/dayjs.min.js"></script>
     <style>
         * {
             margin-bottom: 20px;
@@ -25,6 +26,11 @@
 
         <button @click="isShow = !isShow">切换</button> -->
 
+        <h2>当前时间 {{fmtTime}}</h2>
+        <p>过滤器展示时间：{{time | timeFormat }}</p>
+        <p>过滤器展示时间：{{time | timeFormat('YYYY_MM_DD') }}</p>
+        <p>过滤器展示时间：{{time | timeFormat('YYYY_MM_DD') | mySlice }}</p>
+
         <h2>人员列表</h2>
         查询 <input type="text" v-model="personName">  <br>
 
@@ -38,6 +44,12 @@
     </div>
 
     <script type="text/javascript">
+        Vue.filter('mySliceGlobal', function(value) {
+            return value.slice(0, 4)
+        })
+        Vue.filter('timeFormatGlobal', function(value, formatType = 'YYYY年MM月DD日 HH:mm:ss') {
+            return dayjs(value).format(formatType);
+        })
         const vue = new Vue({
             el: '#root',
             data: {
@@ -50,10 +62,20 @@
                 ],
                 personName: '',
                 // filterPersons: [],
-                sortType: 0
+                sortType: 0,
+                time: 1727661358057
             },
             methods: {
                
+            },
+            // 局部过滤器
+            filters: {
+                timeFormat(value, formatType = 'YYYY年MM月DD日 HH:mm:ss') {
+                    return dayjs(value).format(formatType);
+                },
+                mySlice(value) {
+                    return value.slice(0, 4)
+                }
             },
             computed: {
                 filterPersons() {
@@ -64,7 +86,10 @@
                         })
                     }
                     return list;
-                }
+                },
+                fmtTime() {
+                    return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss');
+                } 
             },
             watch: {
                 // personName: {
