@@ -231,3 +231,17 @@ Objecect.defineProperty()方法：Vue2中实现数据代理的核心方法。作
         - 使用Vue.set() 或 vm.$set()
 
     4. 注意：Vue.set()和vm.$set()不能给vue或vue的跟数据对象添加属性！！！
+
+4. **数据劫持**
+
+### 11、收集表单数据
+
+1. `<input type="text">`, v-model收集的是value值，用户输入的就是value值
+2. `<input type="radio">`, v-model收集的是value值，需要给标签配置value值
+3. `<<input type="checkbox">`">`, 
+    - 没有配置value属性，v-model收集的是checked（勾选或未勾选，是布尔值）
+    - 配置了value属性: 1）v-model的初始值是非数组，那么收集的是checked（勾选或未勾选，是布尔值） 2）v-model的初始值是数组，v-model收集的是value组成的数组
+4. 备注：v-model的三个修饰符：
+    - lazy：失去焦点再收集数据
+    - number：输入字符串转为有效的数字
+    - trim：输入首尾空格过滤
