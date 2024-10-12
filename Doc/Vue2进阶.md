@@ -32,3 +32,11 @@
 1. 使用vue inspect > output.js查看项目的默认配置。只能查看，修改无效。
 
 2. 可以在`vue.config.js`文件中个性化定制组件，具体修改参考官网 [https://cli.vuejs.org/zh/config/](https://cli.vuejs.org/zh/config/)
+
+### 4、ref属性
+
+1. 被用来给元素或子组件注册引用信息（id的替代者）
+2. 应用在html标签上获取的是真实DOM元素，应用在组件标签上是组件实例对象（vc）
+3. 使用方式：
+    - 打标识：`<h1 ref="xxx">.....</h1>` 或` <School ref="xxx"></School>`
+    - 获取：`this.$refs.xxx`
