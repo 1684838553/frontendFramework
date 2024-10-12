@@ -49,12 +49,13 @@ export default {
     // this.$refs.student.$once('atguigu', this.getStudentName)  // 绑定自定义事件, 一次性
 
     this.$bus.$on('checkTodo', this.checkTodo);
+    this.$bus.$on('updateTodo', this.updateTodo);
     // this.$bus.$on('deleteTodo', this.deleteTodo);
     this.pubId = pubsub.subscribe('deleteTodo', this.deleteTodo)
   },
   beforeDestroy() {
     // this.$bus.$off(['checkTodo', 'deleteTodo']);
-    this.$bus.$off(['checkTodo']);
+    this.$bus.$off(['checkTodo', 'updateTodo']);
     pubsub.unsubscribe(this.pubId);
   },
   methods: {
@@ -83,6 +84,11 @@ export default {
     },
     getSchoolName(name) {
       console.log('App收到学校名：', name)
+    },
+    updateTodo(id, title){
+      this.todos.forEach(todo => {
+         if(todo.id === id) todo.title = title;
+      })
     }
   },
 }
