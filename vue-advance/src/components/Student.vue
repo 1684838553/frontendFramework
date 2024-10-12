@@ -5,11 +5,15 @@
       <div @click="showName">学生姓名:{{ name }}</div>
       <div>学生年龄:{{ age }}</div>
       <button @click="sendStudentName">把学生名给App</button>
+      <button @click="sendStudentName1">把学生名给School</button>
+
    </div>
 </template>
 
 <script>
   import { mixin, mixin1 } from '../mixin';
+  import pubsub from 'pubsub-js';
+
   export default {
     // eslint-disable-next-line
     name: 'Student',
@@ -26,6 +30,9 @@
       },
       sendStudentName() {
         this.$emit('atguigu', this.name)
+      },
+      sendStudentName1() {
+          pubsub.publish('hello', this.name)
       }
     },
     beforeDestroy() {

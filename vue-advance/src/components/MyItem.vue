@@ -12,6 +12,8 @@
 </template>
 
 <script>
+  import pubsub from 'pubsub-js';
+
   export default {
     name: 'MyItem',
     // props: ['todo', 'checkTodo', 'deleteTodo'],
@@ -29,7 +31,8 @@
       handleDelete(id) {
         if(confirm(`确定删除编号为${id}的todo吗`)){
             // this.deleteTodo(id);
-            this.$bus.$emit('deleteTodo', id)
+            // this.$bus.$emit('deleteTodo', id)
+            pubsub.publish('deleteTodo', id)
         }
       }
     },

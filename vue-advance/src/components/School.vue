@@ -10,6 +10,7 @@
 
 <script>
   import { mixin, mixin1 } from '../mixin';
+  import pubsub from 'pubsub-js';
   export default {
     // eslint-disable-next-line
     name: 'School',
@@ -36,6 +37,14 @@
       return {
         
       }
+    },
+    mounted() {
+      this.pubId = pubsub.subscribe('hello', (msgName,name) => {
+        console.log('发布hello消息', msgName, name)
+      })
+    },
+    beforeDestroy() {
+      pubsub.unsubscribe(this.pubId)
     },
     methods:{
       showName(){

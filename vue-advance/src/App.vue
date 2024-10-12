@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import pubsub from 'pubsub-js';
+
 import MyList from './components/MyList';
 import MyFooter from './components/MyFooter';
 import MyHeader from './components/MyHeader';
@@ -47,10 +49,13 @@ export default {
     // this.$refs.student.$once('atguigu', this.getStudentName)  // 绑定自定义事件, 一次性
 
     this.$bus.$on('checkTodo', this.checkTodo);
-    this.$bus.$on('deleteTodo', this.deleteTodo);
+    // this.$bus.$on('deleteTodo', this.deleteTodo);
+    this.pubId = pubsub.subscribe('deleteTodo', this.deleteTodo)
   },
   beforeDestroy() {
-    this.$bus.$off(['checkTodo', 'deleteTodo']);
+    // this.$bus.$off(['checkTodo', 'deleteTodo']);
+    this.$bus.$off(['checkTodo']);
+    pubsub.unsubscribe(this.pubId);
   },
   methods: {
     addTodo(todo) {
@@ -63,7 +68,8 @@ export default {
 
       console.log(this.todos)
     },
-    deleteTodo(id) {
+    // deleteTodo(id) {
+    deleteTodo(_, id) {
       this.todos = this.todos.filter(todo => todo.id !== id);
     },
     checkAllTodo(done) {
