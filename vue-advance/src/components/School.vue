@@ -1,6 +1,6 @@
 <template>
    <div class="demo">
-     <div>学校名称:{{ name }}</div>
+     <div @click="showName">学校名称:{{ name }}</div>
      <div>学校地址:{{ address }}</div>
      <div>建校{{ time }}年</div>
      <button @click="showName">点我提示学校名</button>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import { mixin, mixin1 } from '../mixin';
   export default {
     // eslint-disable-next-line
     name: 'School',
@@ -36,6 +37,7 @@
       showName(){
         console.log(this.name);
       }
-    }
+    },
+    mixins: [mixin, mixin1]
   };
 </script>

@@ -2,12 +2,13 @@
    <div>
       <h1 v-text="msg" ref="title"></h1>
       <button @click="showDom">点我展示dom</button>
-      <div>学生姓名:{{ name }}</div>
+      <div @click="showName">学生姓名:{{ name }}</div>
       <div>学生年龄:{{ age }}</div>
    </div>
 </template>
 
 <script>
+  import { mixin, mixin1 } from '../mixin';
   export default {
     // eslint-disable-next-line
     name: 'Student',
@@ -23,5 +24,6 @@
         console.log(this.$refs.title)
       }
     },
+    mixins: [mixin, mixin1]
   };
 </script>
