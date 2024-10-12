@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <!-- 针对IE浏览器的一个特殊配置，含义是让IE浏览器以最新的方式渲染页面，而不是以兼容模式渲染 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对移动端的一个特殊配置，含义是让宽度等于设备的宽度，缩放比例是1，同时不允许用户手动缩放 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 配置页签图标 BASE_URL是指public文件夹的路径 -->
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- 配置页签标题 -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <!-- 浏览器不支持script时，页面会显示noscript标签中的内容 -->
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <!-- 容器 -->
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
