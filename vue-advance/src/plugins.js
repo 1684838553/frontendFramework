@@ -1,7 +1,6 @@
 export default {
+    // 第一个参数是Vue, 后面的参数是使用时传入的参数
     install(Vue, a, b) {
-        // 第一个参数是Vue, 后面的参数是使用时传入的参数
-        console.log(a, b)
         // 全局过滤器
         Vue.filter('mySlice', function(value) {
             return value.slice(0, 4)
@@ -12,7 +11,7 @@ export default {
              bind(element, binding) {
                 element.value = binding.value
             },
-            inserted(element) {
+            inserted(element, binding) {
                 element.focus()
             },
             update(element, binding) {
