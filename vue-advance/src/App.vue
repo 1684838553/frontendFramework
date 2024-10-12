@@ -1,7 +1,7 @@
 <template>
    <div>
-     <School></School>
-     <Student></Student>
+     <School name="武汉科技大学" :time="99" />
+     <Student />
    </div>
 </template>
 

@@ -1,7 +1,8 @@
 <template>
    <div class="demo">
-     <h2>学校名称:{{ name }}</h2>
-     <h2>学校地址:{{ address }}</h2>
+     <div>学校名称:{{ name }}</div>
+     <div>学校地址:{{ address }}</div>
+     <div>建校{{ time }}年</div>
      <button @click="showName">点我提示学校名</button>
    </div>
 </template>
@@ -10,15 +11,30 @@
   export default {
     // eslint-disable-next-line
     name: 'School',
+    // props: ['name', 'address', 'time'],
+    props: {
+      name: {
+        type: String,
+        require: true
+      },
+       address: {
+        type: String,
+        require: false,
+        default: '武汉'
+      },
+      time: {
+        type: Number,
+        require: true
+      }
+    },
     data(){
       return {
-        name:'武汉科技大学',
-        address: '武汉'
+        
       }
     },
     methods:{
       showName(){
-        alert(this.name);
+        console.log(this.name);
       }
     }
   };
