@@ -14,7 +14,8 @@
 <script>
   export default {
     name: 'MyItem',
-    props: ['todo', 'checkTodo', 'deleteTodo'],
+    // props: ['todo', 'checkTodo', 'deleteTodo'],
+    props: ['todo'],
     data(){
       return {
         
@@ -22,11 +23,13 @@
     },
     methods:{
       handleClick(id) {
-        this.checkTodo(id);
+        // this.checkTodo(id);
+        this.$bus.$emit('checkTodo', id)
       },
       handleDelete(id) {
         if(confirm(`确定删除编号为${id}的todo吗`)){
-            this.deleteTodo(id);
+            // this.deleteTodo(id);
+            this.$bus.$emit('deleteTodo', id)
         }
       }
     },

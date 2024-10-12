@@ -7,7 +7,8 @@
      <div class="todo-container">
       <div class="todo-wrap">
         <MyHeader @addTodo="addTodo"/>
-        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
+        <!-- <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/> -->
+        <MyList :todos="todos"/>
         <MyFooter :todos="todos" @checkAllTodo="checkAllTodo" @clearAllDoneTodo="clearAllDoneTodo"/>
       </div>
     </div>
@@ -44,6 +45,12 @@ export default {
   mounted() {
     this.$refs.student.$on('atguigu', this.getStudentName)  // 绑定自定义事件
     // this.$refs.student.$once('atguigu', this.getStudentName)  // 绑定自定义事件, 一次性
+
+    this.$bus.$on('checkTodo', this.checkTodo);
+    this.$bus.$on('deleteTodo', this.deleteTodo);
+  },
+  beforeDestroy() {
+    this.$bus.$off(['checkTodo', 'deleteTodo']);
   },
   methods: {
     addTodo(todo) {
