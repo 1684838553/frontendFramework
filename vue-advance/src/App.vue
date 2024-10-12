@@ -1,12 +1,14 @@
 <template>
    <div>
-     <!-- <School name="武汉科技大学" :time="99" />
-     <Student /> -->
+     <School name="武汉科技大学" :time="99" :getSchoolName="getSchoolName"/>
+     <!-- <Student ref="student" v-on:atguigu="getStudentName"/> -->
+     <Student ref="student"/>
+     <hr>
      <div class="todo-container">
       <div class="todo-wrap">
-        <MyHeader :addTodo="addTodo"/>
+        <MyHeader @addTodo="addTodo"/>
         <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
-        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllDoneTodo="clearAllDoneTodo"/>
+        <MyFooter :todos="todos" @checkAllTodo="checkAllTodo" @clearAllDoneTodo="clearAllDoneTodo"/>
       </div>
     </div>
    </div>
@@ -39,6 +41,10 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.$refs.student.$on('atguigu', this.getStudentName)  // 绑定自定义事件
+    // this.$refs.student.$once('atguigu', this.getStudentName)  // 绑定自定义事件, 一次性
+  },
   methods: {
     addTodo(todo) {
       console.log('App组件，收到数据：', todo)
@@ -54,10 +60,16 @@ export default {
       this.todos = this.todos.filter(todo => todo.id !== id);
     },
     checkAllTodo(done) {
-      this.dones.forEach(item => item.todo = done)
+      this.todos.forEach(item => item.done = done)
     },
     clearAllDoneTodo(){
       this.todos = this.todos.filter(todo => !todo.done)
+    },
+    getStudentName(name) {
+      console.log('App收到学生名：', name)
+    },
+    getSchoolName(name) {
+      console.log('App收到学校名：', name)
     }
   },
 }

@@ -13,7 +13,7 @@
         title: ''
       }
     },
-    props: ['addTodo'],
+    // props: ['addTodo'],
     methods:{
       add(e) {
         if(!this.title.trim()) {
@@ -21,7 +21,8 @@
             return;
         }
         const todo = { id: nanoid(), title: this.title, done: false };
-        this.addTodo(todo);
+        // this.addTodo(todo);
+        this.$emit('addTodo', todo);
         this.title = '';
       }
     },

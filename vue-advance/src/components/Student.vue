@@ -4,6 +4,7 @@
       <button @click="showDom">点我展示dom</button>
       <div @click="showName">学生姓名:{{ name }}</div>
       <div>学生年龄:{{ age }}</div>
+      <button @click="sendStudentName">把学生名给App</button>
    </div>
 </template>
 
@@ -22,7 +23,15 @@
     methods: {
       showDom() {
         console.log(this.$refs.title)
+      },
+      sendStudentName() {
+        this.$emit('atguigu', this.name)
       }
+    },
+    beforeDestroy() {
+      this.$off('atguigu');
+      // this.$off(['atguigu']);  //一次解绑多个事件
+      // this.$off()  // 解绑所有自定义事件
     },
     mixins: [mixin, mixin1]
   };

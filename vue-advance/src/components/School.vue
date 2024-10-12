@@ -4,6 +4,7 @@
      <div>学校地址:{{ address }}</div>
      <div>建校{{ time }}年</div>
      <button @click="showName">点我提示学校名</button>
+      <button @click="sendSchoolName">把学校名给App</button>
    </div>
 </template>
 
@@ -26,6 +27,9 @@
       time: {
         type: Number,
         require: true
+      },
+      getSchoolName: {
+        require: true
       }
     },
     data(){
@@ -36,6 +40,9 @@
     methods:{
       showName(){
         console.log(this.name);
+      },
+      sendSchoolName() {
+        this.getSchoolName(this.name)
       }
     },
     mixins: [mixin, mixin1]
