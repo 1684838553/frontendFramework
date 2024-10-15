@@ -1,5 +1,7 @@
 <template>
    <div>
+      <Animated />
+      <hr>
      <School name="武汉科技大学" :time="99" :getSchoolName="getSchoolName"/>
      <!-- <Student ref="student" v-on:atguigu="getStudentName"/> -->
      <Student ref="student"/>
@@ -23,6 +25,7 @@ import MyFooter from './components/MyFooter';
 import MyHeader from './components/MyHeader';
 import School from './components/School';
 import Student from "./components/Student";
+import Animated from './components/Animated';
 
 export default {
   name: "App",
@@ -32,7 +35,8 @@ export default {
     School,
     MyHeader,
     MyFooter,
-    MyList
+    MyList,
+    Animated
   },
   data() {
     return {

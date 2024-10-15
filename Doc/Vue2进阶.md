@@ -196,7 +196,7 @@
 
 7. 注意：通过`this.$refs.xxx.$on('atguigu',回调)`绑定自定义事件时，回调要么配置在methods中，要么用箭头函数，否则this指向会出问题！
 
-### 12 全局事件总线（GlobalEventBus）
+### 12、 全局事件总线（GlobalEventBus）
 
 1. 一种组件间通信的方式，适用于任意组件间通信。
 
@@ -231,7 +231,7 @@
 
 4. 最好在beforeDestroy钩子中，用$off去解绑当前组件所用到的事件。
 
-### 13 消息订阅与发布（pubsub）
+### 13、 消息订阅与发布（pubsub）
 
 1. 一种组件间通信的方式，适用于任意组件间通信。
 
@@ -256,8 +256,38 @@
 
     - 最好在beforeDestroy钩子中，用PubSub.unsubscribe(pid)去取消订阅。
 
-### 14 nextTick
+### 14、 nextTick
 
 1. 语法：`this.$nextTick(回调函数)`
 2. 作用：在下一次 DOM 更新结束后执行其指定的回调。
 3. 什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行。
+
+### 15、 Vue封装的过渡与动画
+
+1. 作用：在插入、更新或移除 DOM元素时，在合适的时候给元素添加样式类名。
+
+2. 图示
+
+    ![](./image/animate.PNG)
+
+3. 写法：
+
+    1. 准备好样式：
+
+        - 元素进入的样式：
+            v-enter：进入的起点
+            v-enter-active：进入过程中
+            v-enter-to：进入的终点
+        - 元素离开的样式：
+            v-leave：离开的起点
+            v-leave-active：离开过程中
+            v-leave-to：离开的终点
+    2. 使用<transition>包裹要过度的元素，并配置name属性,注意如果配置了appear属性的话就代表一开始挂载真实dom的时候就开启动画的效果：
+
+        ```javascript
+        <transition name="hello" appear>
+            <h1 v-show="isShow">你好啊！</h1>
+        </transition>
+        ```
+    
+    3. 备注：若有多个元素需要过度，则需要使用：<transition-group>，且每个元素都要指定key值。

@@ -1,22 +1,24 @@
 <template>
-    <li>
-    <label>
-      <input type="checkbox" :checked="todo.done" @change="handleClick(todo.id)"/>
-      <!--v-model数据的双向绑定，checkbox使用v-model来双向绑定其是否被勾选,也可以实现效果但不推荐(因为其实修改了props中的数据)-->
-      <!--这里修改了从List修改过来的props,这里的不允许改是浅层次，就是如果props是一个对象则这个修改这个对象的某一个属性vue是放行的-->
-      <!-- <input type="checkbox" v-model="todo.done"/>-->
-      <span v-show="!todo.isEdit">{{todo.title}}</span>
-       <input
-          type="text"
-          :value="todo.title"
-          v-show="todo.isEdit"
-          @blur="handleBlur(todo, $event)"
-          ref="inputTitle"
-      />
-    </label>
-    <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
-    <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
-  </li>
+    <transition name="todo" appear>
+      <li>
+      <label>
+        <input type="checkbox" :checked="todo.done" @change="handleClick(todo.id)"/>
+        <!--v-model数据的双向绑定，checkbox使用v-model来双向绑定其是否被勾选,也可以实现效果但不推荐(因为其实修改了props中的数据)-->
+        <!--这里修改了从List修改过来的props,这里的不允许改是浅层次，就是如果props是一个对象则这个修改这个对象的某一个属性vue是放行的-->
+        <!-- <input type="checkbox" v-model="todo.done"/>-->
+        <span v-show="!todo.isEdit">{{todo.title}}</span>
+        <input
+            type="text"
+            :value="todo.title"
+            v-show="todo.isEdit"
+            @blur="handleBlur(todo, $event)"
+            ref="inputTitle"
+        />
+      </label>
+      <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+      <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
+    </li>
+  </transition>
 </template>
 
 <script>
@@ -74,6 +76,24 @@
 </script>
 
 <style scoped>
+/* 动画 */
+.todo-enter-active {
+  animation: todos 1s linear;
+}
+
+.todo-leave-active {
+  animation: todos 1s linear reverse;
+}
+
+@keyframes todos {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
 li {
   list-style: none;
   height: 36px;
