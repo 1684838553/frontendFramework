@@ -1,6 +1,6 @@
 <template>
    <div>
-      <Animated />
+      <!-- <Animated /> -->
       <hr>
      <School name="武汉科技大学" :time="99" :getSchoolName="getSchoolName"/>
      <!-- <Student ref="student" v-on:atguigu="getStudentName"/> -->
