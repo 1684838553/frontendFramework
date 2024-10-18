@@ -13,3 +13,5 @@
 1. [Vue2基础语法](./Doc/Vue2基础语法.md)
 
 2. [Vue2进阶](./Doc/Vue2进阶.md)
+
+3. [Vuex](./Doc/Vuex.md)
