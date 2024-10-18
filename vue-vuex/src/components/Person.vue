@@ -22,13 +22,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(["personList", 'sum'])
+    ...mapState('personAbout', ["personList"]),
+    ...mapState('countAbout', ['sum'])
   },
   mounted() {},
   methods: {
     add() {
         const person = { id: nanoid(), name: this.name }
-        this.$store.commit('ADD_PERSON', person);
+        this.$store.commit('personAbout/ADD_PERSON', person);
         this.name = '';
     }
   },

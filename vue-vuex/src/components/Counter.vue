@@ -39,11 +39,18 @@ export default {
     // // 借助mapState生成计算属性，从state中获取数据（对象写法）
     // ...mapState({ sum: "sum", school: "school", subject: "subject" }),
 
-    // 借助mapState生成计算属性，从state中获取数据（数组写法）
-    ...mapState(["sum", "school", "subject", 'personList']),
+    // // 借助mapState生成计算属性，从state中获取数据（数组写法）
+    // ...mapState(["sum", "school", "subject", 'personList']),
 
-    // 借助mapGetters生成计算属性，从getters中获取数据（数组写法）
-    ...mapGetters(["bigSum"]),
+    // // 借助mapGetters生成计算属性，从getters中获取数据（数组写法）
+    // ...mapGetters(["bigSum"]),
+
+    // 开启命名空间后
+    ...mapState('personAbout', ["personList"]),
+    ...mapState('countAbout', ["sum", "school", "subject"]),
+    ...mapGetters('countAbout', ["bigSum"]),
+  },
+  created() {
   },
   mounted() {},
   methods: {
@@ -56,7 +63,10 @@ export default {
 
     // 参数在事件绑定时传入
     // 借助mapMutations生成对应的方法，方法中调用commit去联系mutations(对象)  
-    ...mapMutations({ increment: "Increment", decrement: "Decrement" }),
+    // ...mapMutations({ increment: "Increment", decrement: "Decrement" }),
+
+    // 开启命名空间后
+    ...mapMutations('countAbout', { increment: "Increment", decrement: "Decrement" }),
 
     // // 借助mapMutations生成对应的方法，方法中调用commit去联系mutations(数组) (这样写，绑定事件时，事件名应与数组中一致)
     // ...mapMutations([ "Increment", "Decrement" ]),
@@ -70,7 +80,10 @@ export default {
 
     // 参数在事件绑定时传入
     // 借助mapActions生成对应的方法，方法中调用dispatch去联系actions(数组)  
-    ...mapActions(['incrementOdd', 'incrementWait'])
+    // ...mapActions(['incrementOdd', 'incrementWait'])
+
+    // 开启命名空间后
+    ...mapActions('countAbout',['incrementOdd', 'incrementWait'])
   },
 };
 </script>
