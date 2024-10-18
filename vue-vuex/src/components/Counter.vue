@@ -3,6 +3,9 @@
         <h3>当前求和为(使用vuex存储状态)：
             <div>{{$store.state.sum}}</div>
         </h3>
+        <h3>当前求和放大10倍：
+            <div>{{$store.getters.bigSum}}</div>
+        </h3>
         <div class="select">
             请选择每次操作的数值：
             <select v-model.number="n">

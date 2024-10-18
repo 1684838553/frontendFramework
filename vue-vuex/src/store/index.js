@@ -36,15 +36,23 @@ const mutations = {
     }
 };
 
-// 用于存储数据
+// 用于存储数据(相当于组件中的data)
 const state = {
     sum: 0,
 };
+
+// 用于将state中的数据进行加工(相当于组件中的computed)
+const getters = {
+    bigSum(state) {
+        return state.sum * 10
+    }
+}
 
 // 创建并暴露store
 export default new Vuex.Store({
     actions,
     mutations,
-    state
+    state,
+    getters
 });
 
