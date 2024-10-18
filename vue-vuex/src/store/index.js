@@ -6,13 +6,40 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 // 用于响应组件中的动作
-const actions = {};
+const actions = {
+    // 这两个方法没有业务逻辑，可以不写，在组件里面直接调用$store.commit
+    // increment(context, value) {
+    //     context.commit('Increment', value);
+    // },
+    // decrement(context, value) {
+    //     context.commit('Decrement', value);
+    // },
+    incrementOdd(context, value) {
+        if(context.state.sum % 2) {
+            context.commit('Increment', value);
+        }
+    },
+    incrementWait(context, value) {
+        setTimeout(() => {
+            context.commit('Increment', value);
+        }, 500)
+    }
+};
 
 // 用于操作数据
-const mutations = {};
+const mutations = {
+    Increment(state, value) {
+        state.sum += value
+    },
+    Decrement(state, value) {
+        state.sum -= value;
+    }
+};
 
 // 用于存储数据
-const state = {};
+const state = {
+    sum: 0,
+};
 
 // 创建并暴露store
 export default new Vuex.Store({

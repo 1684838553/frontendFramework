@@ -1,16 +1,20 @@
 <template>
   <div>
+    <Counter />
+    <hr />
     <Count />
   </div>
 </template>
 
 <script>
-import Count from './components/Count.vue';
+import Count from './components/Count';
+import Counter from './components/Counter';
 
 export default {
   name: "App",
   components: {
-    Count
+    Count,
+    Counter
   },
   data() {
     return {
