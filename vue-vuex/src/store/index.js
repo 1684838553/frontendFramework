@@ -15,7 +15,7 @@ const actions = {
     //     context.commit('Decrement', value);
     // },
     incrementOdd(context, value) {
-        if(context.state.sum % 2) {
+        if (context.state.sum % 2) {
             context.commit('Increment', value);
         }
     },
@@ -26,19 +26,25 @@ const actions = {
     }
 };
 
-// 用于操作数据
+// 用于操作数据（函数名一般大写）
 const mutations = {
     Increment(state, value) {
         state.sum += value
     },
     Decrement(state, value) {
         state.sum -= value;
+    },
+    ADD_PERSON(state, value) {
+        state.personList.unshift(value);
     }
 };
 
 // 用于存储数据(相当于组件中的data)
 const state = {
     sum: 0,
+    school: '尚硅谷',
+    subject: '前端',
+    personList: [{ id: '001', name: '张三' }]
 };
 
 // 用于将state中的数据进行加工(相当于组件中的computed)

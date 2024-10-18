@@ -2,6 +2,8 @@
   <div>
     <Counter />
     <hr />
+    <Person />
+    <hr />
     <Count />
   </div>
 </template>
@@ -9,12 +11,14 @@
 <script>
 import Count from './components/Count';
 import Counter from './components/Counter';
+import Person from './components/Person';
 
 export default {
   name: "App",
   components: {
     Count,
-    Counter
+    Counter,
+    Person
   },
   data() {
     return {

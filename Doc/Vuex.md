@@ -132,3 +132,56 @@
     ```
 
 3. 组件中读取数据：`$store.getters.bigSum`
+
+### 6、四个map方法的使用
+
+#### 1. mapState方法
+
+用于帮助我们映射state中的数据为计算属性
+
+```javascript
+computed: {
+    //借助mapState生成计算属性：sum、school、subject（对象写法）
+    ...mapState({sum:'sum',school:'school',subject:'subject'}),
+        
+    //借助mapState生成计算属性：sum、school、subject（数组写法）
+    ...mapState(['sum','school','subject']),
+},
+```
+
+#### 2. mapGetters方法
+
+用于帮助我们映射getters中的数据为计算属性
+
+```javascript
+computed: {
+    //借助mapGetters生成计算属性：bigSum（对象写法）
+    ...mapGetters({ bigSum: 'bigSum'}),
+
+    //借助mapGetters生成计算属性：bigSum（数组写法）
+    ...mapGetters(['bigSum'])
+},
+```
+
+#### 3. mapMutations方法
+
+用于帮助我们生成与mutations对话的方法，即：包含$store.commit(xxx)的函数
+
+```javascript
+methods:{
+    //靠mapActions生成：increment、decrement（对象形式）
+    ...mapMutations({ increment:'Increment', decrement:'Decrement' }),
+}
+```
+
+#### 4. mapActions方法
+
+借助mapActions生成对应的方法，方法中调用dispatch去联系actions
+
+```javascript
+methods:{
+    ...mapMutations({ increment:'increment', decrement:'increment' }),
+}
+```
+
+> 备注：mapActions与mapMutations使用时，若需要传递参数需要：在模板中绑定事件时传递好参数，否则参数是事件对象。
