@@ -14,8 +14,11 @@
 
 export default {
   name: "Detail",
-//   props: ['a', 'b']
-  props: ['id', 'title']
+  // props: ['a', 'b']
+  props: ['id', 'title'],
+  mounted() {
+    console.log(this.$router)
+  },
 };
 </script>
 
