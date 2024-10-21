@@ -10,8 +10,10 @@
 
 ### 学习笔记
 
-1. [Vue2基础语法](./Doc/Vue2基础语法.md)
+1. [Vue2基础语法](./doc/Vue2基础语法.md)
 
-2. [Vue2进阶](./Doc/Vue2进阶.md)
+2. [Vue2进阶](./doc/Vue2进阶.md)
 
-3. [Vuex](./Doc/Vuex.md)
+3. [Vuex](./doc/Vuex.md)
+
+4. [Router](./doc/vue-router.md)
