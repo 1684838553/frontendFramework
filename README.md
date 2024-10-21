@@ -16,4 +16,4 @@
 
 3. [Vuex](./doc/Vuex.md)
 
-4. [Router](./doc/vue-router.md)
+4. [Router](./doc/Vue-Router.md)

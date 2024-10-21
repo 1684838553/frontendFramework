@@ -1,9 +1,8 @@
 <template>
   <div>
     <div>
-      <div class="col-xs-offset-2 col-xs-8">
-        <div class="page-header">Vue Router Demo</div>
-      </div>
+      <!-- 一般组件，About和Home组件是路由组件 -->
+      <Banner />
     </div>
     <div class="row">
       <div class="col-xs-2 col-xs-offset-2">
@@ -26,27 +25,17 @@
 
 <script>
 
+import Banner from './components/Banner';
 
 export default {
   name: "App",
   components: {
-   
+    Banner
   }
 };
 </script>
 
 <style>
-  .col-xs-8 {
-    height: 80px;
-    border-bottom: 1px solid #ededed;
-    margin-bottom: 12px;
-  }
-  .page-header {
-    font-size: 20px;
-    line-height: 80px;
-    font-weight: 500;
-  }
-
   .row {
     display: flex;
   }
