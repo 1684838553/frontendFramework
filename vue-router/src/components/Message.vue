@@ -10,8 +10,10 @@
                 // path: '/home/message/detail',
                 name: 'messageDetail',
                 query: {
-                    id: message.id,
                     title: message.title
+                },
+                params: {
+                    id: message.id
                 }
             }">{{message.title}}</router-link>
         </li>

@@ -29,7 +29,7 @@ export default new VueRouter({
                     children: [
                         {
                             name: 'messageDetail',
-                            path: 'detail',
+                            path: 'detail/:id',
                             component: Detail
                         }
                     ]
