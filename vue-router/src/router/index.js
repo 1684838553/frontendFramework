@@ -30,7 +30,23 @@ export default new VueRouter({
                         {
                             name: 'messageDetail',
                             path: 'detail/:id',
-                            component: Detail
+                            component: Detail,
+                            // props第一种写法，值为对象，里面所有的数据都传给Detail组件（这么些传的是死数据）
+                            // props: {
+                            //     a: 1,
+                            //     b: 'hello'
+                            // },
+
+                            // props第二种写法， 值为布尔值，将params参数作为props传入
+                            // props: true
+
+                            // props第二种写法，函数写法
+                            props($route) {
+                                return {
+                                    ...$route.params,
+                                    ...$route.query
+                                }
+                            }
                         }
                     ]
                 }
