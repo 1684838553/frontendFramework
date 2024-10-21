@@ -7,7 +7,8 @@
 
             <!-- 跳转路由并携带query参数，to的对象写法 -->
             <router-link :to="{
-                path: '/home/message/detail',
+                // path: '/home/message/detail',
+                name: 'messageDetail',
                 query: {
                     id: message.id,
                     title: message.title
