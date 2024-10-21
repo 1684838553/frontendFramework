@@ -2,7 +2,8 @@ import VueRouter from 'vue-router';
 
 import About from '../components/About';
 import Home from '../components/Home';
-
+import News from '../components/News';
+import Message from '../components/Message';
 
 // 创建一个路由
 export default new VueRouter({
@@ -12,8 +13,20 @@ export default new VueRouter({
             component: About
         },
         {
+            // 一级路由
             path: '/home',
-            component: Home
+            component: Home,
+            children: [
+                {
+                    // 二级路由path前面不加/
+                    path: 'news',
+                    component: News
+                },
+                {
+                    path: 'message',
+                    component: Message
+                }
+            ]
         }
     ]
 })
