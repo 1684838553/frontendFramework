@@ -8,6 +8,8 @@ import Detail from '../components/Detail';
 
 // 创建一个路由
 const router = new VueRouter({
+    // 路由器的两种工作模式, history和hash, 默认是hash
+    // mode: 'history',
     routes: [
         {
             name: "About",
