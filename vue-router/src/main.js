@@ -7,6 +7,7 @@ import router from './router';
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
+sessionStorage.setItem('school', 'atguigu');
 
 new Vue({
   render: h => h(App),
