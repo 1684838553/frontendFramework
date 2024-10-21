@@ -15,7 +15,10 @@
           >News</router-link
         >
       </div>
-    <router-view></router-view>
+      <!-- include设置组件名 -->
+      <keep-alive include="News">
+            <router-view></router-view>
+      </keep-alive>
   </div>
 </template>
 
