@@ -5,14 +5,14 @@
         <router-link
           class="list-group-item"
           active-class="active"
-          to="/home/news"
-          >News</router-link
+          to="/home/message"
+          >Message</router-link
         >
         <router-link
           class="list-group-item"
           active-class="active"
-          to="/home/message"
-          >Message</router-link
+          to="/home/news"
+          >News</router-link
         >
       </div>
     <router-view></router-view>
