@@ -16,6 +16,9 @@
                     id: message.id
                 }
             }">{{message.title}}</router-link>
+
+            <button @click="pushShow(message)">push查看</button>
+            <button @click="repaceShow(message)">replace查看</button>
         </li>
     </ul>
     <router-view></router-view>
@@ -23,11 +26,9 @@
 </template>
 
 <script>
-import Detail from './Detail';
 
 export default {
   name: "Message",
-  comments: { Detail },
   data() {
     return {
         messageList: [
@@ -38,6 +39,30 @@ export default {
         ]
     };
   },
+  methods: {
+    pushShow(message) {
+        this.$router.push({
+            name: 'messageDetail',
+            query: {
+                title: message.title
+            },
+            params: {
+                id: message.id
+            }
+        })
+    },
+    repaceShow(message) {
+        this.$router.replace({
+            name: 'messageDetail',
+            query: {
+                title: message.title
+            },
+            params: {
+                id: message.id
+            }
+        })
+    }
+  },
 };
 </script>
 
@@ -45,5 +70,9 @@ export default {
 li {
     list-style: none;
     margin: 5px;
+}
+
+button {
+    margin-left: 12px;
 }
 </style>

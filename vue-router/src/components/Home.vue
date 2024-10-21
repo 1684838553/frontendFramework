@@ -6,14 +6,12 @@
           class="list-group-item"
           active-class="active"
           to="/home/message"
-          replace
           >Message</router-link
         >
         <router-link
           class="list-group-item"
           active-class="active"
           to="/home/news"
-          replace
           >News</router-link
         >
       </div>
