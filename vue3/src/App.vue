@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h3>一个人的信息</h3>
+  <h3>姓名: {{ name }}</h3>
+  <h3>年龄: {{ age }}</h3>
+  <button @click="changeInfo">修改人的信息</button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
   components: {
-    HelloWorld
+  },
+  setup() {
+    let name = '张三';
+    let age = 18;
+
+    function changeInfo() {
+      console.log('changeInfo')
+    }
+
+    return {
+      name,
+      age,
+      changeInfo
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
