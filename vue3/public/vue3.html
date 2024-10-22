@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //模拟vue2中的响应式 （只能捕获修改和读取）
+        // let p = {};
+        // Object.defineProperty(p, 'name', {
+        //     get(){
+        //         //get name
+        //         return person.name;
+        //     },
+        //     set(value){
+        //         //set name
+        //         console.log('name changed, must change the page');
+        //         person.name = value;
+        //     }
+        // })
+        //
+        // Object.defineProperty(p, 'age', {
+        //     configurable: true,
+        //     get(){
+        //         //get age
+        //         return person.age;
+        //     },
+        //     set(value){
+        //         //set age
+        //         console.log('age changed, must change the page');
+        //         person.age = value;
+        //     }
+        // })
+
+        // 源数据
+       
+        // 模拟vue3中的响应式 
+        let person = {
+            name: '张三',
+            age: 16
+        }
+
+        // 代理对象（增删改查都能捕获到）
+        let p = new Proxy(person, {
+            // 捕获读取
+            get(target, propName) {
+                console.log(`有人读取p上的${propName}属性`)
+                // 反射对象
+                return Reflect.get(target, propName)
+            },
+            // 捕获修改和新增
+            set(target, propName, value) {
+                console.log(`有人修改p上的${propName}属性`)
+                Reflect.set(target, propName, value);
+            },
+            // 捕获删除
+            deleteProperty(target, propName) {
+                console.log(`有人删除p上的${propName}属性`)
+                return Reflect.deleteProperty(target, propName);
+            }
+        });
+
+
+        // let obj = {
+        //     a:1,
+        //     b:2
+        // }
+        
+        // const x1 = Reflect.defineProperty(obj, 'c',{
+        //     get(){
+        //         return 3;
+        //     }
+        // });
+        // console.log(x1); //true 成
+    </script>
+</body>
+</html>
