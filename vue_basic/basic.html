@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>初始Vue</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        *{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root">
+        <!-- 插值语法：{{}} 里面写js表达式 -->
+        <h1>Hello, {{name}}</h1>
+        <div>
+            <!-- v-bind: 指令语法: 给标签中的任何属性和值绑定值 -->
+            <!-- v-bind:  ===简写===> : -->
+            <a v-bind:href="url" target="_blank">点我去vue官网学习</a>
+            <a :href="url" target="_blank">点我去vue官网学习</a>
+        </div>
+
+        <div>
+            单向数据绑定：<input type="text" :value="inputValue">
+            双向数据绑定：<input type="text" v-model="inputValue1">
+        </div>
+
+        <div>
+            <h2>这是一个点击事件</h2>
+            <button @click="showInfo">点我</button>
+        </div>
+        <div>
+            <h2>阻止事件的默认事件</h2>
+            <!-- <a href="https://www.baidu.com" @click="showInfo">点我-没有阻止默认事件</h2> -->
+            <!-- <a href="https://www.baidu.com" @click.prevent="showInfo">点我</h2> -->
+        </div>
+
+        <!-- <div @click="showInfo">
+            <h2>阻止事件冒泡</h2>
+            <button @click="showInfo">点我-事件冒泡</h2>
+        </div> -->
+
+        <div>
+            <h2>键盘事件</h2>
+            <!-- 按下 -->
+            <input @keyup.enter="showMessage" placeholder="按下回车提示输入">
+        </div>
+
+        <div>
+            <h2>计算属性</h2>
+
+            姓： <input type="text" v-model="firstName"> <br><br>
+            名： <input type="text" v-model="lastName"> <br><br>
+
+            <!-- 全名： <span>{{firstName.slice(0, 2)}} - {{lastName}}</span> -->
+
+            <!-- 调用方法 -->
+            <!-- 全名： <span>{{fullName()}}</span> -->
+
+            <!-- 计算属性, fullName1是属性不是方法，直接调用 -->
+            全名： <span>{{fullName1}}</span>
+
+        </div>
+
+        <div>
+            <h2>监听属性</h2>
+            <h3>今天天气{{info}}</h3>
+            <button @click="isHot = !isHot">切换天气</button>
+        </div>
+
+        <div>
+            <h2>深度监视</h2>
+            <h3>a的值是：{{obj.a}}</h3>
+            <button @click="obj.a++">点我实现a+1</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;  // 阻止 vue 启动时生成生产提示
+
+        // 容器和实例是一对一关系
+        const vue = new Vue({
+            // 指定当前Vue实例为哪个容器，值通常为css选择器
+            el: '#root',
+            // 存储数据，供el指定的容器使用
+            data: {
+                name: "Huawei",
+                url: 'https://v2.cn.vuejs.org/v2/guide/instance.html',
+                inputValue: 'Huawei',
+                inputValue1: 'Huawei1',
+                firstName: '张',
+                lastName: '三',
+                isHot: false,
+                obj: {
+                    a: 0,
+                    b: 1
+                }
+            },
+            methods: {
+                showInfo(e) {
+                    console.log(e, '这点一个点击事件')
+                    console.log(this, this === vue, '此处this指向Vue实例，showInfo改成箭头函数之后，this指向全局window')
+                    // alert('此处this指向Vue实例，showInfo改成箭头函数之后，this指向全局window')
+                },
+                showMessage(e) {
+                    console.log(e.target.value)
+                },
+                fullName() {
+                    return this.firstName.slice(0, 2) + this.lastName;
+                }
+            },
+            computed: {
+                fullName1() {
+                    return this.firstName.slice(0, 2) + this.lastName;
+                },
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            watch: {
+                // isHost: {
+                //     handler(newValue, oldValue) {
+                //         console.log('isHost被修改了', newValue, oldValue)
+                //     }
+                // },
+                // 简写: 不要传其他参数
+                isHost(newValue, oldValue) {
+                    console.log('isHost被修改了', newValue, oldValue)
+                },
+                // 默认不能监听对象内部属性的改变，只有当被监听的对象被重新赋值时才会被调用
+                obj: {
+                    deep: true,
+                    handler() {
+                        console.log('obj发生了改变', JSON.stringify(this.obj))
+                    }
+                }
+            }
+        })
+
+        // // 数据代理
+        // const obj = { x: 100 }
+        // const obj1 = { y: 200 }
+
+        // Object.defineProperty(obj1, 'x', {
+        //     get() {
+        //         return obj.x
+        //     }, 
+        //     set(value) {
+        //         obj.x = value
+        //     }
+        // })
+
+    </script>
+</body>
+</html>
