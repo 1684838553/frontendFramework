@@ -51,7 +51,7 @@
 
 4. setup函数的两种返回值：
 
-    - 若返回一个对象，则对象中的属性、方法, 在模板中均可以直接使用。（重点关注！）
+    1. 若返回一个对象，则对象中的属性、方法, 在模板中均可以直接使用。（重点关注！）
 
         ```javascript
         setup() {
@@ -63,7 +63,7 @@
         }
         ```
 
-    - 若返回一个渲染函数：则可以自定义渲染内容。（了解）
+    2. 若返回一个渲染函数：则可以自定义渲染内容。（了解）
         ```javascript
         import { h } from 'vue';
         setup() {
@@ -72,11 +72,22 @@
         ```
 
 5. 注意点：
-    - 尽量不要与Vue2.x配置混用
+    1. 尽量不要与Vue2.x配置混用
         - Vue2.x配置（data、methos、computed...）中可以访问到setup中的属性、方法。
         - 但在setup中不能访问到Vue2.x配置（data、methos、computed...）。
         - 如果有重名, setup优先。
-    - setup不能是一个async函数，因为返回值不再是return的对象, 而是promise, 模板看不到return对象中的属性。（后期也可以返回一个Promise实例，但需要Suspense和异步组件的配合）
+    2. setup不能是一个async函数，因为返回值不再是return的对象, 而是promise, 模板看不到return对象中的属性。（后期也可以返回一个Promise实例，但需要Suspense和异步组件的配合）
+
+6. 两个注意点
+
+    1. setup执行的时机
+        - 在`beforeCreate`之前执行一次，this是`undefined`。
+    2. setup的参数
+        - `props`：值为对象，包含：组件外部传递过来，且
+        - `context`：上下文对象
+            1. `attrs`: 值为对象，包含：组件外部传递过来，但没有在props配置中声明的属性, 相当于 this.$attrs。
+            2. `slots`: 收到的插槽内容, 相当于 this.$slots。
+            3. `emit`: 分发自定义事件的函数, 相当于 this.$emit
 
 #### 2. ref函数
 

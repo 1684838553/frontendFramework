@@ -11,13 +11,19 @@
   <button @click="changeInfo">修改人的信息</button>
   <button @click="addSex">添加sex属性</button>
   <button @click="deleteName">删除name属性</button>
+  <hr>
+  <Student school="尚硅谷" address="上海" @hello="showHelloMsg">
+    <span>尚硅谷</span>
+  </Student>
 </template>
 
 <script>
+import Student from './components/Student';
 import { reactive } from 'vue';
 export default {
   name: 'App',
   components: {
+    Student
   },
   setup() {
     const person = reactive({
@@ -38,6 +44,10 @@ export default {
       delete person.name;
     }
 
+    function showHelloMsg(value) {
+      console.log(`你好，你触发了hello事件，我收到的参数是: ${value}`);
+    }
+
     function changeInfo() {
       person.name = '李四';
       person.age = 23;
@@ -50,12 +60,11 @@ export default {
       person,
       changeInfo,
       addSex,
-      deleteName
+      deleteName,
+      showHelloMsg
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
