@@ -12,14 +12,15 @@
   <button @click="addSex">添加sex属性</button>
   <button @click="deleteName">删除name属性</button>
   <hr>
-  <Student school="尚硅谷" address="上海" @hello="showHelloMsg">
+  <Student school="尚硅谷" address="上海" @hello="showHelloMsg" v-if="isShow">
     <span>尚硅谷</span>
   </Student>
+  <button @click="isShow = !isShow">挂载/卸载组件</button>
 </template>
 
 <script>
 import Student from './components/Student';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 export default {
   name: 'App',
   components: {
@@ -35,6 +36,7 @@ export default {
       },
       hobbies: ['打篮球', '学习']
     })
+    const isShow = ref(true);
 
     function addSex() {
       person.sex = '男';
@@ -61,7 +63,8 @@ export default {
       changeInfo,
       addSex,
       deleteName,
-      showHelloMsg
+      showHelloMsg,
+      isShow
     }
   }
 }

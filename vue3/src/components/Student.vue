@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed, reactive, watch, ref, watchEffect } from 'vue';
+import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
@@ -40,6 +40,14 @@ export default {
                 }
             },
             ...props
+        })
+
+        onBeforeMount(() => {
+            console.log('onBeforeMount')
+        })
+
+        onUnmounted(() => {
+            console.log('onUnmounted')
         })
 
         // // 计算属性（简写：没考虑计算属性被修改的情况）

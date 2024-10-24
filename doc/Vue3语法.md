@@ -275,4 +275,23 @@
     })
     ```
 
+#### 7. 生命周期
 
+![](https://cn.vuejs.org/assets/lifecycle_zh-CN.W0MNXI0C.png)
+
+
+1. Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有有两个被更名：
+
+    - beforeDestroy改名为 beforeUnmount
+    - destroyed改名为 unmounted
+
+2. Vue3.0也提供了 Composition API 形式的生命周期钩子，与Vue2.x中钩子对应关系如下：
+    > beforeCreate和created两个生命周期没有对应的组合api，直接在setup里面执行；可以使用vue2的方式去写生命周期函数，不一定要写在组合api里面
+    - beforeCreate===>setup()
+    - created=======>setup()
+    - beforeMount ===>onBeforeMount
+    - mounted=======>onMounted
+    - beforeUpdate===>onBeforeUpdate
+    - updated =======>onUpdated
+    - beforeUnmount ==>onBeforeUnmount
+    - unmounted =====>onUnmounted
