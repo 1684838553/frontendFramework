@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs, shallowReactive, shallowRef } from 'vue';
+import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs, shallowReactive, shallowRef, readonly, shallowReadonly } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
@@ -55,6 +55,12 @@ export default {
             },
             ...props
         })
+
+        // 整个对象不能修改
+        // student1 = readonly(student1)
+
+        // 第一层数据不能修改
+        student1 = shallowReadonly(student1)
 
         // 后续不会修改该对象的属性
         const student2 = shallowRef({
