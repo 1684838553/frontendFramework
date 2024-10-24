@@ -1,9 +1,12 @@
 <template>
-    这是一个学生的信息
+    这是一个学生的信息（组件开始）
+    <p>sum: {{ sum }} <button @click="sum++">点我加1</button></p>
+    <p>msg: {{ msg }} <button @click="msg += '!'">点我加!</button></p>
+    <p>数学成绩: {{ student.subjects.maths.score }} <button @click="student.subjects.maths.score++">点我加1</button></p>
     <hr>
     姓：<input type="text" v-model="student.firstName"><br>
     名：<input type="text" v-model="student.lastName"><br>
-    <span>全名 {{ student.fullName }}</span>  <br>
+    <span>全名 {{ student.fullName }}</span> <br>
     全名：<input type="text" v-model="student.fullName">
     <hr>
     <slot></slot>
@@ -12,10 +15,12 @@
     <p>学校：{{ student.school }}</p>
     <p>地址：{{ student.address }}</p>
     <button @click="test">测试一下触发该组件的hello事件</button>
+    <br>
+    （组件结束）
 </template>
 
 <script>
-import { computed, reactive } from 'vue';
+import { computed, reactive, watch, ref, watchEffect } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
@@ -29,6 +34,11 @@ export default {
             age: 23,
             firstName: '',
             lastName: '',
+            subjects: {
+                maths: {
+                    score: 95
+                }
+            },
             ...props
         })
 
@@ -49,13 +59,52 @@ export default {
             }
         })
 
+        let sum = ref(0);
+        let msg = ref('你好啊');
+
+        // 情况一：监听ref定义的一个响应式数据
+        // watch(sum, (newValue, oldValue) => {
+        //     console.log('sum变了', newValue, oldValue)
+        // })
+
+        // 情况二：监听ref定义的多个响应式数据
+        watch([sum, msg], (newValue, oldValue) => {
+            console.log('sum msg变了', newValue, oldValue)
+        })
+
+        // 情况三：监视reactive定义的对象
+        // watch(student, (newValue, oldValue) => {
+        //     console.log('student变了', newValue, oldValue)
+        // })
+
+        // 情况四：监听监视reactive定义的对象中某个属性
+        // watch(() => student.firstName, (newValue, oldValue) => {
+        //     console.log('student.firstName变了', newValue, oldValue)
+        // })
+
+        // 情况五：监听监视reactive定义的对象中某些属性
+        // watch([() => student.firstName, () => student.lastName], (newValue, oldValue) => {
+        //     console.log('student.firstName  student.lastName变了', newValue, oldValue)
+        // })
+
+        // 情况六（特殊情况）
+        watch(() => student.subjects, (newValue, oldValue) => {
+            console.log('修改成绩', newValue, oldValue)
+        }, { deep: true });  //此处由于监视的是reactive定义的对象中的属性（依然是对象），所有deep配置有效
+
+        watchEffect(() => {
+            console.log('watchEffect~~')
+        })
+
         function test() {
             context.emit('hello', '你好')
         }
 
         return {
             student,
-            test
+            test,
+            sum,
+            msg
         }
     }
 }
