@@ -2,25 +2,25 @@
     这是一个学生的信息（组件开始）
     <p>sum: {{ sum }} <button @click="sum++">点我加1</button></p>
     <p>msg: {{ msg }} <button @click="msg += '!'">点我加!</button></p>
-    <p>数学成绩: {{ student.subjects.maths.score }} <button @click="student.subjects.maths.score++">点我加1</button></p>
+    <p>数学成绩: {{ score }} <button @click="score++">点我加1</button></p>
     <hr>
-    姓：<input type="text" v-model="student.firstName"><br>
-    名：<input type="text" v-model="student.lastName"><br>
-    <span>全名 {{ student.fullName }}</span> <br>
-    全名：<input type="text" v-model="student.fullName">
+    姓：<input type="text" v-model="firstName"><br>
+    名：<input type="text" v-model="lastName"><br>
+    <span>全名 {{ fullName }}</span> <br>
+    全名：<input type="text" v-model="fullName">
     <hr>
     <slot></slot>
-    <p>姓名：{{ student.name }}</p>
-    <p>年龄：{{ student.age }}</p>
-    <p>学校：{{ student.school }}</p>
-    <p>地址：{{ student.address }}</p>
+    <p>姓名：{{ name }}</p>
+    <p>年龄：{{ age }}</p>
+    <p>学校：{{ school }}</p>
+    <p>地址：{{ address }}</p>
     <button @click="test">测试一下触发该组件的hello事件</button>
     <br>
     （组件结束）
 </template>
 
 <script>
-import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted } from 'vue';
+import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
@@ -112,7 +112,10 @@ export default {
             student,
             test,
             sum,
-            msg
+            msg,
+            // 不加 toRef，score是一个写死的数据，初始化数据，加了toRef后，变成响应式数据
+            score: toRef(student.subjects.maths, 'score'),
+            ...toRefs(student)
         }
     }
 }
