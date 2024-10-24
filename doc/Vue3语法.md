@@ -178,3 +178,34 @@
 3. 从使用角度对比：
     - ref定义的数据：操作数据需要.value，读取数据时模板中直接读取不需要.value。
     - reactive定义的数据：操作数据与读取数据：均不需要.value。
+
+#### 6. 计算属性与监视
+
+##### 1. computed函数
+
+1. 与Vue2.x中computed配置功能一致
+
+2. 写法
+
+    ```javascript
+    import { computed } from 'vue'
+
+    setup(){
+        ...
+        //计算属性——简写
+        let fullName = computed(()=>{
+            return person.firstName + '-' + person.lastName
+        })
+        //计算属性——完整
+        let fullName = computed({
+            get(){
+                return person.firstName + '-' + person.lastName
+            },
+            set(value){
+                const nameArr = value.split('-')
+                person.firstName = nameArr[0]
+                person.lastName = nameArr[1]
+            }
+        })
+    }
+    ```

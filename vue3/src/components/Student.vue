@@ -1,5 +1,11 @@
 <template>
     这是一个学生的信息
+    <hr>
+    姓：<input type="text" v-model="student.firstName"><br>
+    名：<input type="text" v-model="student.lastName"><br>
+    <span>全名 {{ student.fullName }}</span>  <br>
+    全名：<input type="text" v-model="student.fullName">
+    <hr>
     <slot></slot>
     <p>姓名：{{ student.name }}</p>
     <p>年龄：{{ student.age }}</p>
@@ -9,7 +15,7 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
@@ -21,7 +27,26 @@ export default {
         const student = reactive({
             name: '张三',
             age: 23,
+            firstName: '',
+            lastName: '',
             ...props
+        })
+
+        // // 计算属性（简写：没考虑计算属性被修改的情况）
+        // student.fullName = computed(() => {
+        //     return student.firstName + '-' + student.lastName;
+        // })
+
+        // 完整写法
+        student.fullName = computed({
+            get() {
+                return student.firstName + '-' + student.lastName;
+            },
+            set(value) {
+                const nameArr = value.split('-');
+                student.firstName = nameArr[0]
+                student.lastName = nameArr[1]
+            }
         })
 
         function test() {
