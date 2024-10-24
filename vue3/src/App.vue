@@ -1,4 +1,5 @@
 <template>
+  <Demo />
   <Location v-if="isShow" />
   <h3>一个人的信息</h3>
   <h3>姓名: {{ person.name }}</h3>
@@ -22,13 +23,15 @@
 <script>
 import Student from './components/Student';
 import Location from './components/Location';
+import Demo from './components/Demo';
 import { reactive, ref } from 'vue';
 
 export default {
   name: 'App',
   components: {
     Student,
-    Location
+    Location,
+    Demo
   },
   setup() {
     const person = reactive({
