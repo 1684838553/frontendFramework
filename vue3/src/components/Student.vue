@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs } from 'vue';
+import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs, shallowReactive, shallowRef } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
@@ -30,6 +30,34 @@ export default {
         console.log(context, 'context')
 
         const student = reactive({
+            name: '张三',
+            age: 23,
+            firstName: '',
+            lastName: '',
+            subjects: {
+                maths: {
+                    score: 95
+                }
+            },
+            ...props
+        })
+
+        // 只考虑第一层的响应式
+        const student1 = shallowReactive({
+            name: '张三',
+            age: 23,
+            firstName: '',
+            lastName: '',
+            subjects: {
+                maths: {
+                    score: 95
+                }
+            },
+            ...props
+        })
+
+        // 后续不会修改该对象的属性
+        const student2 = shallowRef({
             name: '张三',
             age: 23,
             firstName: '',
