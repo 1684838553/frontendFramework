@@ -1,4 +1,5 @@
 <template>
+    <Location />
     这是一个学生的信息（组件开始）
     <p>sum: {{ sum }} <button @click="sum++">点我加1</button></p>
     <p>msg: {{ msg }} <button @click="msg += '!'">点我加!</button></p>
@@ -23,11 +24,15 @@
 </template>
 
 <script>
+import Location from './Location';
 import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs, shallowReactive, shallowRef, readonly, shallowReadonly, toRaw, markRaw } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
     emits: ['hello'],
+    components: {
+        Location
+    },
     setup(props, context) {
         console.log(props, 'props')
         console.log(context, 'context')

@@ -1,6 +1,5 @@
 <template>
   <Demo />
-  <Location v-if="isShow" />
   <h3>一个人的信息</h3>
   <h3>姓名: {{ person.name }}</h3>
   <h3>年龄: {{ person.age }}</h3>
@@ -22,15 +21,13 @@
 
 <script>
 import Student from './components/Student';
-import Location from './components/Location';
 import Demo from './components/Demo';
-import { reactive, ref } from 'vue';
+import { provide, reactive, ref } from 'vue';
 
 export default {
   name: 'App',
   components: {
     Student,
-    Location,
     Demo
   },
   setup() {
@@ -43,6 +40,10 @@ export default {
       },
       hobbies: ['打篮球', '学习']
     })
+
+    // 给后代组件传递数据
+    provide('person', person);
+
     const isShow = ref(true);
 
     function addSex() {

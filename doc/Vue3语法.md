@@ -395,3 +395,33 @@
         }
     </script>
     ```
+
+#### 4. provide 与 inject
+
+1. 作用：实现祖与后代组件间通信
+
+2. 套路：父组件有一个 provide 选项来提供数据，后代组件有一个 inject 选项来开始使用这些数据
+
+3. 具体写法：
+
+    - 祖组件中：
+
+        ```javascript
+        setup(){
+            ......
+            let car = reactive({name:'奔驰',price:'40万'})
+            provide('car',car)
+            ......
+        }
+        ```
+
+    - 后代组件中：
+
+        ```javascript
+        setup(props,context){
+            ......
+            const car = inject('car')
+            return {car}
+            ......
+        }
+        ```
