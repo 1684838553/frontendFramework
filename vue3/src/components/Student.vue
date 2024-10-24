@@ -14,13 +14,16 @@
     <p>年龄：{{ age }}</p>
     <p>学校：{{ school }}</p>
     <p>地址：{{ address }}</p>
+    <p>车：{{ student.car }}</p>
     <button @click="test">测试一下触发该组件的hello事件</button>
+    <button @click="showRawStudent">输出最原始的数据</button>
+    <button @click="addCar">添加一辆车</button>
     <br>
     （组件结束）
 </template>
 
 <script>
-import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs, shallowReactive, shallowRef, readonly, shallowReadonly } from 'vue';
+import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs, shallowReactive, shallowRef, readonly, shallowReadonly, toRaw, markRaw } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
@@ -43,38 +46,38 @@ export default {
         })
 
         // 只考虑第一层的响应式
-        const student1 = shallowReactive({
-            name: '张三',
-            age: 23,
-            firstName: '',
-            lastName: '',
-            subjects: {
-                maths: {
-                    score: 95
-                }
-            },
-            ...props
-        })
+        // const student1 = shallowReactive({
+        //     name: '张三',
+        //     age: 23,
+        //     firstName: '',
+        //     lastName: '',
+        //     subjects: {
+        //         maths: {
+        //             score: 95
+        //         }
+        //     },
+        //     ...props
+        // })
 
         // 整个对象不能修改
         // student1 = readonly(student1)
 
         // 第一层数据不能修改
-        student1 = shallowReadonly(student1)
+        // student1 = shallowReadonly(student1)
 
         // 后续不会修改该对象的属性
-        const student2 = shallowRef({
-            name: '张三',
-            age: 23,
-            firstName: '',
-            lastName: '',
-            subjects: {
-                maths: {
-                    score: 95
-                }
-            },
-            ...props
-        })
+        // const student2 = shallowRef({
+        //     name: '张三',
+        //     age: 23,
+        //     firstName: '',
+        //     lastName: '',
+        //     subjects: {
+        //         maths: {
+        //             score: 95
+        //         }
+        //     },
+        //     ...props
+        // })
 
         onBeforeMount(() => {
             console.log('onBeforeMount')
@@ -142,6 +145,20 @@ export default {
             context.emit('hello', '你好')
         }
 
+        function showRawStudent() {
+            // 只能处理reactive的响应式数据
+            const p = toRaw(student)
+            // 页面不会改变，但是p对象会改变
+            p.age++
+            console.log(p, student)
+        }
+
+        function addCar() {
+            const car = { name: '奔驰'}
+            // car 永远不会成为响应式的
+            student.car = markRaw(car);
+        }
+
         return {
             student,
             test,
@@ -149,7 +166,9 @@ export default {
             msg,
             // 不加 toRef，score是一个写死的数据，初始化数据，加了toRef后，变成响应式数据
             score: toRef(student.subjects.maths, 'score'),
-            ...toRefs(student)
+            ...toRefs(student),
+            showRawStudent,
+            addCar
         }
     }
 }
