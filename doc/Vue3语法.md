@@ -435,3 +435,62 @@
 3. `isReadonly`: 检查一个对象是否是由 readonly 创建的只读代理
 
 4. `isProxy`: 检查一个对象是否是由 reactive 或者 readonly 方法创建的代理
+
+
+### 4. 新的组件
+
+#### 1. Fragment
+
+1. 在Vue2中: 组件必须有一个根标签
+
+2. 在Vue3中: 组件可以没有根标签, 内部会将多个标签包含在一个Fragment虚拟元素中
+
+3. 好处: 减少标签层级, 减小内存占用
+
+#### 2. Teleport
+
+什么是Teleport？—— Teleport 是一种能够将我们的组件html结构移动到指定位置的技术。
+
+```html
+<!-- to="移动位置" -->
+<!-- 这个dom元素是body子元素 -->
+<teleport to="body">
+	<div v-if="isShow" class="mask">
+		<div class="dialog">
+			<h3>我是一个弹窗</h3>
+			<button @click="isShow = false">关闭弹窗</button>
+		</div>
+	</div>
+</teleport>
+```
+
+#### 3. Suspense
+
+1. 等待异步组件时渲染一些额外内容，让应用有更好的用户体验
+
+2. 使用步骤：
+
+    - 异步引入组件
+
+        ```javascript      
+        import {defineAsyncComponent} from 'vue'
+        const Child = defineAsyncComponent(()=>import('./components/Child.vue'))
+        ```
+    
+    - 使用Suspense包裹组件，并配置好default 与 fallback
+
+        ```html
+        <template>
+            <div class="app">
+                <h3>我是App组件</h3>
+                <Suspense>
+                    <template v-slot:default>
+                        <Child/>
+                    </template>
+                    <template v-slot:fallback>
+                        <h3>加载中.....</h3>
+                    </template>
+                </Suspense>
+            </div>
+        </template>
+        ```

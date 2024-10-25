@@ -1,5 +1,15 @@
 <template>
+    <Dialog /> 
     <Location />
+    <Suspense>
+      <template v-slot:default>
+        <SyncChild />
+      </template>
+      <template v-slot:fallback>
+        <!--退路-->
+        <h3>loading...</h3>
+      </template>
+    </Suspense>
     这是一个学生的信息（组件开始）
     <p>sum: {{ sum }} <button @click="sum++">点我加1</button></p>
     <p>msg: {{ msg }} <button @click="msg += '!'">点我加!</button></p>
@@ -25,13 +35,18 @@
 
 <script>
 import Location from './Location';
+import Dialog from './Dialog';
+import { defineAsyncComponent } from "vue";
+const SyncChild = defineAsyncComponent(() => import('./SyncChild')); //动态引入组件(异步)
 import { computed, reactive, watch, ref, watchEffect, onBeforeMount, onUnmounted, toRef, toRefs, shallowReactive, shallowRef, readonly, shallowReadonly, toRaw, markRaw } from 'vue';
 export default {
     name: 'Student',
     props: ['school', 'address'],
     emits: ['hello'],
     components: {
-        Location
+        Location,
+        Dialog,
+        SyncChild
     },
     setup(props, context) {
         console.log(props, 'props')
