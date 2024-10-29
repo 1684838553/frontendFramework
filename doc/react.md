@@ -153,3 +153,50 @@ React一个将数据渲染为html视图的开源js库。
         }
     }
     ```
+
+### 4.组件
+
+当应用是以多组件的方式实现，这个应用就是一个组件化的应用
+
+- 函数组件
+- 类式组件
+
+#### 1. 函数式组件
+
+定义组件最简单的方式就是编写 JavaScript 函数：
+
+```js
+ //1.创建函数式组件
+      function MyComponent(props) {
+        console.log(this) //此处的this是undefined，因为babel编译后开启了严格模式
+        return <h2>我是用函数定义的组件(适用于【简单组件】的定义)</h2>
+      }
+
+ //2.渲染组件到页面
+      ReactDOM.render(<MyComponent />, document.getElementById('test'))
+```
+
+该函数是一个有效的 React 组件，因为它接收唯一带有数据的 “props”（代表属性）对象与并返回一个 React 元素。这类组件被称为“函数组件”，因为它本质上就是 JavaScript 函数。
+
+#### 2. 类式组件
+
+```js
+class MyComponent extends React.Component {
+        render() {
+          console.log('render中的this:', this)
+          return <h2>我是用类定义的组件(适用于【复杂组件】的定义)</h2>
+        }
+      }
+
+ReactDOM.render(<MyComponent />, document.getElementById('test'))
+```
+
+每次组件更新时 `render` 方法都会被调用，但只要在相同的 DOM 节点中渲染 `<MyComponent/>` ，就仅有一个 `MyComponent` 组件的 class 实例被创建使用。这就使得我们可以使用如 state 或生命周期方法等很多其他特性。
+
+**执行过程：**
+
+1. React解析组件标签，找到相应的组件
+
+2. 发现组件是类定义的，随后new出来的类的实例，并通过该实例调用到原型上的render方法
+
+3. 将render返回的虚拟DOM转化为真实的DOM,随后呈现在页面中

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+
+    <!-- script必须加上type="text/babel"属性 -->
+    <script type="text/babel">
+        
+        // 1. 创建类似组件，继承React.Component
+        class Hello extends React.Component {
+
+            /*
+             * render是放在哪里的？类的原型对象上，供实例使用
+             * render中的this是谁？类的实例对象，通过该实例对象调用render
+             */
+            render() {
+                return  <h1>hello, react!</h1>
+            }
+        }
+
+        // 2. 渲染虚拟dom到页面
+        const root = ReactDOM.createRoot(document.querySelector('#test'));
+        root.render(<Hello />);
+
+    </script>
+</body>
+</html>
