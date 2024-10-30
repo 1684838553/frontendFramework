@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+
+    <script type="text/babel">
+
+        class Login extends React.Component {
+            state = { 
+                username: '',
+                password: ''
+            }
+
+            /*
+             * 在这里，每个表单元素都定义了一个方法，可以优化一下
+             */
+            savePassword = (event) => {
+                this.setState({ password: event.target.value });
+             }
+
+            saveUsername = (event) => {
+                this.setState({ username: event.target.value });
+            }
+
+            /*
+            * 使用高阶函数，避免组件一挂载，方法就被执行
+            *       高阶函数（符合任意一个）：
+            *       1. 函数的参数是函数
+            *       2. 如果函数返回一个函数
+            */
+            save = (type) => {
+                return (e) => {
+                    this.setState({ [type]: e.target.value })
+                }
+            }
+
+            saveFormData = (type, e) => {
+                this.setState({ [type]: e.target.value })
+            }
+
+            handleSubmit = (e) => {
+                e.preventDefault();
+                console.log(this.state)
+            }
+
+            render() {
+                return <form onSubmit={this.handleSubmit}>
+                    { /* 方法三：不使用高阶函数 */}
+                    用户名： <input type="text" onChange={(e) => this.saveFormData('username', e)} />
+                    <br />
+                    密码： <input type="text" onChange={(e) => this.saveFormData('password', e)} />
+                    <br />
+                    {
+                        /**
+                         * 方法一：每个表单元素都定义了一个方法
+                         * 用户名： <input type="text" onChange={this.saveUsername} />
+                            <br />
+                            密码： <input type="text" onChange={this.savePassword} />
+                            <br />
+                        */
+                    }
+
+                    {
+                        /**
+                         * 方法二：使用高阶函数
+                         *  用户名： <input type="text" onChange={this.save('username')} />
+                            <br />
+                            密码： <input type="text" onChange={this.save('password')} />
+                            <br />
+                        */
+                    }
+                    <button>登录</button>
+                </form>
+            }
+        }
+
+
+        const root = ReactDOM.createRoot(document.querySelector('#test'));
+        root.render(<Login />);
+
+    </script>
+</body>
+
+</html>

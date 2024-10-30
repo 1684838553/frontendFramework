@@ -594,3 +594,67 @@ ref 的值根据节点的类型而有所不同：
 - 当 `ref` 属性用于自定义 class 组件时，`ref` 对象接收组件的挂载实例作为其 `current` 属性。
 - **你不能在函数组件上使用 `ref` 属性**，因为他们没有实例。
 
+
+### 6. 受控和非受控组件
+
+#### 1. 受控组件
+
+所有`表单元素的值都维护在状态`里面的组件叫受控组件。对于受控组件来说，输入的值始终由 React 的 state 驱动。
+
+```js
+class Login extends React.Component {
+    state = { 
+        username: '',
+        password: ''
+    }
+
+    savePassword = (event) => {
+        this.setState({ password: event.target.value });
+        }
+
+    saveUsername = (event) => {
+        this.setState({ username: event.target.value });
+        }
+
+        handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state)
+    }
+
+    render() {
+        return <form onSubmit={this.handleSubmit}>
+            用户名： <input type="text" onChange={this.saveUsername} />
+            <br />
+            密码： <input type="text" onChange={this.savePassword} />
+            <br />
+            <button>登录</button>
+        </form>
+    }
+}
+```
+#### 2. 非受控组件
+
+表单元素的值不会更新state。输入数据都是现用现取的（直接操作dom元素）
+
+```js
+class Login extends React.Component{
+
+    login = (event) =>{
+        event.preventDefault(); //阻止表单默认事件
+        console.log(this.name.value);
+        console.log(this.pwd.value);
+    }
+
+    render() {
+        return (
+            <form action="http://www.baidu.com" onSubmit={this.login}>
+            用户名：<input ref = {e => this.name =e } type = "text" name ="username"/>
+            密码：  <input ref = {e => this.pwd =e } type = "password" name ="password"/>
+            <button>登录</button>
+            </form>
+        )
+    }
+}
+```
+
+
