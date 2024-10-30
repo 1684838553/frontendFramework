@@ -495,3 +495,102 @@ static defaultProps = {
 `defaultProps` 用于确保 `this.props.sex` 在父组件没有指定其值时，有一个默认值。`propTypes` 类型检查发生在 `defaultProps` 赋值后，所以类型检查也适用于 `defaultProps`。
 
 #### 3. refs
+
+**何时使用 Refs**
+
+下面是几个适合使用 refs 的情况：
+
+- 管理焦点，文本选择或媒体播放。
+- 触发强制动画。
+- 集成第三方 DOM 库。
+
+避免使用 refs 来做任何可以通过声明式实现来完成的事情。
+
+**有三种操作`refs`的方法，分别为：**
+
+- 字符串形式
+- 回调形式
+- `createRef`形式
+
+##### 1. 字符串形式
+
+在想要获取到一个DOM节点，可以直接在这个节点上添加ref属性。利用该属性进行获取该节点的值。
+
+```js
+<input ref="input1" placeholder="点我提示左侧数据" /> 
+
+showData = () => {
+    console.log(this.refs.input1)
+}
+```
+
+**注意**
+
+不建议使用它，因为 string 类型的 refs 存在 [一些问题](https://github.com/facebook/react/pull/8333#issuecomment-271648615)。它已过时并可能会在未来的版本被移除。
+
+##### 2 回调形式
+
+```js
+showData2 = () => {
+    console.log(this.input2.value)
+}
+
+<input ref={(ref) => this.input2 = ref } onBlur={this.showData2} placeholder="失去焦点提示数据" /> 
+```
+
+**关于回调 refs 的说明**
+
+ref回调函数是以内联函数的方式定义的，在更新过程中它会被执行两次，`null`和 `DOM 元素`。
+
+```js
+//创建组件
+class Demo extends React.Component {
+    setTextInputRef = e => {
+      this.input1 = e
+    }
+
+    render() {
+      return (
+        <div>
+            { /** ref回调函数是以内联函数的方式定义的，在更新过程中它会被执行两次
+                * 第一次传入参数 null
+                * 然后第二次会传入参数 DOM 元素
+                * 在每次渲染时会创建一个新的函数实例，所以 React 清空旧的 ref 并且设置新的 
+                */}
+            <input ref={(ref) => this.input2 = ref } onBlur={this.showData2} placeholder="失去焦点提示数据" />
+            {/** 避免更新过程中被执行两次 */}
+          <input ref={this.setTextInputRef} type="text" />
+        </div>
+      )
+    }
+}
+```
+
+##### 3 createRef 形式（推荐写法）
+
+**创建 Refs**
+
+Refs 是使用 `React.createRef()` 创建的，并通过 `ref` 属性附加到 React 元素。在构造组件时，通常将 Refs 分配给实例属性，以便可以在整个组件中引用它们。
+
+```js
+class MyInput extends React.Component {
+    // React.createRef调用后返回一个容器，该容器可以存储被ref所标识的节点
+    myRef = React.createRef();
+
+    showData3 = () => {
+        // 对该节点的引用可以在 ref 的 `current` 属性中被访问
+        console.log(this.myRef.current.value)
+    }
+
+    render() {
+        return <input ref={this.myRef}  onBlur={this.showData3} placeholder="失去焦点提示数据" /> 
+    }
+}
+```
+
+ref 的值根据节点的类型而有所不同：
+
+- 当 `ref` 属性用于 HTML 元素时，构造函数中使用 `React.createRef()` 创建的 `ref` 接收底层 DOM 元素作为其 `current` 属性。
+- 当 `ref` 属性用于自定义 class 组件时，`ref` 对象接收组件的挂载实例作为其 `current` 属性。
+- **你不能在函数组件上使用 `ref` 属性**，因为他们没有实例。
+

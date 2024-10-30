@@ -14,7 +14,7 @@
     <!-- 将jsx转为js -->
     <script src="./js/babel.min.js"></script>
     <!-- 用于对组件标签属性进行限制 -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.min.js"></script>
+    <script src="./js/prop-types.min.js"></script>
 
     <!-- script必须加上type="text/babel"属性 -->
     <script type="text/babel">
@@ -59,7 +59,39 @@
                     { /* onClick应该调用实例上的方法 */}
                     <button onClick={this.handlerButtonClick}>切换天气</button>
                     { false && <Demo />}
+                    <MyInput />
                     <Person person={{  age: 18, sex: '男'}} />
+                </div>
+            }
+        }
+
+        class MyInput extends React.Component {
+            // React.createRef调用后返回一个容器，该容器可以存储被ref所标识的节点
+            myRef = React.createRef();
+
+            showData = () => {
+                console.log(this.refs.input1)
+            }
+
+            showData2 = () => {
+                console.log(this.input2.value)
+            }
+
+            showData3 = () => {
+                console.log(this.myRef.current.value)
+            }
+
+            render() {
+                return <div>
+                    { /* 字符串形式ref */}
+                   <input ref="input1" placeholder="点我提示左侧数据" /> 
+                   <button onClick={this.showData} style={{ marginLeft: '12px' }}>点我提示左侧数据</button> 
+                   <br />
+                   { /* 回调函数 ref */}
+                   <input ref={(ref) => this.input2 = ref } onBlur={this.showData2} placeholder="失去焦点提示数据" /> 
+                   <br />
+                   { /*  React.createRef */}
+                   <input ref={this.myRef}  onBlur={this.showData3} placeholder="失去焦点提示数据" /> 
                 </div>
             }
         }
