@@ -13,6 +13,8 @@
     <script src="./js/react-dom.development.js"></script>
     <!-- 将jsx转为js -->
     <script src="./js/babel.min.js"></script>
+    <!-- 用于对组件标签属性进行限制 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.min.js"></script>
 
     <!-- script必须加上type="text/babel"属性 -->
     <script type="text/babel">
@@ -56,7 +58,8 @@
                     <h1>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
                     { /* onClick应该调用实例上的方法 */}
                     <button onClick={this.handlerButtonClick}>切换天气</button>
-                    <Demo />
+                    { false && <Demo />}
+                    <Person person={{  age: 18, sex: '男'}} />
                 </div>
             }
         }
@@ -80,6 +83,32 @@
                     <button onClick={this.handlerClick}>切换天气</button>
                 </div>
             }
+        }
+
+        class Person extends React.Component {
+            render() {
+                const { name, age, sex } = this.props.person;
+
+                return <ul>
+                    <li>姓名：{name}</li>
+                    <li>年龄：{age}</li>
+                    <li>性别：{sex}</li>
+                </ul>
+            }
+        }
+
+        // 对标签属性进行限制
+        Person.propTypes = {
+            person: PropTypes.shape({
+                name: PropTypes.string.isRequired,
+                age: PropTypes.number,
+                sex: PropTypes.string
+            }) 
+        }
+        
+        Person.defaultProps = {
+            sex: '男',
+            age: 18
         }
 
         // 2. 渲染虚拟dom到页面

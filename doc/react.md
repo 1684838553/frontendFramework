@@ -432,4 +432,66 @@ this.setState((state, props) => ({
 
 #### 2. props
 
+##### 1. 基本使用
+
+与`state`不同，`state`是组件自身的状态，而`props`则是外部传入的数据
+
+基本使用：
+
+```js
+class Person extends React.Component{
+    render(){
+        const { name, age, sex } = this.props.person;
+        return (
+            <ul>
+                <li>姓名：{name}</li>
+                <li>性别：{sex}</li>
+                <li>年龄：{age + 1}</li>
+            </ul>
+        )
+    }
+}
+//传递数据
+ReactDOM.render(<Person person={{ name: 'tom', age: 18, sex: '男'}} />,document.getElementById("div"));
+```
+
+1. 通过在组件标签上传递值，在组件中就可以获取到所传递的值
+2. 在构造器里的`props`参数里可以获取到 `props`
+3. 可以分别设置 `propTypes` 和 `defaultProps` 两个属性来分别操作 `props`的规范和默认值，两者都是直接添加在类式组件的**原型对象**上的（所以需要添加 `static`）
+4. 同时可以通过`...`运算符来简化
+5. props 的只读性
+
+**注意！！** **{...P}并不能展开一个对象**
+
+**props传递一个对象，是因为babel+react使得{..p}可以展开对象，但是只有在标签中才能使用**
+
+##### 2. props限制
+
+React 内置了一些类型检查的功能。要在组件的 props 上进行类型检查，你只需配置特定的 `propTypes` 属性：
+
+react对此提供了相应的解决方法：
+
+- propTypes:类型检查，还可以限制不能为空
+- defaultProps：默认值
+
+```js
+// 定义成类中的静态属性
+//对标签属性进行类型、必要性的限制
+static propTypes = {
+    name:PropTypes.string.isRequired, //限制name必传，且为字符串
+    sex:PropTypes.string,//限制sex为字符串
+    age:PropTypes.number,//限制age为数值
+    speak:PropTypes.func,//限制speak为函数
+}
+//指定默认标签属性值
+static defaultProps = {
+    sex:'男',//sex默认值为男
+    age:18 //age默认值为18
+}
+```
+
+当传入的 `prop` 值类型不正确时，JavaScript 控制台将会显示警告。出于性能方面的考虑，`propTypes` 仅在开发模式下进行检查。
+
+`defaultProps` 用于确保 `this.props.sex` 在父组件没有指定其值时，有一个默认值。`propTypes` 类型检查发生在 `defaultProps` 赋值后，所以类型检查也适用于 `defaultProps`。
+
 #### 3. refs
