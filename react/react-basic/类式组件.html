@@ -1,28 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div id="test"></div>
     <script src="./js/react.development.js"></script>
     <script src="./js/react-dom.development.js"></script>
+    <!-- 将jsx转为js -->
     <script src="./js/babel.min.js"></script>
 
     <!-- script必须加上type="text/babel"属性 -->
     <script type="text/babel">
-        
+
         // 1. 创建类似组件，继承React.Component
         class Hello extends React.Component {
+
+            constructor(props) {
+                super(props);
+
+                // 初始化state
+                this.state = {
+                    isHot: true
+                }
+
+                // 将handlerClick绑定在实例上（点击时，先找实例身上的方法）；bind返回一个新的函数
+                this.handlerButtonClick = this.handlerClick.bind(this);
+            }
+
+            /*
+             * 类中的方法放在原型对象上，供实例使用
+             * 由于handlerClick是作为onClick的回调，所以不是通过实例调用的，是直接调用
+             * 类中的方法默认开启了局部严格模式，所以handlerClick的this为undefined
+             * 解决方法： this.handlerClick = this.handlerClick.bind(this);
+             */
+            handlerClick() {
+                console.log('dianji1', this)
+
+                // 严重注意：state不可直接更改，必须通过setState方法更改
+                // this.state.isHot = !this.state.isHot;  （不生效）
+                this.setState({ isHot: !this.state.isHot })
+            }
 
             /*
              * render是放在哪里的？类的原型对象上，供实例使用
              * render中的this是谁？类的实例对象，通过该实例对象调用render
              */
             render() {
-                return  <h1>hello, react!</h1>
+                const { isHot } = this.state;
+                return <div>
+                    <h1>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
+                    { /* onClick应该调用实例上的方法 */}
+                    <button onClick={this.handlerButtonClick}>切换天气</button>
+                    <Demo />
+                </div>
+            }
+        }
+
+        class Demo extends React.Component {
+            // 不写在构造器中，直接写在实例上
+            state = { isHot: true }
+
+            /*
+             * 精简方法：不想再构造器中改变自定义方法的this指向
+             * 将方法携程箭头函数，箭头函数的this指向上下文
+             */
+            handlerClick = () => {
+                this.setState({ isHot: !this.state.isHot })
+            }
+
+            render() {
+                const { isHot } = this.state;
+                return <div>
+                    <h1>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
+                    <button onClick={this.handlerClick}>切换天气</button>
+                </div>
             }
         }
 
@@ -32,4 +88,5 @@
 
     </script>
 </body>
+
 </html>

@@ -200,3 +200,236 @@ ReactDOM.render(<MyComponent />, document.getElementById('test'))
 2. 发现组件是类定义的，随后new出来的类的实例，并通过该实例调用到原型上的render方法
 
 3. 将render返回的虚拟DOM转化为真实的DOM,随后呈现在页面中
+
+### 5. 类组件中三大属性：state, props, refs
+
+#### 1. state
+
+##### 1. 基本使用
+
+````js
+class Hello extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        // 初始化state
+        this.state = {
+            isHot: true
+        }
+
+        // 将handlerClick绑定在实例上（点击时，先找实例身上的方法）；bind返回一个新的函数
+        this.handlerButtonClick = this.handlerClick.bind(this);
+    }
+
+    /*
+    * 类中的方法放在原型对象上，供实例使用
+    * 由于handlerClick是作为onClick的回调，所以不是通过实例调用的，是直接调用
+    * 类中的方法默认开启了局部严格模式，所以handlerClick的this为undefined
+    * 解决方法： this.handlerClick = this.handlerClick.bind(this);
+    */
+    handlerClick() {
+        console.log('dianji1', this)
+
+        // 严重注意：state不可直接更改，必须通过setState方法更改
+        // this.state.isHot = !this.state.isHot;  （不生效）
+
+        // 严重注意：React 中不建议 `state`不允许直接修改，而是通过类的原型对象上的方法 `setState()`
+        this.setState({ isHot: !this.state.isHot })
+    }
+
+    /*
+    * render是放在哪里的？类的原型对象上，供实例使用
+    * render中的this是谁？类的实例对象，通过该实例对象调用render
+    */
+    render() {
+        const { isHot } = this.state;
+        return <div>
+            <h1>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
+            { /* onClick应该调用实例上的方法 */}
+            <button onClick={this.handlerButtonClick}>切换天气</button>
+        </div>
+    }
+}
+````
+
+**注意：**
+
+1. 组件的构造函数，必须要传递一个props参数
+
+2. 特别关注this【重点】，类中所有的方法局部都开启了严格模式，如果直接进行调用，this就是undefined
+
+3. 想要改变state,需要使用setState进行修改，如果只是修改state的部分属性，则不会影响其他的属性，这个只是合并并不是覆盖。
+
+**在优化过程中遇到的问题**
+
+1. 组件中的 render 方法中的 this 为组件实例对象
+2. 组件自定义方法中由于开启了严格模式，this 指向`undefined`如何解决
+   1. 通过 bind 改变 this 指向
+   2. 推荐采用箭头函数，箭头函数的 `this` 指向
+3. state 数据不能直接修改或者更新
+
+##### 2. setState()
+
+this.setState()，该方法接收两种参数：对象或函数。
+
+```js
+this.setState(partialState, [callback]);
+```
+
+- `partialState`: 需要更新的状态的部分对象
+- `callback`: 更新完状态后的回调函数
+
+**有两种写法:**
+
+1. 对象：即想要修改的state
+
+   ```js
+   this.setState({
+       isHot: false
+   })
+   ```
+
+2. 函数：接收两个函数，第一个函数接受两个参数，第一个是当前state，第二个是当前props，该函数返回一个对象，和直接传递对象参数是一样的，就是要修改的state；第二个函数参数是state改变后触发的回调
+
+    ```js
+    this.setState(state => { count: state.count + 1 });
+    ```
+
+- 在执行 `setState`操作后，React 会自动调用一次 `render()`
+- `render()` 的执行次数是 1+n (1 为初始化时的自动调用，n 为状态更新的次数)
+
+##### 3. 简化版本
+
+```js
+class Demo extends React.Component {
+    // 不写在构造器中，直接写在实例上
+    state = { isHot: true }
+
+    /*
+        * 精简方法：不想再构造器中改变自定义方法的this指向
+        * 将方法携程箭头函数，箭头函数的this指向上下文
+        */
+    handlerClick = () => {
+        this.setState({ isHot: !this.state.isHot })
+    }
+
+    render() {
+        const { isHot } = this.state;
+        return <div>
+            <h1>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
+            <button onClick={this.handlerClick}>切换天气</button>
+        </div>
+    }
+}
+```
+1. state的赋值可以不再构造函数中进行，直接写在实例上
+
+2. 使用了箭头函数，将this进行了改变
+
+##### 4. State 的更新可能是异步的
+
+**React控制之外的事件中调用setState是同步更新的。比如原生js绑定的事件，setTimeout/setInterval等**。
+
+> 18版本中测试setTimeout回调函数中也是异步更新的
+
+**大部分开发中用到的都是React封装的事件，比如onChange、onClick、onTouchMove等，这些事件处理程序中的setState都是异步处理的。**
+
+```js
+//1.创建组件
+class St extends React.Component{
+    state = {isHot:10};
+    render(){
+        return <h1 onClick = {this.dem}>点击事件</h1> 
+    }
+
+    dem = () =>{
+        //修改isHot
+        this.setState({ isHot: this.state.isHot + 1})
+        console.log(this.state.isHot);
+    }
+}
+```
+
+上面的案例中预期setState使得isHot变成了11，输出也应该是11。然而在控制台打印的却是10，也就是并没有对其进行更新。这是因为异步的进行了处理，在输出的时候还没有对其进行处理。
+
+```js
+document.getElementById("test").addEventListener("click",()=>{
+        this.setState({isHot: this.state.isHot + 1});
+        console.log(this.state.isHot);
+})
+```
+
+但是通过这个原生JS的，可以发现，控制台打印的就是11，也就是已经对其进行了处理。也就是进行了同步的更新。
+
+**React怎么调用同步或者异步的呢？**
+
+在 React 的 setState 函数实现中，会根据一个变量 isBatchingUpdates 判断是直接更新 this.state 还是放到队列中延时更新，而 isBatchingUpdates 默认是 false，表示 setState 会同步更新 this.state；但是，有一个函数 batchedUpdates，该函数会把 isBatchingUpdates 修改为 true，而当 React 在调用事件处理函数之前就会先调用这个 batchedUpdates将isBatchingUpdates修改为true，这样由 React 控制的事件处理过程 setState 不会同步更新 this.state。
+
+**如果是同步更新，每一个setState对调用一个render，并且如果多次调用setState会以最后调用的为准，前面的将会作废；如果是异步更新，多个setSate会统一调用一次render**
+
+```js
+dem = () =>{
+    this.setState({
+        isHot:  1,
+        cont:444
+    })
+    this.setState({
+    	isHot: this.state.isHot + 1
+    })
+    this.setState({
+        isHot:  888,
+        cont:888
+    })
+}
+```
+
+上面的最后会输出：isHot是888，cont是888
+
+```js
+ dem = ()=> {  
+    this.setState({
+        isHot: this.state.isHot + 1,
+
+    })
+    this.setState({
+        isHot: this.state.isHot + 1,
+
+    })
+    this.setState({
+        isHot: this.state.isHot + 888
+    })
+}
+```
+
+初始isHot为10，最后isHot输出为898，也就是前面两个都没有执行。
+
+**注意！！这是异步更新才有的，如果同步更新，每一次都会调用render，这样每一次更新都会 **
+
+##### 5 异步更新解决方案
+
+出于性能考虑，React 可能会把多个 `setState()` 调用合并成一个调用。
+
+因为 `this.props` 和 `this.state` 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。
+
+例如，此代码可能会无法更新计数器：
+
+```js
+// Wrong
+this.setState({
+  counter: this.state.counter + this.props.increment,
+});
+```
+
+要解决这个问题，可以让 `setState()` 接收一个函数而不是一个对象。这个函数用上一个 state 作为第一个参数，将此次更新被应用时的 props 做为第二个参数：
+
+```js
+// Correct
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+```
+
+#### 2. props
+
+#### 3. refs
