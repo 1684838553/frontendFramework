@@ -657,4 +657,199 @@ class Login extends React.Component{
 }
 ```
 
+### 7. 生命周期
+
+[React 18 生命周期](https://juejin.cn/post/7281459744601866294)
+
+#### 1. 生命周期流程图
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5a9463c9de9a4bae844daf5f610905cb~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp)
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b4e616a397fa4a1bbd8ff52e138da2d2~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp)
+
+#### 2. 构造函数 constructor
+
+1. 在组件实例被创建之前被调用
+
+2. 如果不需要初始化状态或绑定事件处理函数，就不要显示的定义一个构造函数
+
+3. 在构造函数中调用`super(props)`确保您可以在构造函数中使用`this.props`
+
+4. 可以初始化状态，通过直接为this.state分配一个对象来完成 `this.state = { counter: 0 };`
+
+5. 为了确保事件处理函数中的this引用的是组件实例，需要在构造函数中绑定事件 `this.handleClick = this.handleClick.bind(this);`
+
+6. 不要去做
+
+    - 不要在构造函数中调用`setState()`，`this.state`可以直接在构造函数中进行初始化
+
+    - 避免引入副作用或订阅：构造函数不是执行网络请求、设置订阅或手动更改 DOM 的地方。这些都应该在`componentDidMount()`或其他生命周期方法中进行
+
+    - 避免将` props` 直接复制到 `state`：这是因为当 `props` 更改时，`state` 不会自动更新，可能导致组件的渲染状态与 `props` 不同步
+
+7. 不使用构造函数时
+
+    - 不需要初始化状态（使用类属性来初始化状态），也不需要绑定方法
+
+    - 使用箭头函数自动绑定方法
+
+#### 3. getDerivedStateFromProps
+
+组件的`静态`生命周期方法，在组件接收`新属性`时更新状态。
+
+##### 1. 执行时机
+
+1. 挂载阶段
+
+    在render方法之前被调用，根据组件的初始属性来设置组件的初始状态。
+
+2. 更新阶段
+
+    当组件接收到新的属性或状态更改时，getDerivedStateFromProps也会被调用
+
+    - 组件接收到新的属性时（即父组件重新渲染）
+    - 调用setState方法更新组件的状态时
+    - 调用forceUpdate方法强制重新渲染组件时
+
+##### 2. 应用场景
+
+```js
+class ThemeComponent extends React.Component {
+    state = { color: this.props.color };
+
+    /**
+     * 静态方法，不能访问组件实例的 this，不能调用组件的实例方法或访问组件的实例属性
+     * 是一个纯函数，不要在其中执行有副作用的操作，如网络请求或订阅事件
+     * 在多个阶段都可能被调用，需要添加额外的逻辑来确定何时应该更新状态
+     * nextProps：组件即将接收的新属性
+     * prevState：组件当前的状态
+     */
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.color !== prevState.color) {
+        // 返回一个对象来更新状态
+        return { color: nextProps.color };
+        }
+
+        // 如果不需要更新状态，则返回 null
+        return null;
+    }
+
+    render() {
+        return <div style={{ backgroundColor: this.state.color }}>主题颜色</div>;
+    }
+}
+```
+
+#### 4. shouldComponentUpdate
+
+`可选`的生命周期方法，在接收新的 props 或 state 时确定组件是否应该重新渲染。它返回一个布尔值，告诉 React 是否应继续更新过程
+
+##### 1. 执行时机
+
+- 接收新的 `Props` 或 `State`
+- 父组件重新渲染
+- 使用 `forceUpdate`
+- 初始化渲染
+
+##### 2. 应用场景
+
+```js
+/**
+ * 1. 避免副作用: 只应用于渲染决策，不应执行任何副作用，如网络请求或修改全局变量
+ * 2.  避免深度比较: 深度比较可能会消耗大量性能，反而降低应用的响应速度
+ * 3. 不要在此方法中调用 setState: 会导致组件重新渲染，从而引发无限循环
+ */
+shouldComponentUpdate(nextProps, nextState) {
+  // 逻辑判断
+  return true 或 false;
+}
+```
+
+#### 5. getSnapshotBeforeUpdate
+
+在最新的渲染输出被提交到 DOM 之前被调用，允许您在更新发生之前捕获一些关于 DOM 的信息。**不要在这个方法中触发状态更新，否则会导致无限循环**
+
+```js
+/**
+ * prevProps: 更新前的属性
+ * prevState: 更新前的状态
+ * 返回一个值作为 componentDidUpdate 的第三个参数（getSnapshotBeforeUpdate 必须与 componentDidUpdate 配合使用）。如果不需要捕获任何信息，返回 null
+ */
+getSnapshotBeforeUpdate(prevProps, prevState) {
+    // 捕获滚动位置
+    // return this.containerElement.scrollTop;
+
+    // 捕获表单状态
+    return this.formElement.values;
+}
+```
+
+#### 6. componentDidMount
+
+- 组件挂载完被调用
+- 只执行一次
+- 在子组件的 componentDidMount 之前执行
+- 在 render 方法之后执行
+
+```js
+componentDidMount () {
+    // 数据获取  
+    fetch('/api/data')
+    .then(response => response.json())
+    .then(data => this.setState({ data }));
+
+    // 操作 DOM
+    this.myInput.focus();
+
+    // 添加事件监听器
+    window.addEventListener('resize', this.handleResize);
+}
+```
+
+#### 7. componentDidUpdate 
+
+组件更新（`render`，`getSnapshotBeforeUpdate`方法之后）后被调用（首次挂载不会被调用）
+
+##### 2. 什么会导致组件更新
+
+1. 属性变化：当组件接收到新的属性时，它会触发更新。
+
+2. 状态变化：当组件的状态改变时，它也会触发更新。
+
+3. 父组件重新渲染：即使属性和状态没有改变，父组件的重新渲染也会导致子组件更新
+
+##### 2. 应用场景
+
+```js
+/**
+ * prevProps：前一个属性对象
+ * prevState：前一个状态对象
+ * snapshot：从 getSnapshotBeforeUpdate 方法返回的值
+ */
+componentDidUpdate(prevProps, prevState, snapshot) {
+  
+}
+```
+
+#### 8. componentWillUnmount
+
+组件卸载时会被调用
+
+```js
+componentWillUnmount() {
+    // 清理定时器  
+    clearInterval(this.timerID);
+
+    // 取消网络请求
+    this.source.cancel('组件卸载，取消请求');
+
+    // 移除事件监听器
+    window.removeEventListener('resize', this.handleResize);
+}
+```
+
+
+
+
+
 
