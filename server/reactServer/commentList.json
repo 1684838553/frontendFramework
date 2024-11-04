@@ -1,0 +1,38 @@
+[
+  {
+    "id": "2",
+    "username": "dcsuibian",
+    "uid": "12346",
+    "content": "课程很新，该提的点都有提到，非常简洁、没有废话，提供了markdown文档和测试用的api接口。而且可以感觉到做了充足的备课。",
+    "fave": 111,
+    "time": "2023-11-27 19:55",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmWkyFSIdKUP6JNsMIRc392DH6nWaLRkiMjPXAr3CqSghmoafa_00Gu6c&s"
+  },
+  {
+    "id": "1",
+    "username": "red润",
+    "uid": "12345",
+    "content": "react18入门简单，只要学会useState,useEffect,useRef三个万精油就可以解决大部分业务了，剩下hooks都是性能优化方面的",
+    "fave": 104,
+    "time": "2023-10-27 14:48",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi3OuIreqwRPIXdCyTkPcL2DrmwgJswzBIuGRKZZU09GJl4ySFPrKPC-Q&s"
+  },
+  {
+    "id": "4",
+    "username": "邻家女孩真昼",
+    "uid": "12348",
+    "content": "微信小程序什么时候更新最新版的呀，下阶段就要开始学小程序了，想看最新版",
+    "fave": 20,
+    "time": "2023-10-17 12:35",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIpsMeA8QdzWAip9AeGB1sf9jElcMOO5sLyz1aD4yBBAKGKqCXNUy8kp0&s"
+  },
+  {
+    "id": "3",
+    "username": "小夕鸭",
+    "uid": "12347",
+    "content": "请问刚刚进入框架的话react推荐的视频路线是谁的哪个版本喔",
+    "fave": 11,
+    "time": "2023-11-16 12:51",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmWkyFSIdKUP6JNsMIRc392DH6nWaLRkiMjPXAr3CqSghmoafa_00Gu6c&s"
+  }
+]
