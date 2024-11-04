@@ -27,3 +27,17 @@
 1. vue3: https://github.com/Panyue-genkiyo/vue3-learning
 2. vue2依据脚手架:https://github.com/Panyue-genkiyo/vue-advance
 3. vue基础不依赖脚手架:https://github.com/Panyue-genkiyo/vue-learning
+
+## React
+
+### 官方文档
+
+1. [React官网](https://zh-hans.react.dev/learn#)
+
+2. [bilibili学习地址](https://www.bilibili.com/video/BV1wy4y1D7JT/?vd_source=8fa24a57424dd09a051454dd9cdf118f)
+
+### 学习笔记
+
+1. [react](./doc/react.md)
+
+2. [react进阶](./doc/react进阶.md)
