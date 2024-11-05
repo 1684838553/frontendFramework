@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
 import Comment from './components/comment';
 import Home from './components/home';
 import Banner from './components/banner';
+import MyNavLink from './components/myNavLink';
 import { URL } from './config';
 
 function App() {
@@ -33,8 +34,9 @@ function App() {
         <div className="col-xs-2 col-xs-offset-2">
           <div className="list-group">
             { /** 在react中，靠编写路由链接实现切换组件 --- 编写路由链接 */}
-            <Link className="list-group-item" active-class="active" to="/home">Home</Link>
-            <Link className="list-group-item" active-class="active" to="/comment">comment</Link>
+            { /** NavLink 实现active高亮效果 */}
+            <MyNavLink to="/home">Home</MyNavLink>
+            <MyNavLink to="/comment">Comment</MyNavLink>
           </div>
         </div>
         <div className="col-xs-6">
