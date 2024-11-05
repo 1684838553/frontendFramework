@@ -80,3 +80,23 @@
             path: "/about"
             url: "/about"
         ```
+
+### 4. 解决二级路由样式丢失的问题
+
+1. public/css目录下有bootstrap.css样式
+
+2. 写路由时有多级路由
+
+    ```js
+    <MyNavLink to = "/a/about" >About</MyNavLink>
+
+    <Route path="/a/about"component={About}/>
+    ```
+
+3. 刷新页面时，样式因为路径问题加载失败，此时页面返回public下面的Index.html
+
+4. 解决方法
+
+    - 样式加载使用绝对位置  `<link rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.css">`
+    - 使用 `%PUBLIC_URL%`  `<link href="%PUBLIC_URL%/css/bootstrap.css" rel="stylesheet">`
+    - 使用`HashRouter`
