@@ -1,0 +1,32 @@
+.row {
+    display: flex;
+}
+
+.col-xs-2 {
+    width: 80px;
+    border: 1px solid #ededed;
+    border-radius: 3px;
+}
+
+.list-group-item {
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    color: #333;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+}
+
+.panel-body {
+    margin-left: 20px;
+}
+
+.list-group-item:not(:first-child) {
+    border-top: 1px solid #ededed;
+}
+
+.list-group-item.active {
+    background: #2B76B9;
+    color: #fff;
+}
