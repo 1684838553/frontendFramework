@@ -3,7 +3,7 @@
 }
 
 .col-xs-2 {
-    width: 80px;
+    width: 120px;
     border: 1px solid #ededed;
     border-radius: 3px;
 }
@@ -20,6 +20,7 @@
 
 .panel-body {
     margin-left: 20px;
+    padding: 24px;
 }
 
 .list-group-item:not(:first-child) {

@@ -1,0 +1,14 @@
+.col-xs-8 {
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+.page-header {
+    font-size: 20px;
+    line-height: 80px;
+    font-weight: 500;
+}
+
+button {
+  margin-left: 12px;
+}

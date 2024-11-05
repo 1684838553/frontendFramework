@@ -5,6 +5,7 @@ import './App.css';
 
 import Comment from './components/comment';
 import Home from './components/home';
+import Banner from './components/banner';
 import { URL } from './config';
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
   return (
     <div>
       <div>
-        {/* <Banner /> */}
+        { /** 一般组件 */}
+        <Banner />
       </div>
       <div className="row">
         <div className="col-xs-2 col-xs-offset-2">
@@ -41,6 +43,7 @@ function App() {
               { /** 路由注册 */}
               <Routes>
                 { /** exact 精确匹配 */}
+                { /** 路由组件：会收到路由器传到props的三个路由信息 */}
                 <Route path="/" element={<Home />} exact />
                 <Route path="/home" element={<Home />} exact />
                 <Route path="/comment" element={<Comment />} exact />

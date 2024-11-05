@@ -11,6 +11,7 @@
     - 明确好导航区和展示区
     - 导航区用`Link`标签
     - 展示区使用`Route`标签进行路径匹配
+    - `exact` 精确匹配
 
     ```js
     import { Link, Route, Routes } from 'react-router-dom';
@@ -43,4 +44,39 @@
         <App />
     </BrowserRouter>
     ```
-    
+
+### 3. 路由组件和一般组件
+
+1. 写法不同
+
+    - 一般组件：`<Demo/>`
+    - 路由组件：`<Route path="/demo" component={Demo}/>`
+
+2. 存放的位置不同
+
+    - 一般组件： `components`
+    - 路由组件： `pages`
+
+3. 接收到的`props`不同
+
+    - 一般组件：写组件标签时传递了什么，就能收到什么
+    - 路由组件: 接收到 3 个固定属性 `history` 、`location` 以及 `match`
+
+        ```js
+        // 重要属性
+        history:
+            go: ƒ go(n)
+            goBack: ƒ goBack()
+            goForward: ƒ goForward()
+            push: ƒ push(path, state)
+            replace: ƒ replace(path, state)
+        location:
+            pathname: "/about"
+            search: ""
+            state: undefined
+
+        match:
+            params: {}
+            path: "/about"
+            url: "/about"
+        ```
