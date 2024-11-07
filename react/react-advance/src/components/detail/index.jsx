@@ -1,22 +1,27 @@
 import React from 'react'
-import { useParams, useSearchParams, useLocation } from 'react-router-dom';
-import { getUser } from '../../config';
+import { useParams, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Detail() {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   // params参数
   const params = useParams();
   // search参数
   const detailId = searchParams.get('id');
   // state参数
-  const stateParams = useLocation()
-  console.log(stateParams, 'stateparams')
+  const { state } = useLocation()
+  console.log(state, 'stateparams')
 
   const updateSearch = () => {
     setSearchParams({
-      username: getUser().username,
+      ...state,
       id: detailId
+    })
+  }
+
+  const jump = () => {
+    navigate('/home/message', {
+      state
     })
   }
 
@@ -27,6 +32,9 @@ export default function Detail() {
       <div>详情ID:
         <div>params参数： {params.id}</div>
         <button onClick={updateSearch}>修改search参数</button>
+        <button onClick={() => navigate(1)}>前进一步</button>
+        <button onClick={() => navigate(-1)}>后退一步</button>
+        <button onClick={jump}>跳转</button>
       </div>
     </div>
   )

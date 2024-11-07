@@ -1,16 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { useLocation } from 'react-router-dom';
 
-export default class Message extends Component {
-  render() {
-    return (
-        <div className="message">
-            <div>这是Message组件</div>
-            {/* <ul>
-                <li>news001 <input type="text" /></li>
-                <li>news002 <input type="text" /></li>
-                <li>news003 <input type="text" /></li>
-            </ul> */}
-        </div>
-    )
-  }
+export default function Message() {
+  const { state } = useLocation();
+
+  return (
+    <div>
+      <div>{state.username}</div>
+      <div>{state.uid}</div>
+    </div>
+  )
 }

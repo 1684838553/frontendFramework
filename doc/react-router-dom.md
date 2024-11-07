@@ -147,3 +147,65 @@ import { useLocation } from 'react-router-dom';
 
 const stateParams = useLocation()
 ```
+
+### 6. 编程式导航
+
+#### 1. useNavigate
+
+```js
+import { useNavigate } from 'react-router-dom';
+const navigate = useNavigate();
+
+navigate('/home/message', {
+    state
+})
+
+navigate(1) // 前进
+navigate(-1) // 后退
+```
+
+#### 2. useInRouterContext
+
+如果组件在的上下文中呈现，则`useInRouterContext()`返回`true`，否则返回`false`。被`BrowserRouter`或`HashRouter`包裹住的就是在路由环境中
+
+```js
+import { useInRouterContext } from 'react-router-dom'
+
+console.log(useInRouterContext());
+```
+
+#### 3. useNavigationType
+
+返回当前导航类型（用户是如何来到当前页面的）
+
+返回值：POP、PUSH、REPLACE
+
+备注：POP是指在浏览器中直接打开这个路由组件（刷新页面）
+
+```js
+import { useNavigationType } from 'react-router-dom'
+
+const type = useNavigationType();
+```
+
+#### 4. useOutlet
+
+用来呈现当前组件中渲染的嵌套路由
+
+```js
+import { useOutlet } from 'react-router-dom'
+
+const childRoute = useOutlet();
+// 如果嵌套路由没有挂载，childRoute返回null
+// 如果嵌套路由已挂载，返回渲染的路由对象
+```
+
+#### 5. useResolvedPath
+
+给一个URL值，解析期中的path、search、hash
+
+```js
+import { useResolvedPath } from 'react-router-dom'
+
+useResolvedPath('/user?id=001&name=tom#qwe')
+```
