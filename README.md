@@ -44,6 +44,7 @@
 
 3. [react-router-dom](./doc/react-router-dom.md)
 
+4. [redux](./doc/react-redux.md)
 
 ### 其他
 
