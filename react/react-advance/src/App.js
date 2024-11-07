@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
@@ -7,6 +7,9 @@ import Comment from './components/comment';
 import Home from './components/home';
 import Banner from './components/banner';
 import MyNavLink from './components/myNavLink';
+import Message from './components/message';
+import News from './components/news';
+import Detail from './components/detail';
 import { URL } from './config';
 
 function App() {
@@ -45,9 +48,17 @@ function App() {
               { /** 路由注册 */}
               <Routes>
                 { /** exact 精确匹配 */}
-                { /** 路由组件：会收到路由器传到props的三个路由信息 */}
-                <Route path="/" element={<Home />} exact />
-                <Route path="/home" element={<Home />} exact />
+                { /** 路由组件：会收到路由器传到props的三个路由信息 Navigate代替重定向 */}
+                <Route path="/" element={<Navigate to="/home" replace />} />
+                { /** /home 后面有子路由，应该在路径后面加*，不能开启精确匹配 */}
+                <Route path="/home/*" element={<Home />} > 
+                  <Route path="" element={<Navigate to="/home/news" replace />} />
+                  <Route path="news" element={<News />}>
+                      <Route path=":id" element={<Detail />} />
+                  </Route>
+                  <Route path="message" element={<Message />} >
+                  </Route>
+                </Route>
                 <Route path="/comment" element={<Comment />} exact />
               </Routes>
             </div>

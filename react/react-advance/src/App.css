@@ -30,3 +30,8 @@
 .list-group-item:not(:first-child) {
     border-top: 1px solid #ededed;
 }
+
+ul {
+    list-style: none;
+    padding: 0;
+}
