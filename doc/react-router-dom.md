@@ -141,3 +141,9 @@ export default function Detail() {
 ```
 
 #### 3. state参数
+
+```js
+import { useLocation } from 'react-router-dom';
+
+const stateParams = useLocation()
+```

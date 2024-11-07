@@ -1,12 +1,17 @@
 import React from 'react'
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, useLocation } from 'react-router-dom';
 import { getUser } from '../../config';
 
 export default function Detail() {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // params参数
   const params = useParams();
+  // search参数
   const detailId = searchParams.get('id');
+  // state参数
+  const stateParams = useLocation()
+  console.log(stateParams, 'stateparams')
 
   const updateSearch = () => {
     setSearchParams({

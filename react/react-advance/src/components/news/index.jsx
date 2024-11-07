@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Outlet, Link } from 'react-router-dom';
-
-import MyNavLink from '../myNavLink';
+import { getUser } from '../../config';
 import { nanoid } from 'nanoid';
 
 export default class News extends Component {
@@ -34,7 +33,7 @@ export default class News extends Component {
                   newsList.map(item => {
                     return <li key={item.id}>
                       { /** 向路由组件传递params参数 */}
-                      <Link to={`/home/news/${item.id}?id=${item.id}`}>{item.content}</Link>
+                      <Link to={`/home/news/${item.id}?id=${item.id}`} state={{...getUser()}}>{item.content}</Link>
                     </li>
                   })
                 }
