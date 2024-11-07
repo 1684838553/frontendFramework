@@ -100,3 +100,20 @@
     - 样式加载使用绝对位置  `<link rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.css">`
     - 使用 `%PUBLIC_URL%`  `<link href="%PUBLIC_URL%/css/bootstrap.css" rel="stylesheet">`
     - 使用`HashRouter`
+
+
+### 5. 传递参数
+
+#### 1. params参数
+
+从`react-router-dom v6`版本开始，路由参数必须使用`函数组件`进行接收，类组件中无法通过`this.props`中接收路由组件传递的参数。
+
+```js
+import { useParams } from 'react-router-dom';
+
+const params = useParams();
+```
+
+#### 2. search参数
+
+#### 3. state参数
