@@ -116,4 +116,28 @@ const params = useParams();
 
 #### 2. search参数
 
+```js
+import { useSearchParams } from 'react-router-dom';
+
+export default function Detail() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const detailId = searchParams.get('id');
+
+  // 点击按钮，修改URL上的search参数
+  const updateSearch = () => {
+    setSearchParams({
+      username: username,
+      id: detailId
+    })
+  }
+
+  return (
+    <div>
+        <button onClick={updateSearch}>修改search参数</button>
+    </div>
+  )
+}
+```
+
 #### 3. state参数

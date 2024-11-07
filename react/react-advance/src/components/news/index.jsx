@@ -34,7 +34,7 @@ export default class News extends Component {
                   newsList.map(item => {
                     return <li key={item.id}>
                       { /** 向路由组件传递params参数 */}
-                      <Link to={`/home/news/${item.id}`}>{item.content}</Link>
+                      <Link to={`/home/news/${item.id}?id=${item.id}`}>{item.content}</Link>
                     </li>
                   })
                 }
