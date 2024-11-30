@@ -49,3 +49,7 @@
 ### 其他
 
 1. [React Router v6 完全指南](https://juejin.cn/post/7187199524903845946)
+
+## windows操作系统
+
+1. [windows操作系统](https://www.bilibili.com/video/BV1bS421R74D?spm_id_from=333.788.player.switch&vd_source=8fa24a57424dd09a051454dd9cdf118f)
