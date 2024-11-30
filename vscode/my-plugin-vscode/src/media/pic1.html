@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>江莹莹的自我介绍</title>
+</head>
+<body>
+    <div class="top-nav">
+        <ul class="nav">
+            <li>主页</li>
+            <li>我的博客</li>
+            <li>我的GitHub</li>
+        </ul>
+    </div>
+
+    <div class="enmu">
+        <span class="tip">自我介绍 &nbsp;> &nbsp;</span><span class="li-type">主页</span>
+    </div>
+
+    <div class="wrapper">
+        <div class="home">
+            <div class="baseInfo">
+                <div class="pic">
+                    <img src="./pic.jpg" alt="">
+                </div>
+                <div class="name">
+                    hi，大家好，我是江莹莹。
+                </div>
+            </div>
+
+            <div class="card-base">
+                <div class="title"><span>基本信息</span></div>
+                <div class="info">
+                    <div class="item">姓名：江莹莹</div>
+                    <div class="item">性别：女</div>
+                    <div class="item">年龄：23</div>
+                    <div class="item">籍贯：江西九江</div>
+                    <div class="item">手机号：15797861418</div>
+                    <div class="item">邮箱：1684838553@qq.com</div>
+                    <div class="item">个人爱好：动漫，美食</div>
+                </div>
+            </div>
+
+            <div class="educate">
+                <div class="education">
+                    教育经历
+                </div>
+                <div class="education-info">
+                    <div class="education-item">学校：江西理工大学</div>
+                    <div class="education-item">专业：软件工程</div>
+                </div>
+            </div>
+
+            <div class="card-base">
+                <div class="title"><span>我的家乡</span></div>
+                <h3 class="tip">美景</h3>
+                <div class="info">
+                    <div class="item info-item">
+                        <img src="./lushan.jpg" alt="">
+                        <div class="introduction">庐山</div>
+                    </div>
+                    <div class="item info-item">
+                        <img src="./donglinsi.jpg" alt="">
+                        <div class="introduction">东林寺</div>
+                    </div>
+                    <div class="item info-item">
+                        <img src="./bailutong.jpg" alt="">
+                        <div class="introduction">白鹿洞书院</div>
+                    </div>
+                    <div class="item info-item">
+                        <img src="./sandiequan.jpg" alt="">
+                        <div class="introduction">三叠泉</div>
+                    </div>
+                    
+                </div>
+                <h3 class="tip">美食</h3>
+                <div class="info">
+                    <div class="item info-item">
+                        <img src="./yunwucha.jpg" alt="">
+                        <div class="introduction">庐山云雾茶</div>
+                    </div>
+                    <div class="item info-item">
+                        <img src="./chabing.jpg" alt="">
+                        <div class="introduction">九江茶饼</div>
+                    </div>
+                    <div class="item info-item">
+                        <img src="./luobobing.jpg" alt="">
+                        <div class="introduction">萝卜饼</div>
+                    </div>
+                    <div class="item info-item">
+                        <img src="./domgmitang.jpg" alt="">
+                        <div class="introduction">冻米糖</div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+        <div class="blog">
+            我的博客
+        </div>
+        <div class="github">
+            我的GitHub
+        </div>
+    </div>
+    
+
+    <script>
+        const dom = document.querySelector('ul')
+        dom.addEventListener('click',function(e){
+            const type = e.target.innerHTML
+            document.querySelector('.li-type').innerHTML = type
+
+            const home = document.querySelector('.home')
+            const blog = document.querySelector('.blog')
+            const github = document.querySelector('.github')
+
+            
+            switch(type){
+                case '主页':{
+                    home.style.display = 'block'
+                    blog.style.display = 'none'
+                    github.style.display = 'none'
+                    break
+                }
+                case '我的博客':{
+                    home.style.display = 'none'
+                    blog.style.display = 'block'
+                    github.style.display = 'none'
+                    break
+                }
+                case '我的GitHub':{
+                    home.style.display = 'none'
+                    blog.style.display = 'none'
+                    github.style.display = 'block'
+                    break
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

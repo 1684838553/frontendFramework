@@ -1,0 +1,118 @@
+{
+  "name": "plugin-treeview",
+  "displayName": "plugin-treeView",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "plugin-treeview.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "plugin-treeview.statusBar",
+        "title": "statusBar"
+      },
+      {
+        "command": "pluginwelcome.showWelcome",
+        "title": "显示自定义欢迎页"
+      },
+      {
+        "command": "pluginwelcome.sayHello",
+        "title": "hello,前端艺术家"
+      },
+      {
+        "command": "pluginwelcome.showInputBox",
+        "title": "输入框"
+      },
+      {
+        "command": "pluginwelcome.dialog",
+        "title": "测试弹窗"
+      },
+      {
+        "command": "pluginwelcome.addStatusBar",
+        "title": "显示状态"
+      },
+      {
+        "command": "pluginwelcome.outputChannel",
+        "title": "输出面板"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Plugin Welcome",
+      "properties": {
+        "pluginWelcome.yourName": {
+          "type": "string",
+          "default": "前端艺术家",
+          "description": "你的名字"
+        },
+        "pluginWelcome.showTip": {
+          "type": "boolean",
+          "default": true,
+          "description": "启动时显示自定义欢迎页"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "treeView",
+          "title": "treeView",
+          "icon": "src/media/pic.svg"
+        }
+      ]
+    },
+    "views": {
+      "treeView": [
+        {
+          "id": "treeView-item",
+          "name": "item",
+          "when": ""
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.54.0",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "@vscode/test-electron": "^1.6.2",
+    "eslint": "^8.1.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.3",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.4",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "jquery": "^3.6.0",
+    "vue": "^2.5.17"
+  }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./welcome.css">
+    <title>欢迎页面</title>
+</head>
+<body>
+
+  <div id="app">
+    <h2>这是一个欢迎页面</h2>
+
+    <p class="alert alert-success" style="width: 300px;">{{userName}}，{{time}}好！</p>
+    {{username}}
+
+      
+    <form class="form-horizontal">
+      <div class="form-group">
+          <div class="col-sm-6">
+              <div class="checkbox">
+                  <label>
+                      <input type="checkbox" v-model="show" @click="toggleShowTip"> 启动时显示自定义欢迎页
+                  </label>
+              </div>
+          </div>
+      </div>
+    </form>
+  </div>
+
+
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../../node_modules/vue/dist/vue.js"></script>
+  <script src="../../src/view/welcome.js"></script>
+</body>
+</html>
