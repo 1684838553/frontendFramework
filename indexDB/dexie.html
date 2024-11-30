@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>indexedDb的使用demo</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+  </head>
+  <style>
+    .div1 {
+      overflow: hidden;
+    }
+    .content {
+      margin: auto;
+      float: left;
+      width: 400px;
+      height: 500px;
+      border: 1px solid #333;
+    }
+    .form {
+      width: calc(100% - 410px);
+      height: 500px;
+      float: right;
+      border: 1px solid burlywood;
+    }
+    .action {
+      margin-top: 30px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="action" id="action">
+      <button id="addData">新增</button>
+      <button id="update">修改</button>
+      <button id="delete">删除</button>
+      <button id="bulk-add">批量新增</button>
+      <button id="bulk-update">批量修改</button>
+      <button id="bulk-delete">批量删除</button>
+      <button id="read">查询</button>
+      <button id="clear">清空</button>
+    </div>
+    <div class="div1">
+      <div class="count"></div>
+      <div class="content"></div>
+      <div class="form">
+        <form>
+          ID：
+          <input type="text" name="id" id="id" value="" size="20" />
+          <br />
+          姓名：
+          <input type="text" name="name" id="name" value="" size="20" />
+          <br />
+          年龄：
+          <input type="text" name="age" id="age" value="" size="20" />
+          <br />
+          邮箱：
+          <input type="email" name="email" id="email" value="" size="20" />
+          <br />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      $(function () {
+        var request = new Dexie("gitcode");
+        request.version(1).stores({
+          person: "++id, name, age, email",
+        });
+
+        readAll();
+
+        $("#addData").click(() => addData());
+        $("#update").click(() => updateList());
+        $("#delete").click(() => remove());
+        $("#read").click(() => read());
+        $("#clear").click(() => clear());
+        $("#bulk-add").click(() => bulkAdd());
+        $("#bulk-update").click(() => bulkPut());
+        $("#bulk-delete").click(() => bulkDelete());
+
+        async function getCount() {
+          return await request.person.count();
+        }
+
+        // 批量增加 items是数组
+        async function bulkAdd() {
+          const name = $("#name").val();
+          const age = $("#age").val();
+          const email = $("#email").val();
+          const item = { name, age, email };
+          await request.person.bulkAdd([item, item]);
+          readAll();
+        }
+
+        async function bulkPut() {
+          const id = $("#id").val() || "";
+          const items = id.split(",").map((id) => {
+            return {
+              id: Number(id),
+              name: `drunk-${id}`,
+              age: 18,
+              email: "1111",
+            };
+          });
+          await request.person.bulkPut(items);
+          readAll();
+        }
+
+        async function bulkDelete() {
+          const id = $("#id").val() || "";
+          const ids = id.split(",").map((id) => Number(id));
+          await request.person.bulkDelete(ids);
+          readAll();
+        }
+
+        // 清空表中所有数据
+        async function clear() {
+          await request.person.clear();
+          readAll();
+        }
+
+        //查询表中数据
+        async function read() {
+          const id = $("#id").val();
+          const list = await request.person.get(Number(id));
+          $(".content").text(JSON.stringify(list));
+        }
+
+        //添加 tableName:string 表名 data:object 插入数据
+        function add(data) {
+          return request.person.add(data);
+        }
+
+        //遍历数据库所有数据
+        async function readAll() {
+          const lists = await request.person.where("id").above(0).toArray();
+          const count = await getCount();
+          $(".count").text(`一共有${count}条数据`);
+          $(".content").text(JSON.stringify(lists));
+        }
+
+        //修改
+        async function update(data) {
+          const id = await request.person.put(data);
+          readAll();
+        }
+
+        //删除
+        async function remove() {
+          const id = $("#id").val();
+          await request.person.delete(Number(id));
+          readAll();
+        }
+
+        function updateList() {
+          const id = $("#id").val();
+          const name = $("#name").val();
+          const age = $("#age").val();
+          const email = $("#email").val();
+          update({ id: Number(id), name, age, email });
+          readAll();
+        }
+
+        function addData() {
+          const name = $("#name").val();
+          const age = $("#age").val();
+          const email = $("#email").val();
+          add({ name, age, email });
+          readAll();
+        }
+      });
+    </script>
+  </body>
+</html>

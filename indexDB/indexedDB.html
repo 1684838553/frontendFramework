@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>indexedDb的使用demo</title>
+    <script
+      src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+  </head>
+  <style>
+    .div1 {
+      overflow: hidden;
+    }
+    .content {
+      margin: auto;
+      float: left;
+      width: 400px;
+      height: 600px;
+      border: 1px solid #333;
+    }
+    .form {
+      width: calc(100% - 410px);
+      height: 600px;
+      float: right;
+      border: 1px solid burlywood;
+    }
+    .action {
+      margin-top: 30px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div class="div1">
+      <div class="content"></div>
+      <div class="form">
+        <form>
+          姓名：
+          <input type="text" name="name" id="name" value="" size="20" />
+          <br />
+          年龄：
+          <input type="text" name="age" id="age" value="" size="20" />
+          <br />
+          邮箱：
+          <input type="email" name="email" id="email" value="" size="20" />
+          <br />
+          <button id="submit">提交</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="action" id="action">
+      <button id="addData">新增</button>
+      <button id="update1">修改第一条</button>
+      <button id="update2">修改第二条</button>
+      <button id="delete1">删除第一条</button>
+      <button id="delete2">删除第二条</button>
+      <button id="read1">查询第一条</button>
+      <button id="read2">查询第二条</button>
+    </div>
+    <script>
+      $(function () {
+        var data = [];
+        var request = window.indexedDB.open("test_db", 1);
+        var db;
+        request.onerror = function (event) {
+          console.log("数据库打开报错");
+        };
+        request.onsuccess = function (event) {
+          db = request.result;
+          console.log(db, "数据库打开成功");
+          //打开数据库后，查询person表中数据
+          readAll("person");
+        };
+        request.onupgradeneeded = function (event) {
+          db = event.target.result;
+          if (!db.objectStoreNames.contains("person")) {
+            objectStore = db.createObjectStore("person", {
+              keyPath: "id",
+              autoIncrement: true,
+            });
+          }
+          console.log(db, "数据库");
+        };
+
+        $("#submit").click(function (e) {
+          e.preventDefault();
+          var name = $("#name").val();
+          var age = $("#age").val();
+          var email = $("#email").val();
+          var id = data.length + 1;
+          console.log(`{id:${3},name:${name},age:${age},email:${email}}`);
+          add("person", { id: id, name: name, age: age, email: email });
+          readAll("person");
+        });
+
+        // $('#addData').click(function(){
+        //     add('person',{id: 1, name: '李四', age: 35, email: 'lisi@example.com'})
+        //     add('person',{id: 2, name: '李四', age: 35, email: 'lisi@example.com'})
+        //     readAll('person')
+        //     console.log(data,'data')
+        // })
+
+        $("#update1").click(function () {
+          update("person", {
+            id: 1,
+            name: "猫陛下",
+            age: 3,
+            email: "drunkcat@example.com",
+          });
+          readAll("person");
+        });
+
+        $("#update2").click(function () {
+          update("person", {
+            id: 2,
+            name: "撸猫",
+            age: 13,
+            email: "cat@example.com",
+          });
+          readAll("person");
+        });
+
+        $("#delete1").click(function () {
+          remove("person", 1);
+          readAll("person");
+        });
+
+        $("#delete2").click(function () {
+          remove("person", 2);
+          readAll("person");
+        });
+
+        $("#read1").click(function () {
+          read("person", 1);
+        });
+
+        $("#read2").click(function () {
+          read("person", 2);
+        });
+
+        //查询表中数据
+        function read(tableName, id) {
+          data = [];
+          var transaction = db.transaction([tableName]);
+          var objectStore = transaction.objectStore(tableName);
+          var request = objectStore.get(id);
+
+          request.onerror = function (event) {
+            console.log("事务失败");
+          };
+
+          request.onsuccess = function (event) {
+            if (request.result) {
+              data.push(request.result);
+              console.log(request.result, typeof request.result);
+              console.log("Name: " + request.result.name);
+              console.log("Age: " + request.result.age);
+              console.log("Email: " + request.result.email);
+              $(".content").text(JSON.stringify(data));
+            } else {
+              console.log("未获得数据记录");
+            }
+          };
+        }
+
+        //添加 tableName:string 表名 data:object 插入数据
+        function add(tableName, data) {
+          var request = db
+            .transaction([tableName], "readwrite")
+            .objectStore(tableName)
+            .add(data);
+
+          request.onsuccess = function (event) {
+            console.log("数据写入成功");
+          };
+
+          request.onerror = function (event) {
+            console.log("数据写入失败");
+          };
+        }
+
+        //遍历数据库所有数据
+        function readAll(tableName) {
+          data = [];
+          var objectStore = db.transaction(tableName).objectStore(tableName);
+          objectStore.openCursor().onsuccess = function (event) {
+            var cursor = event.target.result;
+            if (cursor) {
+              data.push(cursor.value);
+              console.log(cursor, typeof cursor);
+              console.log("Id: " + cursor.key);
+              console.log("Name: " + cursor.value.name);
+              console.log("Age: " + cursor.value.age);
+              console.log("Email: " + cursor.value.email);
+              cursor.continue();
+              $(".content").text(JSON.stringify(data));
+            } else {
+              console.log("没有更多数据了！");
+            }
+          };
+        }
+
+        //修改
+        function update(tableName, data) {
+          var request = db
+            .transaction([tableName], "readwrite")
+            .objectStore(tableName)
+            .put(data);
+
+          request.onsuccess = function (event) {
+            console.log("数据更新成功");
+          };
+
+          request.onerror = function (event) {
+            console.log("数据更新失败");
+          };
+        }
+
+        //删除
+        function remove(tableName, id) {
+          var request = db
+            .transaction([tableName], "readwrite")
+            .objectStore(tableName)
+            .delete(id);
+
+          request.onsuccess = function (event) {
+            console.log("数据删除成功");
+          };
+        }
+      });
+    </script>
+  </body>
+</html>
