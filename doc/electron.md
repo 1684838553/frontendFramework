@@ -59,30 +59,19 @@ npm start
 ![](./image/electron生命周期.PNG)
 
 ```js
-function createWindow () {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
-  })
+mainWindow.loadFile('index.html')
 
-  mainWindow.loadFile('index.html')
+mainWindow.webContents.on('did-finish-load', () => {
+  console.log('did-finish-load')
+})
 
-  mainWindow.webContents.on('did-finish-load', () => {
-    console.log('did-finish-load')
-  })
+mainWindow.webContents.on('dom-ready', () => {
+  console.log('dom-ready')
+})
 
-  mainWindow.webContents.on('dom-ready', () => {
-    console.log('dom-ready')
-  })
-
-  mainWindow.on('close', () => {
-    console.log('The window is closed')
-    mainWindow = null
-  })
-}
+mainWindow.on('close', () => {
+  console.log('The window is closed')
+})
 
 app.on('ready', createWindow)
 
@@ -97,6 +86,49 @@ app.on('will-quit', () => {
 app.on('window-all-closed', function () {
   console.log('window-all-closed')
 })
+```
 
+### 4. 主进程和渲染进程
 
+#### 1. 在渲染进程引入electron模块
+
+![](./image/electron新建窗口.PNG)
+
+1. 安装
+
+    `npm install --save @electron/remote`
+
+2. 主进程中引入和初始化
+
+```js
+/*
+@electron/remote/main 模块的主要作用是：
+
+1. 在主进程中暴露需要被渲染进程访问的变量和函数等对象，通常使用 remote 的 expose 方法来实现。
+
+2. 在渲染进程中使用 remote 模块获取主进程暴露的对象，在其上调用相应的方法或访问属性等。
+
+3. @electron/remote/main 模块会自动将从渲染进程传回的值转换成安全的序列化类型，在主进程中可以安全地进行操作，避免了出现安全问题。
+*/ 
+const remote = require("@electron/remote/main")
+
+/* 
+initialize 是 @electron/remote/main 模块的一个方法，用于初始化远程调用机制
+
+1. 设置远程调用的上下文信息，比如当前进程的 ID 和 WebContents 对象等。
+
+2. 创建远程对象的代理，通过代理对象实现远程调用。
+
+3. 为远程对象的所有方法和属性创建同名的本地方法和属性，以便让开发者在调用时更加自然。
+
+*/
+remote.initialize()
+
+remote.enable(mainWindow.webContents)
+```
+
+3. 渲染进程中引用
+
+```js
+const { BrowserWindow } = require("@electron/remote")
 ```
