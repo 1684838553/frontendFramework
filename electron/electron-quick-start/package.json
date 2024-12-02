@@ -1,0 +1,14 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "Hello Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "jdrunk",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^25.9.7"
+  }
+}
