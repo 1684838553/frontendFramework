@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self' https://www.electronjs.org; script-src 'self'; style-src 'self' 'unsafe-inline';">
+    content="default-src 'self' https://www.electronjs.org; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src data:">
   <link rel="stylesheet" href="./style.css">
   <title></title>
 </head>
@@ -18,6 +18,17 @@
     <button id="newWindow">新窗口</button>
     <button id="sonWindow">子窗口</button>
     <button id="addDialog">模态窗口</button>
+  </div>
+
+  <div class="module">
+    <input id="copy" type="text" placeholder="输入内容"> 
+    <button id="copyBtn">复制</button>
+    <br />
+    <input id="paste" type="text" placeholder="将内容粘贴到此"> 
+    <button id="pasteBtn">粘贴</button>
+    <br />
+    <button id="pasteImg">将图片拷贝至剪切板在粘贴到界面</button>
+    <div id="imageWapper"> </div>
   </div>
 
   <div class="module">

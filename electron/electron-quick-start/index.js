@@ -1,6 +1,6 @@
 // 渲染进程
 const { BrowserWindow, getCurrentWindow, Menu, MenuItem, dialog } = require("@electron/remote")
-const { ipcRenderer, clipboard, shell } = require('electron')
+const { ipcRenderer, clipboard, shell, nativeImage } = require('electron')
 const path = require('path')
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -225,5 +225,32 @@ window.addEventListener('DOMContentLoaded', () => {
     openFolder.addEventListener('click', async () => {
         console.log(path.resolve(__filename, '..', '..'), 'path.resolve(__filename)')
         shell.showItemInFolder(path.resolve(__filename, '..', '..'))
+    })
+
+    // 复制粘贴
+    const copyInput = document.querySelector('#copy');
+    const copyBtn = document.querySelector('#copyBtn');
+    copyBtn.addEventListener('click', async () => {
+       console.log(copyInput.value, 'copyInput.value')
+       clipboard.writeText(copyInput.value);
+    })
+    const paste = document.querySelector('#paste');
+    const pasteBtn = document.querySelector('#pasteBtn');
+    pasteBtn.addEventListener('click', () => {
+        paste.value = clipboard.readText()
+        copyInput.value = ''
+    })
+    const pasteImg = document.querySelector('#pasteImg');
+    pasteImg.addEventListener('click', () => {
+        // 将图片放置于剪切板当中的时候要求图片类型属于 nativeImage 实例
+        const image = nativeImage.createFromPath('media/a.png')
+        clipboard.writeImage(image);
+
+        // 将剪切板中的元素作为dom显示在界面上
+        const img = clipboard.readImage();
+        const imgDom = new Image();
+        imgDom.src = img.toDataURL();
+        const imageWapper = document.querySelector('#imageWapper');
+        imageWapper.append(imgDom)
     })
 })
