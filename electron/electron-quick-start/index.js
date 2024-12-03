@@ -1,5 +1,5 @@
 // 渲染进程
-const { BrowserWindow, getCurrentWindow, Menu, MenuItem } = require("@electron/remote")
+const { BrowserWindow, getCurrentWindow, Menu, MenuItem, dialog } = require("@electron/remote")
 const { ipcRenderer, clipboard } = require('electron')
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const minimize = document.querySelector('#minimize');
     const maximize = document.querySelector('#maximize');
     const close = document.querySelector('#close');
-    const dialog = document.querySelector('#addDialog');
+    const addDialog = document.querySelector('#addDialog');
     const sonWindow = document.querySelector('#sonWindow');
 
     // 最小化窗口
@@ -44,8 +44,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // 关闭窗口
     close.addEventListener('click', () => {
-        const dialog = document.querySelector('.wapper');
-        dialog.style.display = 'block';
+        const dialogWapper = document.querySelector('.wapper');
+        dialogWapper.style.display = 'block';
 
         const yesBtn = document.querySelector('#yes');
         const noBtn = document.querySelector('#no');
@@ -55,12 +55,12 @@ window.addEventListener('DOMContentLoaded', () => {
         })
 
         noBtn.addEventListener('click', () => {
-            dialog.style.display = 'none';
+            dialogWapper.style.display = 'none';
         })
     })
 
     // 模态窗口
-    dialog.addEventListener('click', () => {
+    addDialog.addEventListener('click', () => {
         let newWin = new BrowserWindow({
             // 父子窗口，自创要创建时，要传parent参数，指定父窗口
             parent: mainWindow,
@@ -172,5 +172,31 @@ window.addEventListener('DOMContentLoaded', () => {
         ipcRenderer.send('openWin2');
         // 打开窗口2之后保存数据
         localStorage.setItem('name', 'jdrunk');
+    })
+
+    // 弹窗
+    const showDialog = document.querySelector('#showDialog');
+    showDialog.addEventListener('click', async () => {
+        const { canceled, filePaths } = await dialog.showOpenDialog({
+            defaultPath: __dirname,
+            buttonLabel: '请选择',
+            title: 'jdrunk',
+            properties: ['openFile', 'openDirectory', 'multiSelections']
+        })
+
+        console.log(canceled, filePaths, 'result')
+    })
+    const showErrorDialog = document.querySelector('#showErrorDialog');
+    showErrorDialog.addEventListener('click', () => {
+        dialog.showErrorBox('error', '这是一条错误的信息')
+    })
+    const showMessageDialog = document.querySelector('#showMessageDialog');
+    showMessageDialog.addEventListener('click', async () => {
+        const result = await dialog.showMessageBox(mainWindow, {
+            message: '这是一个提示信息',
+            type: 'info',
+            buttons: ['确定', '关闭']
+        })
+        console.log(result)
     })
 })
