@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, globalShortcut } = require('electron')
 // 用于支持渲染进程与主进程之间的远程调用
 const remote = require("@electron/remote/main")
 
@@ -120,6 +120,18 @@ function createWindow() {
 remote.initialize();
 
 app.on('ready', createWindow)
+app.on('ready', () => {
+  // 快捷键注册
+  const result = globalShortcut.register('ctrl + 1', () => {
+    console.log('快捷键注册成功')
+  })
+
+  if(!result) {
+    console.log('快捷键注册失败')
+  }
+
+  console.log(globalShortcut.isRegistered('ctrl + 1'), '快捷键是否已经被注册')
+})
 
 app.on('before-quit', () => {
   console.log('before-quit')
@@ -127,6 +139,8 @@ app.on('before-quit', () => {
 
 app.on('will-quit', () => {
   console.log('will-quit')
+  globalShortcut.unregister('ctrl + 1')
+  globalShortcut.unregisterAll()
 })
 
 app.on('window-all-closed', function () {
