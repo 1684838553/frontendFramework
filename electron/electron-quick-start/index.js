@@ -1,6 +1,7 @@
 // 渲染进程
 const { BrowserWindow, getCurrentWindow, Menu, MenuItem, dialog } = require("@electron/remote")
-const { ipcRenderer, clipboard } = require('electron')
+const { ipcRenderer, clipboard, shell } = require('electron')
+const path = require('path')
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -198,5 +199,18 @@ window.addEventListener('DOMContentLoaded', () => {
             buttons: ['确定', '关闭']
         })
         console.log(result)
+    })
+
+    // shell和iframe
+    const openURL = document.querySelector('#openURL');
+    openURL.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const urlPath = openURL.getAttribute('href');
+        shell.openExternal(urlPath);
+    })
+    const openFolder = document.querySelector('#openFolder');
+    openFolder.addEventListener('click', async () => {
+        console.log(path.resolve(__filename, '..', '..'), 'path.resolve(__filename)')
+        shell.showItemInFolder(path.resolve(__filename, '..', '..'))
     })
 })

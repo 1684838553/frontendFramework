@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    content="default-src 'self' https://www.electronjs.org; script-src 'self'; style-src 'self' 'unsafe-inline';">
   <link rel="stylesheet" href="./style.css">
   <title></title>
 </head>
@@ -39,6 +39,13 @@
     <button id="showDialog">显示对话框</button>
     <button id="showErrorDialog">显示错误对话框</button>
     <button id="showMessageDialog">显示信息对话框</button>
+  </div>
+
+  <div class="module">
+    <a id="openURL" href="https://www.electronjs.org/zh/docs/latest/api/shell">打开URL</a>
+    <button id="openFolder">打开目录</button>
+    <br>
+    <iframe src="https://www.electronjs.org/zh/docs/latest/api/shell" frameborder="0" id="webview"></iframe>
   </div>
 
   <div class="wapper">
