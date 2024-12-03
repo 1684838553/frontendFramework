@@ -2,6 +2,9 @@ const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 // 用于支持渲染进程与主进程之间的远程调用
 const remote = require("@electron/remote/main")
 
+// 定义全局变量，存放属性
+let mainWinId = null;
+
 function createWindow() {
   let mainWindow = new BrowserWindow({
     width: 1200,
@@ -96,6 +99,7 @@ function createWindow() {
   })
 
   mainWindow.loadFile('media/index.html')
+  mainWinId = mainWindow.id;
   remote.enable(mainWindow.webContents)
 
   mainWindow.webContents.on('did-finish-load', () => {
@@ -142,5 +146,33 @@ ipcMain.on('msg', (ev, data) => {
 ipcMain.on('msg2', (ev, data) => {
   console.log(data)
   ev.returnValue = '这是一条来自主进程的同步消息'
+})
+
+// 接受其他进程发送的数据，然后进行后续操作
+ipcMain.on('openWin2', () => {
+  // 接受到渲染进程中按钮点击信息后完成窗口2的打开 
+  let subWin1 = new BrowserWindow({
+    width: 800,
+    height: 400,
+    // 父子窗口
+    parent: BrowserWindow.fromId(mainWinId),
+    icon: 'media/cat.ico',
+    title: "jdrunk",
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  })
+  subWin1.loadFile('media/newWin.html')
+  subWin1.on('close', () => {
+    subWin1 = null;
+  })
+})
+
+ipcMain.on('msgToMain', (ev, data) => {
+  console.log(data)
+  // 在将这个数据发给指定的渲染进程
+  const mainWin = BrowserWindow.fromId(mainWinId);
+  mainWin.webContents.send('mti', data)
 })
 

@@ -159,7 +159,18 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log(data)
     })
 
-     ipcRenderer.on('mtp', (ev, data) => {
+    ipcRenderer.on('mtp', (ev, data) => {
         console.log(data)
+    })
+
+    ipcRenderer.on('mti', (ev, data) => {
+        console.log(data)
+    })
+
+    const openWindow2 = document.querySelector('#openWindow2');
+    openWindow2.addEventListener('click', () => {
+        ipcRenderer.send('openWin2');
+        // 打开窗口2之后保存数据
+        localStorage.setItem('name', 'jdrunk');
     })
 })
