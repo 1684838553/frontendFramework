@@ -201,6 +201,19 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log(result)
     })
 
+    // 在系统桌面右下角弹出消息
+    const sendNotification = document.querySelector('#sendNotification');
+    sendNotification.addEventListener('click', () => {
+        const notification = new window.Notification('jdrunk', {
+            body: '这是一个通知消息',
+            icon: 'media/notification.png'
+        })
+
+        notification.addEventListener('click', () => {
+            console.log('点击了消息页卡')
+        })
+    })
+
     // shell和iframe
     const openURL = document.querySelector('#openURL');
     openURL.addEventListener('click', async (e) => {
