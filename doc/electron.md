@@ -132,3 +132,24 @@ remote.enable(mainWindow.webContents)
 ```js
 const { BrowserWindow } = require("@electron/remote")
 ```
+
+### 5. 前端设置Content-Security-Policy
+
+`Content-Security-Policy` 的实质就是白名单制度，开发者明确告诉客户端，**哪些外部资源可以加载和执行**，等同于提供白名单。它的实现和执行全部由浏览器完成，开发者只需提供配置。
+
+```html
+<meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' https://www.electronjs.org; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src data:">
+```
+
+1. 限制方式
+
+- `default-src`: 限制全局,默认所有都会使用这种规则
+- `script-src`: 限制JavaScript的源地址。
+- `style-src`: 限制层叠样式表文件源。
+- `img-src`: 限制图片和图标的源地址
+- ...
+
+2. 多个资源时,后面的会覆盖前面的
+
+    ![](./image/policy.PNG)
