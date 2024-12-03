@@ -63,6 +63,13 @@ function createWindow() {
       ]
     },
     {
+      label: '消息',
+      click() {
+        // 主进程给渲染进程发送消息
+        BrowserWindow.getFocusedWindow().webContents.send('mtp', '主进程主动给渲染进程发送消息')
+      }
+    },
+    {
       label: '开发者工具',
       click() {
         mainWindow.webContents.openDevTools();
@@ -123,5 +130,17 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+// 主进程接受来自渲染进程的异步消息
+ipcMain.on('msg', (ev, data) => {
+  console.log(data)
+  ev.sender.send('msgRe', '这是一条来自主进程的异步消息')
+})
+
+// 主进程接受来自渲染进程的同步消息
+ipcMain.on('msg2', (ev, data) => {
+  console.log(data)
+  ev.returnValue = '这是一条来自主进程的同步消息'
 })
 

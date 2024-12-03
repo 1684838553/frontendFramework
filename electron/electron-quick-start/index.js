@@ -137,4 +137,29 @@ window.addEventListener('DOMContentLoaded', () => {
         menu.append(menuHelp);
         Menu.setApplicationMenu(menu);
     })
+
+    // 渲染进程到主进程通信
+    const sendMessageSync = document.querySelector('#sendMessageSync');
+    const sendMessage = document.querySelector('#sendMessage');
+
+    // 采用异步API在渲染进程中给主进程发送消息
+    sendMessageSync.addEventListener('click', () => {
+        ipcRenderer.send('msg', '来自渲染进程的异步消息')
+    })
+
+    // 采用同步API在渲染进程中给主进程发送消息
+    sendMessage.addEventListener('click', () => {
+        const message = ipcRenderer.sendSync('msg2', '来自渲染进程的同步消息')
+        // message 是主进程返回的消息
+        console.log(message)
+    })
+
+    // 接受主进程发送的消息
+    ipcRenderer.on('msgRe', (ev, data) => {
+        console.log(data)
+    })
+
+     ipcRenderer.on('mtp', (ev, data) => {
+        console.log(data)
+    })
 })
