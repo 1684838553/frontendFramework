@@ -1,5 +1,6 @@
 // 渲染进程
-const { BrowserWindow, getCurrentWindow } = require("@electron/remote")
+const { BrowserWindow, getCurrentWindow, Menu, MenuItem } = require("@electron/remote")
+const { ipcRenderer, clipboard } = require('electron')
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -88,4 +89,52 @@ window.addEventListener('DOMContentLoaded', () => {
         })
     })
 
+    // 右键菜单（要创建由渲染器启动的菜单，通过 IPC 发送所需的信息到主过程，并让主过程代替渲染器显示菜单；也可以直接创建，不通过主进程）
+    window.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        ipcRenderer.send('show-context-menu');
+    })
+
+    // 主进程创建菜单后，点击菜单，在渲染进程监听这个事件
+    ipcRenderer.on('context-menu-command', (e, command) => {
+        console.log(e, command)
+        switch (command) {
+            case 'paste': {
+                const text = clipboard.readText()
+                console.log(text)
+                break;
+            }
+            case 'copy': {
+                clipboard.writeText('hello i am a bit of text!')
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    })
+
+    // 动态创建菜单
+    const menuCon = document.querySelector('#menuCon');
+    const addMenuItem = document.querySelector('#addMenuItem');
+    const addMenus = document.querySelector('#addMenus');
+    const menuItem = new Menu();
+
+    addMenuItem.addEventListener('click', () => {
+        const content = menuCon.value.trim();
+        if (content) {
+            menuItem.append(new MenuItem({ label: content }))
+            menuCon.value = ''
+        }
+    })
+
+    addMenus.addEventListener('click', () => {
+        const menuCustom = new MenuItem({ label: '自定义', submenu: menuItem });
+        const menuHelp = new MenuItem({ label: '帮助', role: 'help' });
+
+        const menu = new Menu();
+        menu.append(menuCustom);
+        menu.append(menuHelp);
+        Menu.setApplicationMenu(menu);
+    })
 })

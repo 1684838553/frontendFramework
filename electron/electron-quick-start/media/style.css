@@ -22,3 +22,17 @@
     padding: 22px;
     height: 100%;
 }
+
+.createMenu {
+    padding: 22px;
+    margin: 22px;
+    border: 1px solid #ededed;
+}
+
+input {
+    height: 28px;
+}
+
+button {
+    height: 32px;
+}
