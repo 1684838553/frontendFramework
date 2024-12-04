@@ -2076,14 +2076,15 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-browserslist@^4.6.0, browserslist@^4.6.2, browserslist@^4.6.3:
-  version "4.6.6"
-  resolved "https://registry.npm.taobao.org/browserslist/download/browserslist-4.6.6.tgz"
-  integrity sha1-bkv0Z83lILydvfN0fa+gNTHOxFM=
+browserslist@^4.24.2, browserslist@^4.6.0, browserslist@^4.6.2, browserslist@^4.6.3, "browserslist@>= 4.21.0":
+  version "4.24.2"
+  resolved "https://mirrors.tools.huawei.com/npm/browserslist/-/browserslist-4.24.2.tgz"
+  integrity sha512-ZIc+Q62revdMcqC6aChtW4jz3My3klmCO1fEmINZY/8J3EpBg5/A/D0AKmBveUh6pgoeycoMkVMko84tuYS+Gg==
   dependencies:
-    caniuse-lite "^1.0.30000984"
-    electron-to-chromium "^1.3.191"
-    node-releases "^1.1.25"
+    caniuse-lite "^1.0.30001669"
+    electron-to-chromium "^1.5.41"
+    node-releases "^2.0.18"
+    update-browserslist-db "^1.1.1"
 
 buffer-alloc-unsafe@^1.1.0:
   version "1.1.0"
@@ -2250,10 +2251,10 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   resolved "https://registry.npm.taobao.org/camelcase/download/camelcase-5.3.1.tgz"
   integrity sha1-48mzFWnhBoEd8kL3FXJaH0xJQyA=
 
-caniuse-lite@^1.0.30000980, caniuse-lite@^1.0.30000984:
-  version "1.0.30000988"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000988.tgz?cache=0&sync_timestamp=1564543969779&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30000988.tgz"
-  integrity sha1-dC817BuLdblijXBddlLuof75g9s=
+caniuse-lite@^1.0.30000980, caniuse-lite@^1.0.30001669, caniuse-lite@^1.0.30001686:
+  version "1.0.30001686"
+  resolved "https://mirrors.tools.huawei.com/npm/caniuse-lite/-/caniuse-lite-1.0.30001686.tgz"
+  integrity sha512-Y7deg0Aergpa24M3qLC5xjNklnKnhsmSyR/V89dLZ1n0ucJIFNs7PgR2Yfa/Zf6W79SbBicgtGxZr2juHkEUIA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -3376,10 +3377,10 @@ electron-squirrel-startup@^1.0.0:
   dependencies:
     debug "^2.2.0"
 
-electron-to-chromium@^1.3.191:
-  version "1.3.211"
-  resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.211.tgz?cache=0&sync_timestamp=1564718653486&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.211.tgz"
-  integrity sha1-DDnRcxa/NC0Zcf7WjnVPoXdZGPc=
+electron-to-chromium@^1.5.41:
+  version "1.5.68"
+  resolved "https://mirrors.tools.huawei.com/npm/electron-to-chromium/-/electron-to-chromium-1.5.68.tgz"
+  integrity sha512-FgMdJlma0OzUYlbrtZ4AeXjKxKPk6KT8WOP8BjcqxWtlg8qyJQjRzPJzUtUn5GBg1oQ26hFs7HOOHJMYiJRnvQ==
 
 electron-winstaller@^3.0.4:
   version "3.0.4"
@@ -3541,6 +3542,11 @@ es-to-primitive@^1.2.0:
     is-callable "^1.1.4"
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
+
+escalade@^3.2.0:
+  version "3.2.0"
+  resolved "https://mirrors.tools.huawei.com/npm/escalade/-/escalade-3.2.0.tgz"
+  integrity sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==
 
 escape-html@~1.0.3:
   version "1.0.3"
@@ -6373,12 +6379,10 @@ node-loader@^0.6.0:
   resolved "https://registry.npm.taobao.org/node-loader/download/node-loader-0.6.0.tgz"
   integrity sha1-x5fvUQle1YWZArFX9jhPY2HgWug=
 
-node-releases@^1.1.25:
-  version "1.1.26"
-  resolved "https://registry.npm.taobao.org/node-releases/download/node-releases-1.1.26.tgz"
-  integrity sha1-8wVj7cXH3CDPUkzIZS/6e+B2KTc=
-  dependencies:
-    semver "^5.3.0"
+node-releases@^2.0.18:
+  version "2.0.18"
+  resolved "https://mirrors.tools.huawei.com/npm/node-releases/-/node-releases-2.0.18.tgz"
+  integrity sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==
 
 "nopt@2 || 3":
   version "3.0.6"
@@ -6959,6 +6963,11 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/performance-now/download/performance-now-2.1.0.tgz"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
+
+picocolors@^1.1.0:
+  version "1.1.1"
+  resolved "https://mirrors.tools.huawei.com/npm/picocolors/-/picocolors-1.1.1.tgz"
+  integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
 
 picomatch@^2.0.4, picomatch@^2.0.5, picomatch@^2.2.1:
   version "2.3.1"
@@ -9683,6 +9692,14 @@ upath@^1.1.1:
   version "1.1.2"
   resolved "https://registry.npm.taobao.org/upath/download/upath-1.1.2.tgz"
   integrity sha1-PbZYYA7a7sy+bbXmhNZ+6MKs0Gg=
+
+update-browserslist-db@^1.1.1:
+  version "1.1.1"
+  resolved "https://mirrors.tools.huawei.com/npm/update-browserslist-db/-/update-browserslist-db-1.1.1.tgz"
+  integrity sha512-R8UzCaa9Az+38REPiJ1tXlImTJXlVfgHZsglwBD/k6nj76ctsH1E3q4doGrukiLQd3sGQYu56r5+lo5r94l29A==
+  dependencies:
+    escalade "^3.2.0"
+    picocolors "^1.1.0"
 
 upper-case@^1.1.1:
   version "1.1.3"

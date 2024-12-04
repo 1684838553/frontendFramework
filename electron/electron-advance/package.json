@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-typescript-starter",
-  "productName": "electron-react-typescript-starter",
+  "name": "git-it",
+  "productName": "git-it",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "My Git Client",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -16,17 +16,7 @@
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint src --ext [.js,.jsx,.ts,.tsx]"
   },
-  "keywords": [],
-  "author": {
-    "name": "gaoac",
-    "email": "gaoancun@qq.com"
-  },
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx,json}": [
       "node ./scripts/lint-prettier.js",
@@ -82,6 +72,8 @@
   },
   "dependencies": {
     "antd": "^3.21.4",
+    "browserslist": "^4.24.2",
+    "caniuse-lite": "^1.0.30001686",
     "dva": "^2.4.1",
     "dva-loading": "^3.0.12",
     "electron-squirrel-startup": "^1.0.0",
