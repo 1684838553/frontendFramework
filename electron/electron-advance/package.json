@@ -87,12 +87,12 @@
     "umi-request": "^1.2.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
+    "@babel/core": "7.26.0",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.3.3",
+    "@babel/preset-env": "7.26.0",
+    "@babel/preset-react": "7.25.9",
+    "@babel/preset-typescript": "7.26.0",
     "@electron-forge/cli": "7.6.0",
     "@electron-forge/maker-deb": "7.6.0",
     "@electron-forge/maker-rpm": "7.6.0",
@@ -134,6 +134,6 @@
     "stylelint-config-prettier": "^5.2.0",
     "stylelint-config-standard": "^18.3.0",
     "ts-loader": "^6.0.4",
-    "typescript": "^3.5.3"
+    "typescript": "5.7.2"
   }
 }
