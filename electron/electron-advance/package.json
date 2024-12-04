@@ -1,0 +1,144 @@
+{
+  "name": "electron-react-typescript-starter",
+  "productName": "electron-react-typescript-starter",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".webpack/main",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint:style": "stylelint \"src/**/*.less\" --syntax less",
+    "lint:style:fix": "stylelint \"src/**/*.less\" --syntax less --fix",
+    "lint": "eslint src --ext [.js,.jsx,.ts,.tsx] && npm run lint:style ",
+    "lint:fix": "eslint src --fix --ext [.js,.jsx,.ts,.tsx] && npm run lint:style:fix ",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint src --ext [.js,.jsx,.ts,.tsx]"
+  },
+  "keywords": [],
+  "author": {
+    "name": "gaoac",
+    "email": "gaoancun@qq.com"
+  },
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx,json}": [
+      "node ./scripts/lint-prettier.js",
+      "git add"
+    ],
+    "**/*.{js,ts,jsx,tsx,}": "npm run lint-staged:js",
+    "**/*.less": "stylelint --syntax less"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_react_typescript_starter"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./public/index.html",
+                  "js": "./src/renderer/renderer.ts",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
+  },
+  "dependencies": {
+    "antd": "^3.21.4",
+    "dva": "^2.4.1",
+    "dva-loading": "^3.0.12",
+    "electron-squirrel-startup": "^1.0.0",
+    "history": "^4.9.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-hot-loader": "^4.12.10",
+    "umi-request": "^1.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@electron-forge/cli": "6.0.0-beta.43",
+    "@electron-forge/maker-deb": "6.0.0-beta.43",
+    "@electron-forge/maker-rpm": "6.0.0-beta.43",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.43",
+    "@electron-forge/maker-zip": "6.0.0-beta.43",
+    "@electron-forge/plugin-webpack": "6.0.0-beta.43",
+    "@hot-loader/react-dom": "^16.8.6",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/node": "^12.6.9",
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-import": "^1.12.0",
+    "css-loader": "^3.0.0",
+    "electron": "^6.0.0",
+    "electron-devtools-installer": "^2.2.4",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "file-loader": "^4.1.0",
+    "husky": "^3.0.2",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "lint-staged": "^9.2.1",
+    "node-loader": "^0.6.0",
+    "prettier": "^1.18.2",
+    "style-loader": "^0.23.1",
+    "stylelint": "^10.1.0",
+    "stylelint-config-prettier": "^5.2.0",
+    "stylelint-config-standard": "^18.3.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3"
+  }
+}
