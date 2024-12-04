@@ -27,7 +27,10 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "name": "git-it",
+        "icon": "public/favicon"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
@@ -51,9 +54,9 @@
         }
       ],
       "plugins": [
-        [
-          "@electron-forge/plugin-webpack",
-          {
+        {
+          "name": "@electron-forge/plugin-webpack",
+          "config": {
             "mainConfig": "./webpack.main.config.js",
             "renderer": {
               "config": "./webpack.renderer.config.js",
@@ -66,7 +69,7 @@
               ]
             }
           }
-        ]
+        }
       ]
     }
   },
@@ -90,12 +93,12 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
-    "@electron-forge/cli": "6.0.0-beta.43",
-    "@electron-forge/maker-deb": "6.0.0-beta.43",
-    "@electron-forge/maker-rpm": "6.0.0-beta.43",
-    "@electron-forge/maker-squirrel": "6.0.0-beta.43",
-    "@electron-forge/maker-zip": "6.0.0-beta.43",
-    "@electron-forge/plugin-webpack": "6.0.0-beta.43",
+    "@electron-forge/cli": "7.6.0",
+    "@electron-forge/maker-deb": "7.6.0",
+    "@electron-forge/maker-rpm": "7.6.0",
+    "@electron-forge/maker-squirrel": "7.6.0",
+    "@electron-forge/maker-zip": "7.6.0",
+    "@electron-forge/plugin-webpack": "7.6.0",
     "@hot-loader/react-dom": "^16.8.6",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "@types/electron-devtools-installer": "^2.2.0",
