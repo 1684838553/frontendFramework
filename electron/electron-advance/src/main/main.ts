@@ -19,13 +19,17 @@ const createWindow = (): void => {
   // @ts-ignore
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  const menus = getMenus(app, mainWindow);
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
+  // registerMenu(mainWindow);
 
   mainWindow.on('closed', (): void => {
     mainWindow = null;
   });
 };
+
+function registerMenu(mainWindow: BrowserWindow) {
+  const menus = getMenus(app, mainWindow);
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
+}
 
 app.on('ready', (): void => {
   createWindow();

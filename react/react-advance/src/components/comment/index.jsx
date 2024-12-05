@@ -69,7 +69,7 @@ export default function Comment() {
                 </div>
             </div>
             <div className="comment-box">
-                <div className="user-avatar" style={{ backgroundImage: `url(${user.avatar})` }}></div>
+                <div className="user-avatar" style={{ backgroundImage: `url(${user && user.avatar})` }}></div>
                 <div className="comment-area">
                     <textarea rows={1} ref={inputRef} type="text" placeholder='发一条友善的评论' value={content} onChange={e => setContent(e.target.value)} />
                     <button onClick={handlerPublish}>发布</button>
