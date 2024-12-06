@@ -19,7 +19,7 @@ const createWindow = (): void => {
   // @ts-ignore
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // registerMenu(mainWindow);
+  registerMenu(mainWindow);
 
   mainWindow.on('closed', (): void => {
     mainWindow = null;

@@ -1,19 +1,22 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { Route, Switch, NavLink } from 'dva/router';
-import { Button } from 'antd';
+import { Route, Switch } from 'dva/router';
 import Git from '@/components/Git/git';
 import About from '@/components/Git/about';
-import '@/renderer/IndexPage.less';
+import SiderBar from '@/routes/SiderBar';
+
+import 'antd/dist/antd.css';
+import '@/routes/routes.less';
 
 const App: React.FC = (): React.ReactElement => (
-  <div className="app">
-    <div className="app-sider">
-      <NavLink to="/aboutGit">关于Git</NavLink>
+  <div className="index-page">
+    <div className="index-page-sider">
+      <SiderBar />
+      {/* <NavLink to="/aboutGit">关于Git</NavLink>
       <NavLink to="/repository">仓库</NavLink>
-      <Button type="primary">Text</Button>
+      <Button type="primary">Text</Button> */}
     </div>
-    <div className="app-main">
+    <div className="index-page-main">
       <Switch>
         <Route path="/aboutGit" component={Git} />
         <Route path="/repository" component={About} />
