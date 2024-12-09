@@ -223,7 +223,6 @@ window.addEventListener('DOMContentLoaded', () => {
     })
     const openFolder = document.querySelector('#openFolder');
     openFolder.addEventListener('click', async () => {
-        console.log(path.resolve(__filename, '..', '..'), 'path.resolve(__filename)')
         shell.showItemInFolder(path.resolve(__filename, '..', '..'))
     })
 

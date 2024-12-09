@@ -14,6 +14,11 @@ const createWindow = (): void => {
     height: 800,
     title: '',
     icon: path.join(__dirname, '../../public/favicon.png'),
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false
+    }
   });
 
   // @ts-ignore

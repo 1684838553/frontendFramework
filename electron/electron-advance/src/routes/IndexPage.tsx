@@ -1,13 +1,12 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { Route, Switch } from 'dva/router';
-import Git from '@/components/Git/git';
-import About from '@/components/Git/about';
+import { connect } from 'dva';
 import SiderBar from '@/routes/SiderBar';
+import { routes } from '@/models/routes';
 
 import 'antd/dist/antd.css';
 import '@/routes/routes.less';
-import { connect } from 'dva';
 
 const App: React.FC = (): React.ReactElement => (
   <div className="index-page">
@@ -16,8 +15,11 @@ const App: React.FC = (): React.ReactElement => (
     </div>
     <div className="index-page-main">
       <Switch>
-        <Route path="/aboutGit" component={Git} />
-        <Route path="/repository" component={About} />
+        {
+          routes.map(item => {
+            return <Route path={item.key} key={item.key} component={item.component} />
+          })
+        }
       </Switch>
     </div>
   </div>

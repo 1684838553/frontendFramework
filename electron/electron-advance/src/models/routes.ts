@@ -1,13 +1,15 @@
-// 二级菜单
+import AboutGit from '@/components/Git/git';
+import About from '@/components/Git/about';
+
 export const routes = [
   {
     key: '/aboutGit',
     label: '关于Git',
-    component: import('@/components/Git/git'),
+    component: AboutGit
   },
   {
     key: '/repository',
     label: '仓库',
-    component: import('@/components/Git/about'),
+    component: About
   },
 ];

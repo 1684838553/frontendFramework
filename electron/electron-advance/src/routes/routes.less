@@ -8,11 +8,73 @@
 
     .index-page-main {
         flex-grow: 1;
+        padding: 0 22px;
     }
 }
 
 .sider-bar {
     height: 100%;
     border-right: 1px solid #ededed;
-    margin-right: 22px;
+}
+
+.chal-step,
+.chal-goal {
+    box-sizing: border-box;
+    margin: 18px 0 34px 0;
+    padding: 18px;
+    border: 1px solid #BADFFF;
+    border-radius: 2px;
+}
+
+.chal-step::before {
+    content: "Step";
+}
+
+.chal-goal::before {
+    content: "Goal";
+}
+
+.chal-step::before,
+.chal-goal::before {
+    color: #0087ff;
+    margin: -32px -8px 0;
+    float: left;
+    background: #fff;
+    padding: 0 8px;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.chal-background {
+    border-radius: 2px;
+    padding: 24px;
+    margin-bottom: 34px;
+    color: #4F6375;
+    background: rgba(136, 204, 255, 0.18);
+}
+
+.chal-step h3 {
+    font-size: 1.7em;
+    margin: 20px 0;
+}
+
+.chal-step p {
+    margin: 17px 0;
+    font-size: 1.25em;
+    line-height: 2em;
+}
+
+.chal-step code {
+    padding: 6px 6px 3px 6px;
+    white-space: nowrap;
+    background: rgba(136, 204, 255, 0.15);
+    color: #4F6375;
+    border-radius: 2px;
+    line-height: 2em;
+    font-family: 'Liberation Mono', Monaco, Courier New, monospace;
+}
+
+.chal-step code::before {
+    content: "$ ";
+    opacity: 0.4;
 }
