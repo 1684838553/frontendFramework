@@ -7,14 +7,12 @@ import SiderBar from '@/routes/SiderBar';
 
 import 'antd/dist/antd.css';
 import '@/routes/routes.less';
+import { connect } from 'dva';
 
 const App: React.FC = (): React.ReactElement => (
   <div className="index-page">
     <div className="index-page-sider">
       <SiderBar />
-      {/* <NavLink to="/aboutGit">关于Git</NavLink>
-      <NavLink to="/repository">仓库</NavLink>
-      <Button type="primary">Text</Button> */}
     </div>
     <div className="index-page-main">
       <Switch>
@@ -25,4 +23,4 @@ const App: React.FC = (): React.ReactElement => (
   </div>
 );
 
-export default hot(module)(App);
+export default hot(module)(connect()(App));
