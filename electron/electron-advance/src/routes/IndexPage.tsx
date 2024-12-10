@@ -15,11 +15,9 @@ const App: React.FC = (): React.ReactElement => (
     </div>
     <div className="index-page-main">
       <Switch>
-        {
-          routes.map(item => {
-            return <Route path={item.key} key={item.key} component={item.component} />
-          })
-        }
+        {routes.map(item => {
+          return <Route path={item.key} key={item.key} component={item.component} />;
+        })}
       </Switch>
     </div>
   </div>

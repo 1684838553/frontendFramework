@@ -6,27 +6,27 @@ import { CommonComponent } from '@/components/Common/common';
 
 function AboutGit(props: IAboutGitProps & { dispatch: any }): React.ReactElement {
   const { tips, steps } = props;
-  return <div className='about-git'>
-    <div className='chal-background'> {tips} </div>
-    <div className='chal-step'> 
-      {
-        steps.map((item, index) => {
-          return <CommonComponent step={item} key={index}/>
-        })
-      }
+  return (
+    <div className="about-git">
+      <div className="chal-background"> {tips} </div>
+      <div className="chal-step">
+        {steps.map((item, index) => {
+          return <CommonComponent step={item} key={index} />;
+        })}
+      </div>
     </div>
-  </div>;
+  );
 }
 
 interface IAboutGitProps {
-  tips: string; 
+  tips: string;
   steps: ISteps;
 }
 
 const mapStateToProps = (state: { aboutGit: IAboutGitProps }) => {
   const { tips, steps } = state.aboutGit;
 
-  return { tips, steps }
-}
+  return { tips, steps };
+};
 
 export default connect(mapStateToProps)(AboutGit);

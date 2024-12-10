@@ -5,11 +5,11 @@ export const routes = [
   {
     key: '/aboutGit',
     label: '关于Git',
-    component: AboutGit
+    component: AboutGit,
   },
   {
     key: '/repository',
     label: '仓库',
-    component: About
+    component: About,
   },
 ];

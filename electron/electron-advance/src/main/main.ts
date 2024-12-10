@@ -1,10 +1,6 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
-import { getMenus } from './menu/menu';
-
-if (require('electron-squirrel-startup')) {
-  app.quit();
-}
+import getMenus from './menu/menu';
 
 let mainWindow: null | BrowserWindow;
 
@@ -17,24 +13,21 @@ const createWindow = (): void => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
-      contextIsolation: false
-    }
+      contextIsolation: false,
+    },
   });
 
   // @ts-ignore
+  // eslint-disable-next-line no-undef
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  registerMenu(mainWindow);
+  const menus = getMenus(app, mainWindow);
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
 
   mainWindow.on('closed', (): void => {
     mainWindow = null;
   });
 };
-
-function registerMenu(mainWindow: BrowserWindow) {
-  const menus = getMenus(app, mainWindow);
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
-}
 
 app.on('ready', (): void => {
   createWindow();

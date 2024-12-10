@@ -1,4 +1,4 @@
-import dva, { DvaInstance } from 'dva';
+import dva from 'dva';
 import { createHashHistory } from 'history';
 import createLoading from 'dva-loading';
 

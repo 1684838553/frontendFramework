@@ -7,8 +7,8 @@ module.exports = {
     __dirname: true,
   },
   resolve: {
-    extensions: ['.ts', '.js'],
-    modules: [path.resolve(__dirname, 'src/main'), 'node_modules'],
+  extensions: ['.ts', '.js'],
+  modules: [path.resolve(__dirname, 'src/main'), 'node_modules'],
   },
   module: {
     rules,

@@ -2,6 +2,7 @@
   "name": "git-it",
   "productName": "git-it",
   "version": "1.0.0",
+  "authors": "jdrunk",
   "description": "My Git Client",
   "main": ".webpack/main",
   "scripts": {
@@ -27,15 +28,12 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {
-        "name": "git-it",
-        "icon": "public/favicon"
-      },
+      "packagerConfig": { },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "electron_react_typescript_starter"
+            "name": "git-it"
           }
         },
         {
@@ -79,6 +77,7 @@
     "caniuse-lite": "^1.0.30001686",
     "dva": "^2.4.1",
     "dva-loading": "^3.0.12",
+    "electron": "25.9.7",
     "electron-squirrel-startup": "^1.0.0",
     "history": "^4.9.0",
     "react": "^16.8.6",
@@ -111,7 +110,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.0",
     "css-loader": "^3.0.0",
-    "electron": "^6.0.0",
+    "electron": "25.9.7",
     "electron-devtools-installer": "^2.2.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
@@ -134,6 +133,6 @@
     "stylelint-config-prettier": "^5.2.0",
     "stylelint-config-standard": "^18.3.0",
     "ts-loader": "^6.0.4",
-    "typescript": "5.7.2"
+    "typescript": "3.5.3"
   }
 }

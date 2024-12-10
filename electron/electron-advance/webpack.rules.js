@@ -1,5 +1,4 @@
 module.exports = [
-  // Add support for native node modules
   {
     test: /\.node$/,
     use: 'node-loader',
@@ -46,9 +45,6 @@ module.exports = [
       {
         loader: 'less-loader',
         options: {
-          modifyVars: {
-            'primary-color': '#1DA57A',
-          },
           javascriptEnabled: true,
         },
       },
