@@ -41,21 +41,40 @@ export default {
         content: 'git config --global user.email " "',
       },
     ],
+    multiUserTips:
+      '在某些场景下，需要在同一台电脑上面同时配置Git的工作账号和私人账号,在这个场景下，请按照以下步骤来配置。',
+    multiUserSteps: [
+      {
+        type: 'h3',
+        content: '同时配置多个Git账号',
+      },
+      {
+        type: 'p',
+        content: '创建一个目录，在这个目录里面创建一个.my-gitconfig文件：',
+      },
+      {
+        type: 'p',
+        content: '首先这个文件里面配置用户名和邮箱；',
+      },
+      {
+        type: 'p',
+        content: '其次，在全局配置的.gitconfig文件中，配置includeif：',
+      },
+      {
+        type: 'code',
+        content: "[includeif 'gitdir:~/project/personal']",
+      },
+      {
+        type: 'code',
+        content: 'path = ~/.my-gitconfig',
+      },
+      {
+        type: 'p',
+        content: '配置好之后，在/project/personal目录下提交代码时，commit用户名和邮箱是在.my-gitconfig文件中配置的。',
+      },
+    ],
   },
-  subscriptions: {
-    // setup({ dispatch, history }) {
-    //   // eslint-disable-line
-    // },
-  },
-  effects: {
-    // *fetch({ payload }, { call, put }) {
-    //   // eslint-disable-line
-    //   yield put({ type: 'save' });
-    // },
-  },
-  reducers: {
-    // save(state, action) {
-    //   return { ...state, ...action.payload };
-    // },
-  },
+  subscriptions: {},
+  effects: {},
+  reducers: {},
 };

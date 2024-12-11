@@ -11,7 +11,7 @@ const SiderBar = (props: RouteComponentProps): React.ReactElement => {
 
   return (
     <div className="sider-bar">
-      <Menu onClick={toogleRoute} defaultSelectedKeys={['/aboutGit']} items={routes} />
+      <Menu style={{ width: 180 }} onClick={toogleRoute} defaultSelectedKeys={['/aboutGit']} items={routes} />
     </div>
   );
 };

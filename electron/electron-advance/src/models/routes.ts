@@ -1,4 +1,4 @@
-import AboutGit from '@/components/Git/git';
+import AboutGit from '@/components/Git/aboutGit';
 import About from '@/components/Git/about';
 
 export const routes = [

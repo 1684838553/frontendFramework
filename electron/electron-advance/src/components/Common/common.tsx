@@ -20,7 +20,11 @@ export function CommonComponent(props: { step: IStep }): React.ReactElement {
       return <p>{step.content}</p>;
     }
     case 'code': {
-      return <code>{step.content}</code>;
+      return (
+        <p>
+          <code>{step.content}</code>
+        </p>
+      );
     }
     case 'a': {
       return (
