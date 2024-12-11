@@ -1,8 +1,9 @@
 import React from 'react';
+import { message } from 'antd';
 import { IStep } from '@/components/Common/interface';
 // 在渲染进程中引入electron
 const electron = window.require('electron');
-const { shell } = electron;
+const { shell, clipboard } = electron;
 
 export function CommonComponent(props: { step: IStep }): React.ReactElement {
   const { step } = props;
@@ -10,6 +11,11 @@ export function CommonComponent(props: { step: IStep }): React.ReactElement {
   const handlerAClick = (e: any, href: string) => {
     e.preventDefault();
     shell.openExternal(href);
+  };
+
+  const handlerCodeClick = (content: string) => {
+    clipboard.writeText(content);
+    message.success('复制成功');
   };
 
   switch (step.type) {
@@ -21,16 +27,16 @@ export function CommonComponent(props: { step: IStep }): React.ReactElement {
     }
     case 'code': {
       return (
-        <p>
+        <div className="code-snippets" onClick={() => handlerCodeClick(step.content)}>
           <code>{step.content}</code>
-        </p>
+        </div>
       );
     }
     case 'a': {
       return (
-        <p>
+        <div>
           <a onClick={e => handlerAClick(e, step.href!)}>{step.content}</a>
-        </p>
+        </div>
       );
     }
     default: {

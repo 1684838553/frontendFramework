@@ -23,7 +23,7 @@ module.exports = {
       'error',
       {
         printWidth: 120,
-        "endOfLine": "auto"
+        endOfLine: "auto"
       }
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'ts', 'tsx'] }],
