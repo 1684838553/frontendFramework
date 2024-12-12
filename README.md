@@ -6,6 +6,8 @@
 
 2. [electron学习笔记](./doc/electron.md)
 
+3. [electron进阶](./doc/electron-advance.md)
+
 ## Vue
 
 ### 官方文档
