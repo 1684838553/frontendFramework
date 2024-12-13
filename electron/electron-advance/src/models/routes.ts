@@ -1,5 +1,5 @@
 import AboutGit from '@/components/Git/aboutGit';
-import About from '@/components/Git/about';
+import Repository from '@/components/Git/repository';
 
 export const routes = [
   {
@@ -10,6 +10,6 @@ export const routes = [
   {
     key: '/repository',
     label: '仓库',
-    component: About,
+    component: Repository,
   },
 ];
