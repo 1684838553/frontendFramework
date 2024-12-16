@@ -1,0 +1,119 @@
+{
+  "name": "my-git",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.js",
+  "homepage": ".",
+  "author": "jdrunk",
+  "scripts": {
+    "start": "react-scripts start",
+    "electron": "electron .",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "react-scripts start | electron . --debug",
+    "dev:debug": "react-scripts start | electron . --debug",
+    "start:dev": "cross-env MODE_ENV=development react-scripts start",
+    "electron:dev": "cross-env MODE_ENV=development electron .",
+    "electron-forge": "electron-forge make",
+    "build-ele": "electron-builder"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "cross-env": "^7.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.2.1",
+    "electron": "25.9.7",
+    "electron-builder": "^24.6.3",
+    "electron-packager": "^17.1.1",
+    "rimraf": "^5.0.1"
+  },
+  "build": {
+    "appId": "appId.electron.xxxx",
+    "copyright": "xxxx",
+    "productName": "myElectron",
+    "directories": {
+      "buildResources": "build",
+      "output": "output"
+    },
+    "nsis": {
+      "oneClick": false,
+      "language": "2052",
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "dmg": {
+      "background": "build/logo512.png",
+      "icon": "build/logo512.png",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 180,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 180,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "x": 100,
+        "y": 100,
+        "width": 500,
+        "height": 300
+      }
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "icon": "build/logo512.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      "public/preload.js"
+    ],
+    "extends": null
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
