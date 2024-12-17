@@ -1,5 +1,8 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
+import { connect } from 'dva';
 import { Button } from 'antd';
+import 'antd/dist/antd.min.css';
 import './App.css';
 
 function App() {
@@ -23,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(module)(connect()(App));

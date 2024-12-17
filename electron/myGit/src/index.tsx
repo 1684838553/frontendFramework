@@ -1,8 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.scss';
-import 'antd/dist/antd.min.css';
-import App from './App';
+import dva from 'dva';
+import { createHashHistory } from 'history';
+import createLoading from 'dva-loading';
+import { RouterConfig } from './router';
+import { global } from './models/global';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+const app = dva({ history: createHashHistory() });
+app.use(createLoading());
+app.model(global);
+app.router(RouterConfig);
+app.start('#root');
