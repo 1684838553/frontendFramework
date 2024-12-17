@@ -2,21 +2,20 @@
   "name": "my-git",
   "version": "0.1.0",
   "private": true,
-  "main": "main.js",
-  "homepage": ".",
+  "main": "electron/main.js",
+  "homepage": "./",
+  "description": "My git client",
   "author": "jdrunk",
+  "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
-    "electron": "electron .",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "dev": "react-scripts start | electron . --debug",
     "dev:debug": "react-scripts start | electron . --debug",
     "start:dev": "cross-env MODE_ENV=development react-scripts start",
     "electron:dev": "cross-env MODE_ENV=development electron .",
     "electron-forge": "electron-forge make",
-    "build-ele": "electron-builder"
+    "package": "electron-builder"
   },
   "eslintConfig": {
     "extends": [
@@ -41,66 +40,28 @@
     "rimraf": "^5.0.1"
   },
   "build": {
-    "appId": "appId.electron.xxxx",
-    "copyright": "xxxx",
-    "productName": "myElectron",
+    "appId": "my-git",
+    "productName": "my-git",
     "directories": {
       "buildResources": "build",
-      "output": "output"
+      "output": "out"
     },
     "nsis": {
       "oneClick": false,
       "language": "2052",
       "perMachine": true,
-      "allowToChangeInstallationDirectory": true
-    },
-    "dmg": {
-      "background": "build/logo512.png",
-      "icon": "build/logo512.png",
-      "iconSize": 100,
-      "contents": [
-        {
-          "x": 380,
-          "y": 180,
-          "type": "link",
-          "path": "/Applications"
-        },
-        {
-          "x": 130,
-          "y": 180,
-          "type": "file"
-        }
-      ],
-      "window": {
-        "x": 100,
-        "y": 100,
-        "width": 500,
-        "height": 300
-      }
-    },
-    "mac": {
-      "target": [
-        "dmg",
-        "zip"
-      ],
-      "category": "public.app-category.utilities"
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/favicon.ico",
+      "uninstallerIcon": "build/favicon.ico"
     },
     "win": {
       "icon": "build/logo512.png",
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
+      "target": "nsis"
     },
     "files": [
+      "build/*",
       "build/**/*",
-      "main.js",
-      "public/preload.js"
+      "electron/*"
     ],
     "extends": null
   },
