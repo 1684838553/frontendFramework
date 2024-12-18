@@ -1,10 +1,11 @@
-const { app, BrowserWindow, nativeImage } = require('electron');
+const { app, BrowserWindow, nativeImage, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
+const menuFile = require('./menu.ts');
 
 function createWindow() {
   let mainWindow = new BrowserWindow({
-    width: 1000,
+    width: 1200,
     height: 800,
     title: "my-git",
     icon: nativeImage.createFromPath('public/favicon.ico'),
@@ -25,7 +26,9 @@ function createWindow() {
       slashes: true
     }));
   }
-  mainWindow.webContents.toggleDevTools();
+
+  const menus = menuFile.getMenus(app, mainWindow);
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
