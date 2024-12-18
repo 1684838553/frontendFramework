@@ -1,7 +1,10 @@
 const { app, BrowserWindow, nativeImage, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
-const menuFile = require('./menu.ts');
+const { getMenus } = require('./menu');
+
+const remote = require('@electron/remote/main');
+remote.initialize();
 
 function createWindow() {
   let mainWindow = new BrowserWindow({
@@ -10,9 +13,8 @@ function createWindow() {
     title: "my-git",
     icon: nativeImage.createFromPath('public/favicon.ico'),
     webPreferences: {
+      contextIsolation: false,
       nodeIntegration: true,
-      webviewTag: true,
-      webSecurity: false,
       nodeIntegrationInSubFrames: true
     }
   });
@@ -27,10 +29,13 @@ function createWindow() {
     }));
   }
 
-  const menus = menuFile.getMenus(app, mainWindow);
+  remote.enable(mainWindow.webContents);
+
+  const menus = getMenus(app, mainWindow);
   Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
 
   mainWindow.on('ready-to-show', () => {
+    if (!mainWindow) { return; }
     mainWindow.show();
     mainWindow.focus();
   });

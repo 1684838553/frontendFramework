@@ -1,16 +1,22 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "allowJs": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "src/*"
-            ]
-        },
-        "jsx": "react"
-    }
-}
+      "allowSyntheticDefaultImports": true,
+      "jsx": "react",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "sourceMap": true,
+      "target": "esnext",
+      "allowJs": true,
+      "noEmit": true,
+      "allowImportingTsExtensions": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./src/*"]
+      }
+    },
+    "include": ["./src"],
+    "exclude": ["node_modules"]
+  }

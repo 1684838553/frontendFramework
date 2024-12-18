@@ -2,7 +2,7 @@
   "name": "my-git",
   "version": "0.1.0",
   "private": true,
-  "main": "electron/main.ts",
+  "main": "electron/main.js",
   "homepage": "./",
   "description": "My git client",
   "author": "jdrunk",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@electron/remote": "^2.1.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "antd": "^4.24.16",
