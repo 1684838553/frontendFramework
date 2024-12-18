@@ -6,6 +6,11 @@
         "esModuleInterop": true,
         "allowJs": true,
         "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
         "jsx": "react"
     }
 }
