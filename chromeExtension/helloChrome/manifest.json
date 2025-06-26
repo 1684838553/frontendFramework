@@ -1,0 +1,28 @@
+{
+    "name": "Hello Chrome",
+    "description": "谷歌插件的第一次尝试开发",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "hello.html",
+        "default_icon": "logo.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "js/content-script.js"
+            ],
+            "css": [
+                "css/common.css"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+      }
+}
