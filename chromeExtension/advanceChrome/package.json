@@ -1,0 +1,20 @@
+{
+  "name": "chrome-extension-api",
+  "description": "谷歌插件 API 的使用",
+  "private": true,
+  "version": "1.0.0",
+  "main": "background.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs",
+    "watch": "rollup -c rollup.config.mjs --watch"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "rollup": "^4.44.1",
+    "rollup-plugin-clean": "^1.0.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-watch": "^1.0.5"
+  }
+}

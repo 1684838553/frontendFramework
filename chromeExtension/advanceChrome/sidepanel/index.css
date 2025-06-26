@@ -1,0 +1,13 @@
+label {
+    font-size: 16px;
+}
+
+input {
+    margin-top: 24px;
+    height: 24px;
+    width: calc(100% - 100px);
+}
+
+#dirUrlBtn {
+    margin-left: 87px;
+}

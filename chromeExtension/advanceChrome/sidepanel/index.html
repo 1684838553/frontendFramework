@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <!-- 解决中文乱码问题 -->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+</head>
+<body>
+    <label for="repoUrl">
+        仓库地址：
+        <input type="text" id="repoUrl" name="repoUrl" placeholder="请输入仓库地址"/>
+    </label>
+    <br>
+    <label for="projectName">
+        项目名称：
+        <input type="text" id="projectName" name="projectName" placeholder="请输入项目名称"/>
+    </label>
+    <br>
+    <label for="dirUrl">
+        克隆目录：
+        <input type="text" id="dirUrl" name="dirUrl" placeholder="请选择克隆项目" disabled/>
+        <input type="file" id="dirUrlBtn" name="folder" webkitdirectory/>
+    </label>
+    <script src="index.js" type="module"></script>
+</body>
+
+</html>
