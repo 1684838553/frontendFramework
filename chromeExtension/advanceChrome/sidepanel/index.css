@@ -9,5 +9,6 @@ input {
 }
 
 #dirUrlBtn {
-    margin-left: 87px;
+    padding: 5px;
+    margin: 16px 0 0 87px;
 }

@@ -7,8 +7,10 @@
         "service_worker": "background.js"
     },
     "permissions": [
-        "sidePanel"
+        "sidePanel",
+        "fileSystem"
     ],
+    "minimum_chrome_version": "137",
     "side_panel": {
         "default_path": "sidepanel/index.html"
     },
@@ -19,6 +21,6 @@
             "48": "images/icon48.png",
             "128": "images/icon128.png"
         },
-        "default_title": "Open Chat Interface"
+        "default_title": "谷歌插件 API 的使用"
     }
 }
