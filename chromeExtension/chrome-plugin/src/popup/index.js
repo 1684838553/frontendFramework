@@ -12,9 +12,10 @@ $(function () {
 
 // 打开后台页
 $('#open_background').click(() => {
-	const url = chrome.runtime.getURL('../background/index.html');
-	console.log(url);
-	window.open(url);
+	// 这个路径只能使用相对根目录的相对路径
+	const url = chrome.runtime.getURL('src/background/index.html');
+	// 打开background/index.html文档
+	chrome.tabs.create({ url });
 });
 
 // 调用后台JS
