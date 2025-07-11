@@ -5,7 +5,8 @@
     "description": "谷歌插件 API 的使用",
     "permissions": [
         "activeTab",
-        "scripting"
+        "scripting",
+        "windows"
     ],
     "action": {
         "default_popup": "popup.html",
