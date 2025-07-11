@@ -4,21 +4,32 @@
     "manifest_version": 3,
     "description": "谷歌插件 API 的使用",
     "permissions": [
-        "storage"
+        "activeTab",
+        "scripting"
     ],
-    "background": {
-        "service_worker": "src/background/index.js"
-    },
-    "minimum_chrome_version": "137",
-	"default_locale": "zh_CN",
     "action": {
-        "default_popup": "src/popup/index.html",
-        "default_icon": {
-            "16": "images/icon16.png",
-            "32": "images/icon32.png",
-            "48": "images/icon48.png",
-            "128": "images/icon128.png"
-        },
+        "default_popup": "popup.html",
         "default_title": "谷歌插件 API 的使用"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "minimum_chrome_version": "137",
+    "default_locale": "zh_CN",
+    "icons": {
+        "16": "images/icon16.png",
+        "32": "images/icon32.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
     }
 }
