@@ -53,3 +53,32 @@ closeWindow.addEventListener('click', () => {
 		chrome.windows.remove(window.id);
 	})
 });
+
+document.getElementById('new_tab').addEventListener('click', function() {
+	chrome.tabs.create({ url: "https://www.baidu.com" });
+  });
+  
+  document.getElementById('current_tab').addEventListener('click', function() {
+	chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+	  if (tabs.length > 0) {
+		chrome.tabs.update(tabs[0].id, { url: "https://www.baidu.com" });
+	  }
+	});
+  });
+  
+  document.getElementById('get_current_tab_id').addEventListener('click', function() {
+	chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+	  if (tabs.length > 0) {
+		alert("当前标签页ID: " + tabs[0].id);
+	  }
+	});
+  });
+  
+  document.getElementById('open_first_tab').addEventListener('click', function() {
+	chrome.tabs.query({ currentWindow: true }, function(tabs) {
+	  if (tabs.length > 0) {
+		chrome.tabs.update(tabs[0].id, { active: true });
+	  }
+	});
+  });
+  
