@@ -167,3 +167,32 @@ document.getElementById('hide_badge').addEventListener('click', () => {
 	chrome.action.setBadgeText({ text: '' });
 	chrome.action.setBadgeBackgroundColor({ color: [0, 0, 0, 0] });
 })
+
+// 显示桌面通知
+document.getElementById('show_desktop_notifications').addEventListener('click', async () => {
+	await chrome.notifications.create(undefined, {
+		type: 'basic',
+		title: '插件测试',
+		message: 'Hello, World!',
+		iconUrl: "images/icon16.png",
+		buttons: [
+			{ title: '确定' },
+			{ title: '取消' }
+		]
+	})
+})
+
+chrome.notifications.onButtonClicked.addListener( (notificationId, buttonIndex) => {
+	if(buttonIndex === 0) {
+		chrome.notifications.create(undefined, {
+			type: 'basic',
+			title: '插件测试',
+			message: '是的，这是一个测试消息',
+			iconUrl: "images/icon16.png"
+		})
+	}
+
+	if(buttonIndex === 1) {
+		chrome.notifications.clear(notificationId);
+	}
+})

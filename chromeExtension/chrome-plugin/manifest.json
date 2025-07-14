@@ -9,7 +9,8 @@
         "windows",
         "tabs",
         "runtime",
-        "action"
+        "action",
+        "notifications"
     ],
     "action": {
         "default_popup": "popup.html",
