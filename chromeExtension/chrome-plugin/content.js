@@ -1,5 +1,4 @@
 console.log('已加载内容脚本！');
-// document.body.style.backgroundColor = 'yellow';
 
 // 不要在chrome://extensions/页面发送消息
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -10,6 +9,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         case 'short': {
             console.log(`这是一条短链接发送的消息： ${message}`);
             break;
+        }
+        case 'updateBackgroundColor': {
+            document.body.style.backgroundColor = message;
+            break;
+        }
+        default: {
+            return;
         }
     }
 });

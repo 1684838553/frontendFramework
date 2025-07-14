@@ -1,26 +1,3 @@
-/** 
-document.addEventListener('DOMContentLoaded', () => {
-const changeColor = document.getElementById('change-color');
-changeColor.addEventListener('click', () => {
-	chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-		chrome.scripting.executeScript({
-			target: { tabId: tabs[0].id },
-			function: () => {
-				document.body.style.backgroundColor = 'red';
-			}
-		});
-	})
-})
-
-const sendMessage = document.getElementById('send_message');
-sendMessage.addEventListener('click', () => {
-	chrome.runtime.sendMessage({ action: 'getBackgroundInfo' }, (response) => {
-		console.log(response.info);
-	});
-})
-});
-*/
-
 // 新窗口打开百度
 const newWindow = document.getElementById('new_window');
 newWindow.addEventListener('click', () => {
@@ -128,3 +105,45 @@ document.getElementById('send_message_short_connect').addEventListener('click', 
 // 		});
 // 	});
 // });
+
+document.getElementById('update_page_background_color_executeScript').addEventListener('click', () => {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		if (tabs.length === 0) {
+			console.error("No active tab found");
+			return;
+		}
+
+		const activeTab = tabs[0];
+		/*
+			将脚本注入目标上下文
+			在当前活动的标签页或指定的标签页中动态注入 JavaScript 代码或文件
+			在页面加载完成后或在特定事件触发时执行内容脚本
+			在跨域页面中注入脚本，只要扩展程序有相应的权限
+		 */
+		chrome.scripting.executeScript({
+			target: { tabId: activeTab.id },
+			function: () => {
+				document.body.style.backgroundColor = 'red';
+			}
+		});
+	})
+})
+
+document.getElementById('update_page_background_color_sendMessage').addEventListener('click', () => {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		if (tabs.length === 0) {
+			console.error("No active tab found");
+			return;
+		}
+
+		const activeTab = tabs[0];
+
+		chrome.tabs.sendMessage(activeTab.id, { action: 'updateBackgroundColor', message: '#ededed' }, response => {
+			if (chrome.runtime.lastError) {
+				console.error("Error sending message: ", chrome.runtime.lastError.message);
+			} else {
+				console.log("Response from content script: ", response);
+			}
+		});
+	});
+})
