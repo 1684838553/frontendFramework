@@ -6,7 +6,9 @@
     "permissions": [
         "activeTab",
         "scripting",
-        "windows"
+        "windows",
+        "tabs",
+        "runtime"
     ],
     "action": {
         "default_popup": "popup.html",
@@ -17,12 +19,8 @@
     },
     "content_scripts": [
         {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "content.js"
-            ]
+            "matches": [ "<all_urls>"],
+            "js": ["content.js"]
         }
     ],
     "minimum_chrome_version": "137",

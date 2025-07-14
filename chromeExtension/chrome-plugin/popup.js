@@ -54,31 +54,77 @@ closeWindow.addEventListener('click', () => {
 	})
 });
 
-document.getElementById('new_tab').addEventListener('click', function() {
+// 新标签打开百度
+document.getElementById('new_tab').addEventListener('click', function () {
 	chrome.tabs.create({ url: "https://www.baidu.com" });
-  });
-  
-  document.getElementById('current_tab').addEventListener('click', function() {
-	chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-	  if (tabs.length > 0) {
-		chrome.tabs.update(tabs[0].id, { url: "https://www.baidu.com" });
-	  }
+});
+
+// 当前标签打开百度
+document.getElementById('current_tab').addEventListener('click', function () {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		if (tabs.length > 0) {
+			chrome.tabs.update(tabs[0].id, { url: "https://www.baidu.com" });
+		}
 	});
-  });
-  
-  document.getElementById('get_current_tab_id').addEventListener('click', function() {
-	chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-	  if (tabs.length > 0) {
-		alert("当前标签页ID: " + tabs[0].id);
-	  }
+});
+
+// 获取当前标签页ID
+document.getElementById('get_current_tab_id').addEventListener('click', function () {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		if (tabs.length > 0) {
+			alert("当前标签页ID: " + tabs[0].id);
+		}
 	});
-  });
-  
-  document.getElementById('open_first_tab').addEventListener('click', function() {
-	chrome.tabs.query({ currentWindow: true }, function(tabs) {
-	  if (tabs.length > 0) {
-		chrome.tabs.update(tabs[0].id, { active: true });
-	  }
+});
+
+// 打开第一个标签页
+document.getElementById('open_first_tab').addEventListener('click', function () {
+	chrome.tabs.query({ currentWindow: true }, function (tabs) {
+		if (tabs.length > 0) {
+			chrome.tabs.update(tabs[0].id, { active: true });
+		}
 	});
-  });
-  
+});
+
+// 短链接发送消息到content
+document.getElementById('send_message_short_connect').addEventListener('click', () => {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		if (tabs.length === 0) {
+			console.error("No active tab found");
+			return;
+		}
+
+		const activeTab = tabs[0];
+
+		chrome.tabs.sendMessage(activeTab.id, { action: "short", message: "短链接消息" }, response => {
+			if (chrome.runtime.lastError) {
+				console.error("Error sending message: ", chrome.runtime.lastError.message);
+			} else {
+				console.log("Response from content script: ", response);
+			}
+		});
+	});
+});
+
+// 长链接功能没有实现
+// 长链接发送消息到content
+// document.getElementById('send_message_long_connect').addEventListener('click', () => {
+// 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+// 		if (tabs.length === 0) {
+// 			console.error("No active tab found");
+// 			return;
+// 		}
+
+// 		// 建立长连接
+// 		const port = chrome.runtime.connect({ connectInfo: { name: 'long' } });
+// 		port.postMessage({ action: 'long', message: '长链接消息' });
+
+// 		port.onMessage.addListener((msg) => {
+// 			console.log('Received message from content script:', msg);
+// 		});
+
+// 		port.onDisconnect.addListener(() => {
+// 			console.log('Port disconnected!!!');
+// 		});
+// 	});
+// });
