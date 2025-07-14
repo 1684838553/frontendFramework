@@ -182,8 +182,8 @@ document.getElementById('show_desktop_notifications').addEventListener('click', 
 	})
 })
 
-chrome.notifications.onButtonClicked.addListener( (notificationId, buttonIndex) => {
-	if(buttonIndex === 0) {
+chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
+	if (buttonIndex === 0) {
 		chrome.notifications.create(undefined, {
 			type: 'basic',
 			title: '插件测试',
@@ -192,7 +192,27 @@ chrome.notifications.onButtonClicked.addListener( (notificationId, buttonIndex) 
 		})
 	}
 
-	if(buttonIndex === 1) {
+	if (buttonIndex === 1) {
 		chrome.notifications.clear(notificationId);
 	}
 })
+
+// 检测网页视频
+document.getElementById('detect_web_page_videos').addEventListener('click', async () => {
+	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+		chrome.scripting.executeScript({
+			target: { tabId: tabs[0].id },
+			function: detectVideos
+		});
+	});
+})
+
+function detectVideos() {
+	const videos = document.querySelectorAll('video');
+	if (videos.length > 0) {
+	  console.log('检测到视频元素:', videos);
+	  videos.forEach(video => video.pause());
+	} else {
+	  console.log('未检测到视频元素');
+	}
+  }
