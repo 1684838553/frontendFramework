@@ -8,7 +8,8 @@
         "scripting",
         "windows",
         "tabs",
-        "runtime"
+        "runtime",
+        "action"
     ],
     "action": {
         "default_popup": "popup.html",

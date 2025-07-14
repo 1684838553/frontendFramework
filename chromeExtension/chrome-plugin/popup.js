@@ -106,6 +106,7 @@ document.getElementById('send_message_short_connect').addEventListener('click', 
 // 	});
 // });
 
+// 修改页面背景色 executeScript实现
 document.getElementById('update_page_background_color_executeScript').addEventListener('click', () => {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		if (tabs.length === 0) {
@@ -129,6 +130,7 @@ document.getElementById('update_page_background_color_executeScript').addEventLi
 	})
 })
 
+// 修改页面背景色 sendMessage实现
 document.getElementById('update_page_background_color_sendMessage').addEventListener('click', () => {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		if (tabs.length === 0) {
@@ -148,7 +150,20 @@ document.getElementById('update_page_background_color_sendMessage').addEventList
 	});
 })
 
+// 国际化演示
 function showInternationalization() {
 	document.getElementById('helloWorld').textContent = chrome.i18n.getMessage("helloWorld");
 }
 showInternationalization();
+
+// 显示徽标
+document.getElementById('show_badge').addEventListener('click', () => {
+	chrome.action.setBadgeText({ text: 'New' });
+	chrome.action.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+})
+
+// 隐藏徽标
+document.getElementById('hide_badge').addEventListener('click', () => {
+	chrome.action.setBadgeText({ text: '' });
+	chrome.action.setBadgeBackgroundColor({ color: [0, 0, 0, 0] });
+})
