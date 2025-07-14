@@ -147,3 +147,8 @@ document.getElementById('update_page_background_color_sendMessage').addEventList
 		});
 	});
 })
+
+function showInternationalization() {
+	document.getElementById('helloWorld').textContent = chrome.i18n.getMessage("helloWorld");
+}
+showInternationalization();
