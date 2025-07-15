@@ -7,4 +7,12 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const { action, message } = request;
     console.log(request, 'message')
+    if(action === 'invoke') {
+        invoke();
+        sendResponse({ message });
+    }
 });
+
+function invoke() {
+    console.log('popup 调用这个方法');
+}

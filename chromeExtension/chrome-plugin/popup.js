@@ -1,3 +1,9 @@
+// 调用background页JS方法
+document.getElementById('invoke_background_js').addEventListener('click', async () => {
+	const message = await chrome.runtime.sendMessage({ action: 'invoke', message: 'hello' });
+	console.log(message.message, 'invoke_background_js')
+})
+
 // 新窗口打开百度
 const newWindow = document.getElementById('new_window');
 newWindow.addEventListener('click', () => {
@@ -217,6 +223,7 @@ function detectVideos() {
 	}
 }
 
+// 打开sidePanel
 document.getElementById('open_side_panel').addEventListener('click', () => {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		if (tabs.length === 0) {
