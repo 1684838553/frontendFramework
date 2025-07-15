@@ -210,9 +210,25 @@ document.getElementById('detect_web_page_videos').addEventListener('click', asyn
 function detectVideos() {
 	const videos = document.querySelectorAll('video');
 	if (videos.length > 0) {
-	  console.log('检测到视频元素:', videos);
-	  videos.forEach(video => video.pause());
+		console.log('检测到视频元素:', videos);
+		videos.forEach(video => video.pause());
 	} else {
-	  console.log('未检测到视频元素');
+		console.log('未检测到视频元素');
 	}
-  }
+}
+
+document.getElementById('open_side_panel').addEventListener('click', () => {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		if (tabs.length === 0) {
+			console.error("No active tab found");
+			return;
+		}
+
+		const activeTab = tabs[0];
+		chrome.sidePanel.open({
+			tabId: activeTab.id
+		}, () => {
+			console.log('Side panel opened successfully');
+		});
+	});
+})
