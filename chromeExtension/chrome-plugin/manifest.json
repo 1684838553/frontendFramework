@@ -31,7 +31,8 @@
             ],
             "js": [
                 "content.js"
-            ]
+            ],
+            "run_at": "document_start"
         }
     ],
     "minimum_chrome_version": "137",
