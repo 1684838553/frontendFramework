@@ -23,6 +23,7 @@
     "side_panel": {
         "default_path": "sidepanel.html"
     },
+	"devtools_page": "devtools.html",
     "content_scripts": [
         {
             "matches": [
@@ -36,9 +37,9 @@
     "minimum_chrome_version": "137",
     "default_locale": "zh_CN",
     "icons": {
-        "16": "images/icon16.png",
-        "32": "images/icon32.png",
-        "48": "images/icon48.png",
-        "128": "images/icon128.png"
+        "16": "images/logo.png",
+        "32": "images/logo.png",
+        "48": "images/logo.png",
+        "128": "images/logo.png"
     }
 }

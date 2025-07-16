@@ -180,7 +180,7 @@ document.getElementById('show_desktop_notifications').addEventListener('click', 
 		type: 'basic',
 		title: '插件测试',
 		message: 'Hello, World!',
-		iconUrl: "images/icon16.png",
+		iconUrl: "images/logo.png",
 		buttons: [
 			{ title: '确定' },
 			{ title: '取消' }
@@ -194,7 +194,7 @@ chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) =
 			type: 'basic',
 			title: '插件测试',
 			message: '是的，这是一个测试消息',
-			iconUrl: "images/icon16.png"
+			iconUrl: "images/logo.png"
 		})
 	}
 
@@ -225,13 +225,14 @@ function detectVideos() {
 
 // 打开sidePanel
 document.getElementById('open_side_panel').addEventListener('click', () => {
-	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+	chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
 		if (tabs.length === 0) {
 			console.error("No active tab found");
 			return;
 		}
 
 		const activeTab = tabs[0];
+
 		chrome.sidePanel.open({
 			tabId: activeTab.id
 		}, () => {

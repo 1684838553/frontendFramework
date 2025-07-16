@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const { action, message } = request;
     console.log(request, 'message')
-    if(action === 'invoke') {
+    if (action === 'invoke') {
         invoke();
         sendResponse({ message });
     }
