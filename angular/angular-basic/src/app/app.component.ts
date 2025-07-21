@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LayoutComponent } from "./pages/layout/layout.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,  // 声明为独立模块
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    imports: [RouterOutlet, LayoutComponent]
 })
 
 export class AppComponent {
