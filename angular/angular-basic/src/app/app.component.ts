@@ -21,6 +21,12 @@ export class AppComponent {
     alt: 'dog'
   };
   customTitle = "自定义文案"
+  isPrimary = false;
+  alertClass = 'alert alert-primary';
+  divStyle = {
+    fontSize: '16px',
+    color: 'rgb(158, 197, 254)'
+  }
 
   getValue(): number {
     return 23;

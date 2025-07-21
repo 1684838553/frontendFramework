@@ -1,6 +1,9 @@
 <main class="main">
-  <div class="alert alert-primary" role="alert">
-    A simple primary alert—check it out!
+  <div class="alert" [class.alert-primary]="isPrimary" [class.alert-danger]="!isPrimary" role="alert">
+    绑定单个类
+  </div>
+  <div class="alert" [class]="alertClass"  role="alert">
+    绑定多个类
   </div>
   <div>{{ title }}</div>
   <div>值: {{ getValue() }}</div>
@@ -14,5 +17,6 @@
   <div>
     <span [attr.data-title]="customTitle">绑定给自定义属性</span>
   </div>
+  <div [style]="divStyle">这是一段文件，测试绑定多个样式</div>
 </main>
 <router-outlet />
