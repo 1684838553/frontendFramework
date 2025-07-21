@@ -2,5 +2,17 @@
   <div class="alert alert-primary" role="alert">
     A simple primary alert—check it out!
   </div>
+  <div>{{ title }}</div>
+  <div>值: {{ getValue() }}</div>
+  <div>职业: {{ job }}</div>
+  <div>性别: {{ gender === 0 ? '男' : '女' }}</div>
+  <div>
+    <img [src]="catImg.url" [alt]="catImg.alt">
+    <img src="{{catImg.url}}" alt="{{catImg.alt}}">
+    <img bind-src="dogImg.url" bind-alt="dogImg.alt">
+  </div>
+  <div>
+    <span [attr.data-title]="customTitle">绑定给自定义属性</span>
+  </div>
 </main>
 <router-outlet />
