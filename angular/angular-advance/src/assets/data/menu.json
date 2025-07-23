@@ -1,0 +1,17 @@
+{
+  "menu": [
+    {
+      "route": "article",
+      "name": "article",
+      "type": "sub",
+      "icon": "description",
+      "children": [
+        {
+          "route": "list",
+          "name": "article-list",
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}
